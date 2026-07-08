@@ -76,7 +76,8 @@ Repositorio
 └── feature/contacto (Leslie)
 ```
 
----
+> [!IMPORTANT]
+> Es de vital importancia destacar que, al terminar de trabajar en sus respectivas ramas, deberán crear un Pull Request para poder publicar los cambios. Esto permitirá que el líder del proyecto revise su trabajo, acepte las modificaciones y las publique en la rama `main`.
 
 # Comandos básicos de Git
 
@@ -190,6 +191,14 @@ Para poderclonar este repositorio en tu máquina local, en git bash ejecuta:
 
 ```bash
 git clone https://github.com/joserolandovelascopena-code/DeskStyle.git
+```
+
+### 3. Cambiar de directorio
+
+Al terminarse de clonar el repositorio, cambia de directorio a la rama principal del proyecto DeskStyle. Ejecuta en git bash:
+
+```bash
+cd DeskStyle
 ```
 
 > [!IMPORTANT]
