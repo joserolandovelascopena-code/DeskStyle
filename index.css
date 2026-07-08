@@ -1,11 +1,12 @@
 :root {
-  --bg: #eef3f8;
+  --bg: #f3f3f3;
   --colorPrimario: #000418;
   --colorSecundario: #ff8900;
   --colorTerciario: #d9e1ed;
   --colorAcento: #3b60ff;
   --colorBlanco: #ffffff;
   --colorBorde: #dcdcdc;
+  --paddingSite: 15px 18px;
 }
 
 *,
@@ -23,14 +24,20 @@ body {
 }
 
 body {
-  background-color: #f8f9ff;
+  background-color: var(--bg);
   color: var(--colorPrimario);
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4 {
   font-weight: 500;
   font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 6vw, 3rem);
 }
 
 a {
@@ -97,7 +104,7 @@ textarea {
 
 .barra_de_opciones {
   position: relative;
-  padding: 15px 18px;
+  padding: var(--paddingSite);
   display: grid;
   grid-template-columns: 20% 1fr auto;
   align-items: center;
@@ -195,10 +202,11 @@ textarea {
 }
 
 .menu_paginas ul {
+  overflow: hidden;
   position: relative;
   display: flex;
   gap: 40px;
-  padding: 15px 18px;
+  padding: var(--paddingSite);
   list-style: none;
   align-items: center;
 }
@@ -327,4 +335,136 @@ textarea {
   display: block;
   border-start-end-radius: 10px;
   border-end-end-radius: 10px;
+}
+
+.menu_categorias {
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+  padding: var(--paddingSite);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 20px;
+}
+
+.menu_categorias::-webkit-scrollbar {
+  display: none;
+}
+
+.categoria {
+  border-radius: 10px;
+  width: 190px;
+  min-height: 150px;
+  max-height: 200px;
+  max-width: 250px;
+  box-shadow: 0 0 0 1px gainsboro;
+  background: var(--colorBlanco);
+}
+
+.categoria {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  place-items: center;
+  padding: 8px;
+}
+
+.categoria h4 {
+  font-size: 15px;
+}
+
+.categoria img {
+  width: 70px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.list_productos {
+  padding: var(--paddingSite);
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+}
+
+.encabezado div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: var(--colorPrimario);
+  cursor: pointer;
+}
+
+.productos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.CardProducto {
+  max-width: 500px;
+  min-width: 300px;
+  margin-top: 15px;
+  background: var(--colorBlanco);
+  border-radius: 10px;
+  box-shadow: 0 0 1px gainsboro;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+}
+
+.CardProducto {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  align-items: center;
+}
+
+.CardProducto img {
+  object-fit: cover;
+  height: 150px;
+}
+
+.btnFavorito {
+  display: flex;
+  justify-content: right;
+  padding-bottom: 20px;
+}
+
+.btnFavorito i {
+  font-size: 26px;
+  transition: 0.3 ease-in-out;
+  cursor: pointer;
+}
+
+.btnFavorito i:active {
+  scale: 1.1;
+}
+
+.calificacionProduct {
+  padding: 10px 0;
+}
+
+.btnAgregarCarrito {
+  padding: 10px 0 0 0;
+  display: flex;
+  justify-content: right;
+}
+
+.btnAgregarCarrito button {
+  display: flex;
+  place-items: center;
+  background: var(--colorPrimario);
+  color: var(--colorBlanco);
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: 0.2 ease-in;
+  cursor: pointer;
+}
+
+.btnAgregarCarrito button:active {
+  scale: 0.98;
 }
