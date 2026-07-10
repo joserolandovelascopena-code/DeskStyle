@@ -1,0 +1,34 @@
+:root {
+  --bg: #f3f3f3;
+  --colorPrimario: #000418;
+  --colorSecundario: #ff8900;
+  --colorTerciario: #d9e1ed;
+  --colorAcento: #3b60ff;
+  --colorBlanco: #ffffff;
+  --colorBorde: #dcdcdc;
+  --paddingSite: 15px 18px;
+}
+
+.car_shopping {
+  width: 100%;
+  height: 100vh;
+  background: var(--bg);
+  padding: 0 18px;
+}
+
+.ruta_ubicacion {
+  display: flex;
+  gap: 14px;
+}
+
+.pagina_posicion,
+.categoria_selec {
+  font-size: clamp(0.5rem, 0.9rem, 1.2rem);
+  color: #575757;
+}
+
+.product_selec {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: clamp(0.5rem, 0.9rem, 1.2rem);
+}
