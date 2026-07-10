@@ -6,6 +6,7 @@
     <title>DeskStyle</title>
     <link rel="icon" href="./public/icons/favicon.png" type="image/png" />
     <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./public/css/utils.css/header_footer.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -95,7 +96,9 @@
               <a href="#" class="pag_Productos">Productos</a>
             </li>
             <li class="opcio_selector">
-              <a href="#" class="pag_Novedades">Novedades</a>
+              <a href="./public/pages/novedades.html" class="pag_Novedades"
+                >Novedades</a
+              >
             </li>
             <li class="opcio_selector">
               <a href="#" class="pag_Ofertas">Ofertas</a>
@@ -109,253 +112,262 @@
           </ul>
         </nav>
       </hearder>
-      <section class="banner_info">
-        <article class="banner">
-          <aside class="info_baner">
-            <h1>
-              Decora tu espacio, expresa tu
-              <strong id="colorTex">estilo.</strong>
-            </h1>
-            <p>
-              Encuentra todo lo que necesitas para transformar tu escritorio,
-              habitación u oficina.
-            </p>
-            <div class="btnsOpcio_banner">
-              <button class="btnBannerPage_Product">
-                Ver productos
-                <span class="material-symbols-outlined"> trending_flat </span>
-              </button>
-              <button class="btnBannerPage_Nov">
-                Novedades
-                <span class="material-symbols-outlined"> newsstand </span>
-              </button>
-            </div>
-          </aside>
-          <aside class="images_banner">
-            <img
-              src="./public/icons/Images web/banner_1.png"
-              alt="Carrusel productos"
-              loading="lazy"
-            />
-          </aside>
-        </article>
-      </section>
-
-      <main class="menu_categorias">
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-        <section>
-          <article class="categoria">
-            <img
-              src="./public/icons/Images web//product1.png"
-              alt="Imagen categoria."
-            />
-            <h4 class="title_categoria">Lámparas LED</h4>
-          </article>
-        </section>
-      </main>
-      <section class="list_productos">
-        <div class="encabezado">
-          <h3>Productos destacados</h3>
-
-          <div class="btnVerTodos">
-            Ver todos
-            <span class="material-symbols-outlined"> trending_flat </span>
-          </div>
-        </div>
-        <article class="productos">
-          <div class="CardProducto">
-            <div>
+      <div class="contenido_pag">
+        <section class="banner_info">
+          <article class="banner">
+            <aside class="info_baner">
+              <h1>
+                Decora tu espacio, expresa tu
+                <strong id="colorTex">estilo.</strong>
+              </h1>
+              <p>
+                Encuentra todo lo que necesitas para transformar tu escritorio,
+                habitación u oficina.
+              </p>
+              <div class="btnsOpcio_banner">
+                <button class="btnBannerPage_Product">
+                  Ver productos
+                  <span class="material-symbols-outlined"> trending_flat </span>
+                </button>
+                <button class="btnBannerPage_Nov">
+                  Novedades
+                  <span class="material-symbols-outlined"> newsstand </span>
+                </button>
+              </div>
+            </aside>
+            <aside class="images_banner">
               <img
-                src="./public/icons/Images web/product1.png"
-                alt="Producto"
+                src="./public/icons/Images web/banner_1.png"
+                alt="Carrusel productos"
+                loading="lazy"
               />
-            </div>
-            <div class="infoProducto">
-              <div class="btnFavorito">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <h4>Nombre del producto</h4>
-              <div class="calificacionProduct">
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <p>(49)</p>
-              </div>
+            </aside>
+          </article>
+        </section>
 
-              <div class="precio">
-                <span class="precio">$99.99</span>
-              </div>
-
-              <div class="btnAgregarCarrito">
-                <button>
-                  <span class="material-symbols-outlined">
-                    add_shopping_cart
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="CardProducto">
-            <div>
-              <img src="./public/icons/Images web/poster.jpg" alt="Producto" />
-            </div>
-            <div class="infoProducto">
-              <div class="btnFavorito">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <h4>Nombre del producto</h4>
-              <div class="calificacionProduct">
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-              </div>
-
-              <div class="precio">
-                <span class="precio">$99.99</span>
-              </div>
-
-              <div class="btnAgregarCarrito">
-                <button>
-                  <span class="material-symbols-outlined">
-                    add_shopping_cart
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="CardProducto">
-            <div>
+        <main class="menu_categorias">
+          <section>
+            <article class="categoria">
               <img
-                src="./public/icons/Images web/product1.png"
-                alt="Producto"
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
               />
-            </div>
-            <div class="infoProducto">
-              <div class="btnFavorito">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <h4>Nombre del producto</h4>
-              <div class="calificacionProduct">
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-              </div>
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+          <section>
+            <article class="categoria">
+              <img
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
+              />
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+          <section>
+            <article class="categoria">
+              <img
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
+              />
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+          <section>
+            <article class="categoria">
+              <img
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
+              />
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+          <section>
+            <article class="categoria">
+              <img
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
+              />
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+          <section>
+            <article class="categoria">
+              <img
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
+              />
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+          <section>
+            <article class="categoria">
+              <img
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
+              />
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+          <section>
+            <article class="categoria">
+              <img
+                src="./public/icons/Images web//product1.png"
+                alt="Imagen categoria."
+              />
+              <h4 class="title_categoria">Lámparas LED</h4>
+            </article>
+          </section>
+        </main>
+        <section class="list_productos">
+          <div class="encabezado">
+            <h3>Productos destacados</h3>
 
-              <div class="precio">
-                <span class="precio">$99.99</span>
-              </div>
-
-              <div class="btnAgregarCarrito">
-                <button>
-                  <span class="material-symbols-outlined">
-                    add_shopping_cart
-                  </span>
-                </button>
-              </div>
+            <div class="btnVerTodos">
+              Ver todos
+              <span class="material-symbols-outlined"> trending_flat </span>
             </div>
           </div>
-          <div class="CardProducto">
-            <div>
-              <img src="./public/icons/Images web/poster.jpg" alt="Producto" />
-            </div>
-            <div class="infoProducto">
-              <div class="btnFavorito">
-                <i class="fa-regular fa-heart"></i>
+          <article class="productos">
+            <div class="CardProducto">
+              <div>
+                <img
+                  src="./public/icons/Images web/product1.png"
+                  alt="Producto"
+                />
               </div>
-              <h4>Nombre del producto</h4>
-              <div class="calificacionProduct">
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-              </div>
+              <div class="infoProducto">
+                <div class="btnFavorito">
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+                <h4>Nombre del producto</h4>
+                <div class="calificacionProduct">
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <p>(49)</p>
+                </div>
 
-              <div class="precio">
-                <span class="precio">$99.99</span>
-              </div>
+                <div class="precio">
+                  <span class="precio">$99.99</span>
+                </div>
 
-              <div class="btnAgregarCarrito">
-                <button>
-                  <span class="material-symbols-outlined">
-                    add_shopping_cart
-                  </span>
-                </button>
+                <div class="btnAgregarCarrito">
+                  <button>
+                    <span class="material-symbols-outlined">
+                      add_shopping_cart
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </article>
-      </section>
-      <footer class="footer_pag"></footer>
+
+            <div class="CardProducto">
+              <div>
+                <img
+                  src="./public/icons/Images web/poster.jpg"
+                  alt="Producto"
+                />
+              </div>
+              <div class="infoProducto">
+                <div class="btnFavorito">
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+                <h4>Nombre del producto</h4>
+                <div class="calificacionProduct">
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+
+                <div class="precio">
+                  <span class="precio">$99.99</span>
+                </div>
+
+                <div class="btnAgregarCarrito">
+                  <button>
+                    <span class="material-symbols-outlined">
+                      add_shopping_cart
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="CardProducto">
+              <div>
+                <img
+                  src="./public/icons/Images web/product1.png"
+                  alt="Producto"
+                />
+              </div>
+              <div class="infoProducto">
+                <div class="btnFavorito">
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+                <h4>Nombre del producto</h4>
+                <div class="calificacionProduct">
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+
+                <div class="precio">
+                  <span class="precio">$99.99</span>
+                </div>
+
+                <div class="btnAgregarCarrito">
+                  <button>
+                    <span class="material-symbols-outlined">
+                      add_shopping_cart
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="CardProducto">
+              <div>
+                <img
+                  src="./public/icons/Images web/poster.jpg"
+                  alt="Producto"
+                />
+              </div>
+              <div class="infoProducto">
+                <div class="btnFavorito">
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+                <h4>Nombre del producto</h4>
+                <div class="calificacionProduct">
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+
+                <div class="precio">
+                  <span class="precio">$99.99</span>
+                </div>
+
+                <div class="btnAgregarCarrito">
+                  <button>
+                    <span class="material-symbols-outlined">
+                      add_shopping_cart
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <footer class="footer_pag"></footer>
+      </div>
     </div>
   </body>
 </html>
