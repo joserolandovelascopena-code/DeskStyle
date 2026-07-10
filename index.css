@@ -445,9 +445,20 @@ textarea {
 }
 
 .calificacionProduct {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   padding: 10px 0;
+  font-size: 18px;
 }
 
+.calificacionProduct i {
+  font-size: 15px;
+}
+
+.calificacionProduct p {
+  font-size: 15px;
+}
 .btnAgregarCarrito {
   padding: 10px 0 0 0;
   display: flex;
