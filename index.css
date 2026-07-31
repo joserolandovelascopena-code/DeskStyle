@@ -7,6 +7,7 @@
   --colorBlanco: #ffffff;
   --colorBorde: #dcdcdc;
   --paddingSite: 15px 18px;
+  --paddingReponsive: 15px 10px;
 }
 .contenido_pag {
   position: relative;
@@ -384,7 +385,6 @@
 
 .footer_bottom p {
   color: #777;
-  font-size: 14px;
 }
 
 .caja_input {
@@ -469,6 +469,11 @@
 }
 
 @media (max-width: 600px) {
+  /* Header y banner */
+
+  .banner_info {
+    padding: 0;
+  }
   .banner {
     grid-template-columns: 1fr;
   }
@@ -483,7 +488,7 @@
 
   .images_banner img {
     border-radius: 10px 10px 0 0;
-    height: 300px;
+    height: 200px;
     max-height: 400px;
   }
 
@@ -495,7 +500,23 @@
   .btnsOpcio_banner button {
     justify-content: center;
     padding: 12px 0;
+    font-size: 14px;
   }
+
+  .info_baner {
+    padding: 20px;
+  }
+
+  .info_baner p {
+    font-size: 14px;
+  }
+
+  .info_baner h1 {
+    font-size: clamp(1.25rem, 5.5vw, 2.5rem);
+    line-height: 2;
+  }
+
+  /* Targetas de productos */
 
   .productos {
     grid-template-columns: repeat(2, 1fr);
@@ -531,6 +552,25 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .caja_servicios .servicio {
+    grid-template-columns: 1fr;
+    place-items: center;
+    border-right: none;
+  }
+
+  .servicio h4 {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .servicio p {
+    font-size: 13px;
+    text-align: center;
+  }
+  .servicio span {
+    font-size: 34px;
+  }
+
   .footer_info_contacto {
     text-align: center;
     align-items: center;
@@ -538,5 +578,14 @@
 
   .footer_redes {
     justify-content: center;
+  }
+
+  .derechos_text {
+    font-size: 12px;
+  }
+
+  .footer_bottom {
+    flex-direction: column;
+    gap: 10px;
   }
 }
