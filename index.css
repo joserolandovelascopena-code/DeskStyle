@@ -376,12 +376,83 @@
 }
 
 .footer_bottom {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .footer_bottom p {
   color: #777;
   font-size: 14px;
+}
+
+.caja_input {
+  display: flex;
+  padding: 6px;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+}
+
+.caja_input input {
+  border: none;
+  width: 100%;
+  padding: 16px 12px;
+}
+
+.caja_input input:focus {
+  outline: none;
+}
+
+.input_suscribise {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.caja_input button {
+  transition: 0.2s ease-in;
+  border-radius: 12px;
+  color: var(--colorPrimarios);
+  background: var(--bg);
+  padding: 12px 20px;
+}
+
+.caja_input button:hover {
+  background: #000;
+  color: var(--colorBlanco);
+  opacity: 0.9;
+}
+
+.caja_input button:active {
+  scale: 0.97;
+}
+
+.caja_input button:active {
+  scale: 0.97;
+}
+
+.btn_suscribirse {
+  overflow: hidden;
+}
+
+.btn_suscribirse span {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn_suscribirse:hover span {
+  transform: rotate(-15deg) scale(1.1);
+}
+
+.btn_suscribirse:active span {
+  transform: translateX(40px) scale(0.7);
+  opacity: 0;
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s;
 }
 
 /* Responsive */
@@ -398,8 +469,66 @@
 }
 
 @media (max-width: 600px) {
-  .footer_links {
+  .banner {
     grid-template-columns: 1fr;
+  }
+
+  .banner_info .info_baner {
+    grid-row: 2;
+  }
+
+  .banner_info .images_banner {
+    grid-row: 1;
+  }
+
+  .images_banner img {
+    border-radius: 10px 10px 0 0;
+    height: 300px;
+    max-height: 400px;
+  }
+
+  .btnsOpcio_banner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .btnsOpcio_banner button {
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .productos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .CardProducto {
+    width: 100px;
+    grid-template-columns: auto 1fr;
+  }
+
+  .CardProducto img {
+    object-fit: cover;
+    height: 100px;
+  }
+
+  .calificacionProduct {
+    font-size: 14px;
+  }
+
+  .calificacionProduct i {
+    font-size: 12px;
+  }
+
+  .calificacionProduct p {
+    font-size: 13px;
+  }
+
+  .infoProducto h4 {
+    font-size: 14px;
+  }
+
+  .caja_servicios {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .footer_info_contacto {

@@ -76,7 +76,6 @@ textarea {
   background: var(--colorPrimario);
   color: var(--colorBlanco);
   padding: 8px 20px;
-
   display: grid;
   grid-template-columns: 1fr auto auto auto;
   gap: 50px;
@@ -260,4 +259,48 @@ textarea {
 }
 .pag_Atencion.select {
   border-color: #000418;
+}
+
+@media (max-width: 600px) {
+  /*menu solial*/
+  .text_oculto {
+    display: none;
+  }
+
+  .barra_de_opciones {
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .barra_de_opciones .logo {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .barra_de_opciones .opciones_bar {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .barra_de_opciones .buscador_productos {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .opciones_bar {
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .opccionBar i {
+    font-size: 24px;
+  }
+
+  .opccionBar span {
+    font-size: 28px;
+  }
 }
