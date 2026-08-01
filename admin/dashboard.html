@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - DeskStyle</title>
+
+    <link rel="stylesheet" href="./dashboard.css" />
+    <link rel="icon" href="../public/icons/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="dashboard">
+      <!-- Barra lateral -->
+      <aside class="sidebar">
+        <div class="sidebar_logo">
+          <div>
+            <img
+              class="open_sidebar"
+              src="../public/icons/favicon.png"
+              alt="Logo de DeskStyle"
+              style="width: 30px; height: 30px"
+            />
+            <p class="opcion-text">DeskStyle</p>
+          </div>
+
+          <button class="layout_toggle opcion-text">
+            <span class="material-symbols-outlined"> grid_layout_side </span>
+          </button>
+        </div>
+
+        <!-- Menú -->
+        <nav class="sidebar-menu">
+          <ul class="opciones_sidebar">
+            <li class="opcionSidebar select">
+              <span class="material-symbols-outlined"> home </span>
+              <p class="opcion-text">Inicio</p>
+            </li>
+            <li class="opcionSidebar">
+              <span class="material-symbols-outlined">shopping_bag</span>
+              <p class="opcion-text">Productos</p>
+            </li>
+            <li class="opcionSidebar">
+              <span class="material-symbols-outlined">category</span>
+              <p class="opcion-text">Categorías</p>
+            </li>
+            <li class="opcionSidebar">
+              <span class="material-symbols-outlined">local_shipping</span>
+              <p class="opcion-text">Pedidos</p>
+            </li>
+            <li class="opcionSidebar">
+              <span class="material-symbols-outlined">inventory</span>
+              <p class="opcion-text">Inventario / Stock</p>
+            </li>
+            <li class="opcionSidebar">
+              <span class="material-symbols-outlined">group</span>
+              <p class="opcion-text">Clientes</p>
+            </li>
+            <li class="opcionSidebar">
+              <span class="material-symbols-outlined">settings</span>
+              <p class="opcion-text">Configuración</p>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Parte inferior -->
+        <div class="sidebar-footer"></div>
+      </aside>
+
+      <!-- Contenido -->
+      <main class="main-content">
+        <!-- Barra superior -->
+        <header class="topbar"></header>
+
+        <!-- Contenido de cada página -->
+        <section class="content"></section>
+      </main>
+    </div>
+
+    <script src="./js/dashboard.js"></script>
+  </body>
+</html>
