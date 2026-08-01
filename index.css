@@ -9,6 +9,62 @@
   --paddingSite: 15px 18px;
   --paddingReponsive: 15px 10px;
 }
+
+.menu_flotante {
+  transform: translateY(-100px);
+  transition: 0.3s ease-in-out;
+  position: fixed;
+  background: var(--bg);
+  padding: 15px 50px;
+  border-bottom: 1px solid var(--colorBorde);
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.menu_flotante.show {
+  transform: translateY(0);
+}
+.menu_flotante img {
+  width: 150px;
+  height: auto;
+}
+
+.list_manu_flotante {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list_manu_flotante ul {
+  list-style: none;
+  display: flex;
+  gap: 38px;
+  padding: 0 15px;
+}
+.opcio_flotante {
+  transition: 0.2s ease-in;
+}
+
+.opcio_flotante:hover {
+  scale: 1.08;
+}
+
+.btn_carrito_flotente {
+  position: relative;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn_carrito_flotente span {
+  font-size: 32px;
+}
+
 .contenido_pag {
   position: relative;
 }
@@ -155,8 +211,6 @@
 }
 
 .CardProducto {
-  max-width: 500px;
-  min-width: 300px;
   margin-top: 15px;
   background: var(--colorBlanco);
   border-radius: 10px;
@@ -471,6 +525,10 @@
 @media (max-width: 600px) {
   /* Header y banner */
 
+  .opcio_selector a {
+    font-size: 14px;
+  }
+
   .banner_info {
     padding: 0;
   }
@@ -520,16 +578,25 @@
 
   .productos {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .CardProducto {
-    width: 100px;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
+    border-radius: 10px;
+  }
+
+  .img_product {
+    text-align: center;
   }
 
   .CardProducto img {
     object-fit: cover;
-    height: 100px;
+    height: 130px;
+  }
+
+  .btnFavorito {
+    display: none;
   }
 
   .calificacionProduct {
@@ -585,7 +652,20 @@
   }
 
   .footer_bottom {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  /* Aplicamos el order al DIV hijo directo, no al párrafo */
+  .footer_bottom > div:first-child {
+    order: 2;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .input_email_suscribir,
+  .input_email_suscribir::placeholder {
+    font-size: 14px;
   }
 }
