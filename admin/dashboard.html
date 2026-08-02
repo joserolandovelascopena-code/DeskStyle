@@ -80,17 +80,205 @@
           </ul>
         </nav>
 
-        <!-- Parte inferior -->
-        <div class="sidebar-footer"></div>
+        <div class="sidebar-footer">
+          <button class="logout_button">
+            <span class="material-symbols-outlined"> logout </span>
+            <p class="opcion-text">Cerrar sesión</p>
+          </button>
+        </div>
       </aside>
 
       <!-- Contenido -->
       <main class="main-content">
         <!-- Barra superior -->
-        <header class="topbar"></header>
+        <header class="topbar">
+          <div class="topbar-left topbar-content">
+            <h4>¡Bienvenido Administrador! 👋</h4>
+            <p>Resumen general de tu tienda.</p>
+          </div>
+          <div class="topbar-right">
+            <button class="notificaciones">
+              <span class="material-symbols-outlined"> notifications </span>
+              <p class="notificaciones-cant" style="display: none">0</p>
+            </button>
+            <div class="cuenta">
+              <div class="circle_cuenta">
+                <p class="initial_nombre_usuario">R</p>
+              </div>
+              <div class="info_usuario">
+                <h5 class="nombre_usurio_topbar">Admin DeskStyle</h5>
+                <p>Administrador</p>
+              </div>
+              <button class="abrir_menu_perfil">
+                <span class="material-symbols-outlined"> stat_minus_1 </span>
+              </button>
+            </div>
+          </div>
+        </header>
 
         <!-- Contenido de cada página -->
-        <section class="content"></section>
+        <section class="content">
+          <div class="targetas_resumen">
+            <div class="targeta">
+              <div class="targeta-icono">
+                <span class="material-symbols-outlined">shopping_bag</span>
+              </div>
+              <div class="targeta-info">
+                <h4>Productos</h4>
+                <p id="total_productos">0</p>
+                <button class="btn-primario">
+                  <p>Ver todos</p>
+                  <span class="material-symbols-outlined">
+                    arrow_right_alt
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="targeta">
+              <div class="targeta-icono">
+                <span class="material-symbols-outlined">category</span>
+              </div>
+              <div class="targeta-info">
+                <h4>Pedidos</h4>
+                <p id="total_pedidos">0</p>
+                <button class="btn-secundario">
+                  <p>Ver pedidos</p>
+                  <span class="material-symbols-outlined">
+                    arrow_right_alt
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="targeta">
+              <div class="targeta-icono">
+                <span class="material-symbols-outlined">inventory</span>
+              </div>
+              <div class="targeta-info">
+                <h4>Inventario</h4>
+                <p id="total_inventario">0</p>
+                <button class="btn-terciario">
+                  <p>Ver productos</p>
+                  <span class="material-symbols-outlined">
+                    arrow_right_alt
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="targeta">
+              <div class="targeta-icono">
+                <span class="material-symbols-outlined">group</span>
+              </div>
+              <div class="targeta-info">
+                <h4>Clientes</h4>
+                <p id="total_clientes">0</p>
+                <button class="btn-cuaternario">
+                  <p>Ver clientes</p>
+                  <span class="material-symbols-outlined">
+                    arrow_right_alt
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="contenedores_vista_previa">
+            <div class="vista_previa">
+              <div class="encabezado_caja">
+                <h4>Pedidos recientes</h4>
+                <button class="btn_ver_pedidos">Ver todos</button>
+              </div>
+
+              <div class="tabla_pedidos">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td class="order-id">#DS-10015</td>
+                      <td class="customer">Juan Pérez</td>
+                      <td>
+                        <button class="estado_pedido">Pendiente</button>
+                      </td>
+                      <td class="price">$25.00</td>
+                      <td class="date">31 may. 2025</td>
+                      <td class="actions">
+                        <button class="btn-actions">
+                          <span class="material-symbols-outlined">
+                            more_vert
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="vista_previa">
+              <div class="encabezado_caja">
+                <h4>Estado de stock</h4>
+                <button class="btn_ver_Sctok">Ver todos</button>
+              </div>
+              <div class="list_product_stock">
+                <div class="info_produc_stock">
+                  <img
+                    src="../public/icons/Images web/poster.jpg"
+                    alt="fotografía de producto"
+                  />
+                  <div class="text_info_product">
+                    <h5>Poster de Hunter X Hunter</h5>
+                    <div style="display: flex; gap: 4px">
+                      <p>Stock:</p>
+                      <p class="cantidad_stock">3 unidades</p>
+                    </div>
+                  </div>
+                </div>
+                <button class="abril_stock">
+                  <span class="material-symbols-outlined"> chevron_right </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="contenedor_acci_rapidas">
+            <div class="caja_accion">
+              <div class="icono_accion">
+                <span class="material-symbols-outlined">add_business</span>
+              </div>
+              <div class="info_accion">
+                <h4>Añadir un producto</h4>
+                <p>Agrega un nuevo producto a tu tienda.</p>
+                <button class="btn_accion">Nuevo producto</button>
+              </div>
+            </div>
+            <div class="caja_accion">
+              <div class="icono_accion">
+                <span class="material-symbols-outlined">category</span>
+              </div>
+              <div class="info_accion">
+                <h4>Gestión de categorías</h4>
+                <p>Administra las categorías de tus productos.</p>
+                <button class="btn_accion">Ver categorías</button>
+              </div>
+            </div>
+            <div class="caja_accion">
+              <div class="icono_accion">
+                <span class="material-symbols-outlined">shopping_cart</span>
+              </div>
+              <div class="info_accion">
+                <h4>Gestionar pedidos</h4>
+                <p>Revisa y actualiza el estado de los pedidos.</p>
+                <button class="btn_accion">Ver pedidos</button>
+              </div>
+            </div>
+            <div class="caja_accion">
+              <div class="icono_accion">
+                <span class="material-symbols-outlined">box_add</span>
+              </div>
+              <div class="info_accion">
+                <h4>Control de inventario</h4>
+                <p>Monitorea y ajusta el stock de tus productos.</p>
+                <button class="btn_accion">Ver inventario</button>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
