@@ -93,7 +93,7 @@
         <!-- Barra superior -->
         <header class="topbar">
           <div class="topbar-left topbar-content">
-            <h4>¡Bienvenido Administrador! 👋</h4>
+            <h4>¡Bienvenido Administrador!</h4>
             <p>Resumen general de tu tienda.</p>
           </div>
           <div class="topbar-right">
@@ -315,22 +315,178 @@
                       id="titulo"
                       placeholder="Ej. Lámpara LED"
                     />
-                    <p class="info_titulo">Nombre completo del producto</p>
+                    <p>Nombre completo del producto</p>
+                    <br />
+
+                    <label for="precioOriginal">Precio original</label>
+                    <div class="cajaInput">
+                      <span class="material-symbols-outlined">
+                        attach_money
+                      </span>
+                      <input
+                        type="number"
+                        id="precioOriginal"
+                        class="precioOriginal"
+                        placeholder="$0.00"
+                      />
+                    </div>
+                    <p class="info_titulo">
+                      Precio de compra del producto (Opcional)
+                    </p>
+                    <br />
+
+                    <label for="id_product">Código (ID)</label>
+                    <input type="text" id="id_product" placeholder="PRO-001" />
+                    <p>Código único del producto (Automático)</p>
                   </div>
+
                   <div class="conlumna">
-                    <label for="titulo">Precio</label>
-                    <input type="text" id="titulo" placeholder="0.00" />
-                    <p class="info_titulo">Nombre completo del producto</p>
+                    <label for="precio">Precio</label>
+                    <div class="cajaInput">
+                      <span class="material-symbols-outlined">
+                        attach_money
+                      </span>
+                      <input
+                        type="number"
+                        id="precio"
+                        class="precio"
+                        placeholder="$0.00"
+                      />
+                    </div>
+                    <p>Precio en USD</p>
+                    <br />
+                    <label>Categoría</label>
+                    <div class="cajaSelectCateg">
+                      <select class="select_Categoria">
+                        <option>Selecciona una categoría</option>
+                      </select>
+                    </div>
+
+                    <p>Elige la categoría del producto</p>
+                    <br />
+                    <label for="marca_product">Marca</label>
+                    <input
+                      type="text"
+                      id="marca_product"
+                      placeholder="Ej. TechCreado"
+                    />
+                    <p>Marca o colección</p>
                   </div>
                 </form>
+                <br />
+                <div class="descripcion_Product">
+                  <p>Marca</p>
+                  <textarea
+                    class="descripcion"
+                    placeholder="Describe tu producto, características, materiales, uso, etc"
+                  ></textarea>
+                </div>
+
+                <div class="selecImagnPrncipal">
+                  <h4 style="margin-bottom: 10px">Imagen del producto</h4>
+
+                  <div class="cajaSubirIMG">
+                    <label for="imgPrincipal">
+                      <span class="material-symbols-outlined"
+                        >cloud_upload</span
+                      >
+
+                      <h4>Sube la imagen principal aquí</h4>
+                      <p>haz clic para seleccionar un archivo</p>
+                      <input type="file" id="imgPrincipal" />
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div class="columna_derecha"></div>
+              <div class="columna_derecha">
+                <div class="btnsGuadarCancelar">
+                  <button class="btnCancelar">Cancelar</button
+                  ><button class="btnGuardar">
+                    <span class="material-symbols-outlined"> save </span>
+                    <p>Guardar Producto</p>
+                  </button>
+                </div>
+                <div class="seccion_derecha">
+                  <h4>Estado del Producto</h4>
+                  <p class="encabezado_derecha">Estado</p>
+                  <div class="cajaSelectEstado">
+                    <select class="selecEstado_Producto">
+                      <option value="activo">Activo</option>
+                      <option value="inactivo">Inactivo</option>
+                      <option value="desactivado">Borrador</option>
+                    </select>
+                  </div>
+                  <p class="info_opcion">
+                    Los productos inactivos no se mostraran en la tienda
+                  </p>
+
+                  <p class="encabezado_derecha">Destacado</p>
+                  <div class="cleckBoxDestaca">
+                    <input type="checkbox" id="destacadoProduct" />
+                    <p>Marcar como producto destacado</p>
+                  </div>
+                  <p class="info_opcion">
+                    Los productos destacados se mostraran en la pagina principal
+                  </p>
+                </div>
+                <div class="seccion_derecha">
+                  <h4>Inventario y características</h4>
+
+                  <p class="encabezado_derecha">Stock</p>
+                  <input
+                    type="number"
+                    id="guardarStockProduct"
+                    class="input_Derecha"
+                    placeholder="Cantidad en Stock"
+                  />
+                  <p class="encabezado_derecha" style="margin-top: 15px">
+                    Peso (kg)
+                  </p>
+                  <input
+                    type="number"
+                    id="pesoProduct"
+                    class="input_Derecha"
+                    placeholder="kg 0.00"
+                  />
+
+                  <p class="encabezado_derecha" style="margin-top: 15px">
+                    Material del producto
+                  </p>
+                  <input
+                    type="text"
+                    id="materialProduct"
+                    class="input_Derecha"
+                    placeholder="Ej. Metal"
+                  />
+
+                  <p class="encabezado_derecha" style="margin-top: 15px">
+                    Dimenciones (cm)
+                  </p>
+                  <div class="dimencionesProduct">
+                    <div>
+                      <input type="number" id="largo" placeholder="0" />
+                      <p>Largo</p>
+                    </div>
+                    <div>
+                      <input type="number" id="ancho" placeholder="0" />
+                      <p>Ancho</p>
+                    </div>
+                    <div>
+                      <input type="number" id="alto" placeholder="0" />
+                      <p>Alto</p>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+              </div>
             </div>
           </section>
+
+          <section class="interfaz_categorias"></section>
         </div>
       </main>
     </div>
 
-    <script src="./js/eventos.js"></script>
+    <script src="./js/eventos.js" type="module"></script>
   </body>
 </html>
