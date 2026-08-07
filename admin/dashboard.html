@@ -6,6 +6,8 @@
     <title>Dashboard - DeskStyle</title>
 
     <link rel="stylesheet" href="./dashboard.css" />
+    <link rel="stylesheet" href="./estilos_dashboard2.css" />
+    <link rel="stylesheet" href="./css/modales.css" />
     <link rel="icon" href="../public/icons/favicon.png" type="image/png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -482,11 +484,235 @@
             </div>
           </section>
 
-          <section class="interfaz_categorias"></section>
+          <section class="interfaz_categorias">
+            <div class="topBarra_categorias">
+              <div class="infoCategoria">
+                <h3>Crear nuevas categorías</h3>
+                <p>Gestiona las categorías de tu tienda.</p>
+              </div>
+              <div>
+                <button class="agregarCateg">
+                  <span class="material-symbols-outlined"> add </span>
+                  <p>Guardar</p>
+                </button>
+              </div>
+            </div>
+            <article class="cont_cajas_categ">
+              <div class="clumna_izqui_cat">
+                <h4>Agregar categoría</h4>
+                <form class="forms_categ">
+                  <label for="nombreCatego">Nombre de la categoría</label>
+                  <input
+                    type="text"
+                    id="nombreCatego"
+                    placeholder="Ej. Posters"
+                  />
+                  <label for="descripcionCateg">Descripción (Opcional)</label>
+                  <textarea
+                    name="descripcion"
+                    id="descripcionCateg"
+                    placeholder="Describe esta categoría..."
+                  ></textarea>
+                </form>
+                <div class="cont_subirIMg_Categ">
+                  <h4 style="margin-bottom: 10px">Selecionar imagen</h4>
+                  <div class="caja_subirIMg_Categ">
+                    <label class="btnSeledImg_categ" for="subirIMg_Categ">
+                      <span class="material-symbols-outlined"
+                        >cloud_upload</span
+                      >
+
+                      <h4>Sube la imagen de la categoría</h4>
+                      <p>haz clic para seleccionar un archivo</p>
+                      <input
+                        type="file"
+                        name="subirIMg_Categ"
+                        id="subirIMg_Categ"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="clumna_derech_cat">
+                <h4>Categorías existentes</h4>
+                <table class="tabla_exitent_categ">
+                  <thead>
+                    <tr>
+                      <th>Categoría</th>
+                      <th>Descripción</th>
+                      <th>Productos</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody class="existente_categ">
+                    <tr>
+                      <td class="nombre_categ">
+                        <img
+                          src="../public/icons/Images web/poster.jpg"
+                          alt=""
+                        />
+                        <p>Posters</p>
+                      </td>
+                      <td class="descripcion_categ"><p>Posters</p></td>
+                      <td class="catidad_prouct"><p>0</p></td>
+                      <td>
+                        <div class="btnsAcciones_categ">
+                          <button class="btnEdit_categ">
+                            <span class="material-symbols-outlined">
+                              edit
+                            </span>
+                          </button>
+                          <button class="btnElimi_categ">
+                            <span class="material-symbols-outlined">
+                              delete
+                            </span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+          <section class="interfaz_pedidos">
+            <div class="topBarra_pedidos">
+              <div class="infoPedidos">
+                <h3>Pedidos</h3>
+                <p>Gestiona y revisa todos los pedidos de tu tienda.</p>
+              </div>
+              <div>
+                <button class="filtros_pedidos">
+                  <span class="material-symbols-outlined"> filter_alt </span>
+                  <p>Filtros</p>
+                </button>
+              </div>
+            </div>
+            <div class="conte_pedidos">
+              <div class="cards_resumen_pedidos">
+                <div class="resumen_pedidos">
+                  <div class="icono_card_pedidos">
+                    <span class="material-symbols-outlined"> schedule </span>
+                  </div>
+
+                  <div class="info_card_pedidos">
+                    <p style="margin-bottom: 6px">Pendientes</p>
+                    <h2 id="cantPendiente_pedidos">0</h2>
+                    <p style="font-size: 14px; margin-top: 6px">
+                      Esperando confirmación
+                    </p>
+                  </div>
+                </div>
+                <div class="resumen_pedidos">
+                  <div class="icono_card_pedidos">
+                    <span class="material-symbols-outlined">
+                      delivery_truck_speed
+                    </span>
+                  </div>
+                  <div class="info_card_pedidos">
+                    <p style="margin-bottom: 6px">En proceso</p>
+                    <h2 id="cantProceso_pedidos">0</h2>
+                    <p style="font-size: 14px; margin-top: 6px">
+                      Proceso de envío
+                    </p>
+                  </div>
+                </div>
+                <div class="resumen_pedidos">
+                  <div class="icono_card_pedidos">
+                    <span class="material-symbols-outlined">
+                      check_circle
+                    </span>
+                  </div>
+                  <div class="info_card_pedidos">
+                    <p style="margin-bottom: 6px">Finalizado</p>
+                    <h2 id="cantFinalizado_pedidos">0</h2>
+                    <p style="font-size: 14px; margin-top: 6px">
+                      Proceso de envío
+                    </p>
+                  </div>
+                </div>
+                <div class="resumen_pedidos">
+                  <div class="icono_card_pedidos">
+                    <span class="material-symbols-outlined">cancel</span>
+                  </div>
+                  <div class="info_card_pedidos">
+                    <p style="margin-bottom: 6px">Cancelados</p>
+                    <h2 id="cantCancelado_pedidos">0</h2>
+                    <p style="font-size: 14px; margin-top: 6px">
+                      Proceso de envío
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
+
+      <section class="contenedor_modales">
+        <div class="cont_editar_categ">
+          <div class="header_modal_edit_cat">
+            <h4>Editar Categoría</h4>
+            <button class="cerrar_modalEdit_Categ">
+              <span class="material-symbols-outlined"> close </span>
+            </button>
+          </div>
+          <div class="cont_edit_categ">
+            <form class="editar_categ">
+              <label for="edit_nombre_categ">Nombre de la categoría</label>
+              <input
+                type="
+            "
+                name="Categoría"
+                id="edit_nombre_categ"
+                placeholder="Categoría"
+              />
+
+              <label for="edit_descrip_categ" style="margin-top: 15px"
+                >Descripción (Opcional)</label
+              >
+
+              <textarea
+                id="edit_descrip_categ"
+                placeholder="Describe la catería..."
+              >
+              </textarea>
+
+              <div class="img_categ_edit">
+                <div style="width: 100%">
+                  <img
+                    src="../public/icons/Images web/product1.png"
+                    alt="Imagen de categoría"
+                  />
+                </div>
+                <div class="cont_img_catg">
+                  <p>Seleccionar imagen</p>
+                  <label
+                    for="edit_img"
+                    class="btn_edit_img"
+                    style="display: flex; place-items: center; gap: 10px"
+                  >
+                    <span class="material-symbols-outlined"> imagesmode </span>
+                    <p style="font-size: 14px">Cambiar imagen</p></label
+                  >
+                  <input type="file" id="edit_img" />
+                </div>
+              </div>
+              <div class="btnsAcciones_edit_categ">
+                <button type="button" class="btnCancelar_edit_categ">
+                  Cerrar
+                </button>
+                <button type="button" class="btnGuardar_edit_categ">
+                  Guardar cambios
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <script src="./js/eventos.js" type="module"></script>
+    <script type="module" src="./js/eventos.js"></script>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>

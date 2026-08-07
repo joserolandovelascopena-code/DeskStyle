@@ -1,0 +1,157 @@
+.contenedor_modales {
+  transition: 0.2s ease-out;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 14;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.2);
+  display: grid;
+  place-items: center;
+}
+
+/*Logica para modales*/
+
+.contenedor_modales.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/*Editar_Categoria*/
+
+.cont_editar_categ {
+  opacity: 0;
+  pointer-events: none;
+  min-width: 450px;
+  background: var(--colorBlanco);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.cont_editar_categ.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.header_modal_edit_cat {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_modal_edit_cat h4 {
+  font-weight: 500;
+}
+
+.header_modal_edit_cat button {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+  transition: 0.2 ease-in-out;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.header_modal_edit_cat button:hover {
+  background: #f5f7ff;
+}
+
+.header_modal_edit_cat span {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  font-size: 22px;
+}
+
+.editar_categ {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editar_categ label {
+  font-size: 15px;
+}
+.editar_categ input {
+  font-size: 15px;
+  padding: 12px 8px;
+  border: 1px solid var(--colorBorde);
+  border-radius: 8px;
+}
+
+.editar_categ input:focus,
+.editar_categ textarea:focus {
+  outline-color: var(--colorAcento);
+}
+
+.editar_categ textarea {
+  padding: 12px 8px;
+  font-size: 15px;
+  border: 1px solid var(--colorBorde);
+  border-radius: 8px;
+  height: 80px;
+}
+
+.img_categ_edit {
+  padding: 12px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 30% auto;
+  gap: 20px;
+}
+
+.img_categ_edit img {
+  width: 100px;
+}
+
+.cont_img_catg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btn_edit_img {
+  padding: 8px 12px;
+  background: #f0f0f0;
+  color: var(--colorPrimario);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#edit_img {
+  display: none;
+}
+
+.btnsAcciones_edit_categ {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  align-items: center;
+  justify-content: right;
+}
+
+.btnGuardar_edit_categ {
+  background: var(--colorPrimario);
+  color: var(--colorBlanco);
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btnCancelar_edit_categ {
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}

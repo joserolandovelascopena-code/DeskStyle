@@ -247,17 +247,10 @@ textarea {
 
 /* Mostrar pantallas activas */
 
-.content.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.interfaz_productos.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.interfaz_categorias.show {
+.content.show,
+.interfaz_productos.show,
+.interfaz_categorias.show,
+.interfaz_pedidos.show {
   opacity: 1;
   pointer-events: auto;
 }
@@ -577,13 +570,17 @@ textarea {
   padding: 15px 18px 0px 18px;
 }
 
-.topBarra_product {
+.topBarra_product,
+.topBarra_categorias,
+.topBarra_pedidos {
   display: grid;
   grid-template-columns: repeat(2, auto);
   justify-content: space-between;
 }
 
-.infoProductos p {
+.infoProductos p,
+.infoCategoria p,
+.infoPedidos p {
   margin-top: 5px;
   font-size: 14px;
 }
@@ -622,7 +619,8 @@ textarea {
   background: var(--colorBlanco);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
 }
 
 .columna_izquier::-webkit-scrollbar {
@@ -931,19 +929,4 @@ textarea {
 .cajaSubirIMG p {
   margin-top: 10px;
   font-size: 14px;
-}
-
-/*Interfaz catgorías*/
-
-.interfaz_categorias {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  z-index: 12;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 0;
-  pointer-events: none;
-  max-height: 88vh;
-  overflow-y: auto;
-  padding: 15px 18px 0px 18px;
 }
