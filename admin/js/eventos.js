@@ -2,14 +2,29 @@ const sidebar = document.querySelector(".sidebar");
 const toggleBtn = document.querySelector(".layout_toggle");
 const logoBtn = document.querySelector(".open_sidebar");
 
+function abrirCerrarSidebar() {
+  const estado = localStorage.getItem("estadoSidebar");
+
+  if (estado === "cerrado") {
+    sidebar.classList.add("active");
+  } else {
+    sidebar.classList.remove("active");
+  }
+}
+
+function preferenciaSidebar(estado) {
+  localStorage.setItem("estadoSidebar", estado);
+  abrirCerrarSidebar();
+}
+
+abrirCerrarSidebar();
+
 toggleBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("active");
+  preferenciaSidebar("cerrado");
 });
 
 logoBtn.addEventListener("click", () => {
-  if (sidebar.classList.contains("active")) {
-    sidebar.classList.remove("active");
-  }
+  preferenciaSidebar("abierto");
 });
 
 /* Logica para abrir pantallas*/
@@ -17,11 +32,12 @@ logoBtn.addEventListener("click", () => {
 const pantallaPrincipal = document.querySelector(".content");
 const pantallaProductos = document.querySelector(".interfaz_productos");
 const pantallaCategorias = document.querySelector(".interfaz_categorias");
+const pantallaPedidos = document.querySelector(".interfaz_pedidos");
 
 const btn_abrirPrincipal = document.querySelector(".inicioPag");
 const btn_abrirProductos = document.querySelector(".productosPag");
 const btn_abrirCategoria = document.querySelector(".categoriaPag");
-const btn_abirPedidos = document.querySelector(".pedidosPag");
+const btn_abrirPedidos = document.querySelector(".pedidosPag");
 const btn_abrirInventario = document.querySelector(".inventarioPag");
 const btn_abrirClientes = document.querySelector(".clientesPag");
 const btn_abrirConfiguracion = document.querySelector(".configuracionPag");
@@ -36,6 +52,10 @@ btn_abrirProductos.addEventListener("click", () => {
 
 btn_abrirCategoria.addEventListener("click", () => {
   abrirPantalla("categorias");
+});
+
+btn_abrirPedidos.addEventListener("click", () => {
+  abrirPantalla("pedidos");
 });
 
 function abrirPantalla(pantalla) {
@@ -53,20 +73,36 @@ function abrirPantalla(pantalla) {
     case "categorias":
       pantallaPrincipal.classList.remove("show");
       pantallaProductos.classList.remove("show");
+      pantallaPedidos.classList.remove("show");
       pantallaCategorias.classList.add("show");
 
       btn_abrirPrincipal.classList.remove("select");
       btn_abrirProductos.classList.remove("select");
+      btn_abrirPedidos.classList.remove("select");
       btn_abrirCategoria.classList.add("select");
 
+      break;
+
+    case "pedidos":
+      pantallaPrincipal.classList.remove("show");
+      pantallaProductos.classList.remove("show");
+      pantallaCategorias.classList.remove("show");
+      pantallaPedidos.classList.add("show");
+
+      btn_abrirPrincipal.classList.remove("select");
+      btn_abrirProductos.classList.remove("select");
+      btn_abrirCategoria.classList.remove("select");
+      btn_abrirPedidos.classList.add("select");
       break;
     default:
       pantallaProductos.classList.remove("show");
       pantallaCategorias.classList.remove("show");
+      pantallaPedidos.classList.remove("show");
       pantallaPrincipal.classList.add("show");
 
       btn_abrirProductos.classList.remove("select");
       btn_abrirCategoria.classList.remove("select");
+      btn_abrirPedidos.classList.remove("select");
       btn_abrirPrincipal.classList.add("select");
 
       break;
@@ -123,4 +159,5 @@ function validarFormatoInputs(titulo, precio, marca, orginalPrecio, id) {
   return true;
 }
 
-abrirPantalla("categorias");
+abrirPantalla("pedidos");
+abrirCerrarSidebar();
