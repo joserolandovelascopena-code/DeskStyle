@@ -1,3 +1,131 @@
+:root {
+  --colorSucces: #28a745;
+  --colorError: #dc3545;
+  --colorWarning: #ffc107;
+  --colorInfo: #007bff;
+}
+
+#toast_contenedor {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 500px;
+  background: var(--colorBlanco);
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid gainsboro;
+  border-bottom: 2px solid;
+
+  animation: slideIn 0.3s ease;
+}
+
+.toast.saliendo {
+  animation: slideOut 0.3s ease;
+}
+
+.infoToast {
+  display: flex;
+  gap: 12px;
+}
+
+.icono_Toast {
+  display: grid;
+  align-items: center;
+}
+.icono_Toast div {
+  display: grid;
+  align-items: center;
+}
+.icono_Toast span {
+  font-size: 28px;
+  color: #000;
+}
+
+.text_toast h5 {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.text_toast p {
+  font-size: 13px;
+  color: #868686;
+}
+
+.cerrarToast {
+  cursor: pointer;
+  color: #949393;
+  background: transparent;
+}
+
+/*Estados Toast*/
+.toast.suceso {
+  border-bottom-color: var(--colorSucces);
+}
+
+.toast.error {
+  border-bottom-color: var(--colorError);
+}
+
+.toast.aviso {
+  border-bottom-color: var(--colorWarning);
+}
+
+.toast.info {
+  border-bottom-color: var(--colorInfo);
+}
+
+.toast.suceso .icono_Toast span {
+  color: var(--colorSucces);
+}
+
+.toast.error .icono_Toast span {
+  color: var(--colorError);
+}
+
+.toast.aviso .icono_Toast span {
+  color: var(--colorWarning);
+}
+
+.toast.info .icono_Toast span {
+  color: var(--colorInfo);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(120%);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
 /*Interfaz catgorías*/
 
 .interfaz_categorias {
@@ -248,7 +376,21 @@
   border-radius: 20%;
   background-color: var(--colorDegradadoNaranja);
 }
-.resumen_pedidos span {
+.icono_card_pedidos span {
   font-size: 24px;
   color: var(--colorSecundario);
+}
+
+.icono_card_cancelados {
+  display: grid;
+  place-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+  background-color: #ffc4c4;
+}
+
+.icono_card_cancelados span {
+  font-size: 24px;
+  color: #c71414;
 }

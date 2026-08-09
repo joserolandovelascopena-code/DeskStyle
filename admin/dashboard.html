@@ -360,7 +360,8 @@
                     <label>Categoría</label>
                     <div class="cajaSelectCateg">
                       <select class="select_Categoria">
-                        <option>Selecciona una categoría</option>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="opcionEj">Figuras</option>
                       </select>
                     </div>
 
@@ -377,26 +378,85 @@
                 </form>
                 <br />
                 <div class="descripcion_Product">
-                  <p>Marca</p>
+                  <p>Descripción (Opcional)</p>
                   <textarea
-                    class="descripcion"
+                    id="descripcionProduct"
                     placeholder="Describe tu producto, características, materiales, uso, etc"
                   ></textarea>
                 </div>
 
                 <div class="selecImagnPrncipal">
                   <h4 style="margin-bottom: 10px">Imagen del producto</h4>
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: 40% auto;
+                      gap: 10px;
+                    "
+                  >
+                    <div class="previsualizarIMG">
+                      <p>
+                        Previsualización
+                        <span
+                          style="font-size: 12px"
+                          class="material-symbols-outlined"
+                        >
+                          visibility
+                        </span>
+                      </p>
+                      <img
+                        src="../public/icons/Images web/image-files.png"
+                        alt=""
+                        style="width: 190px"
+                      />
+                    </div>
 
-                  <div class="cajaSubirIMG">
-                    <label for="imgPrincipal">
-                      <span class="material-symbols-outlined"
-                        >cloud_upload</span
-                      >
+                    <div class="cajaSubirIMG">
+                      <div>
+                        <div class="header_CajaImg">
+                          <span class="material-symbols-outlined"
+                            >cloud_upload</span
+                          >
 
-                      <h4>Sube la imagen principal aquí</h4>
-                      <p>haz clic para seleccionar un archivo</p>
-                      <input type="file" id="imgPrincipal" />
-                    </label>
+                          <h3>Sube la imagen principal aquí</h3>
+                          <p>haz clic para seleccionar un archivo</p>
+                        </div>
+                        <div
+                          style="
+                            position: relative;
+                            display: grid;
+                            justify-content: center;
+                          "
+                        >
+                          <label class="btnIMGProduct" for="imgPrincipal">
+                            <span class="material-symbols-outlined">
+                              folder
+                            </span>
+                            <p>Seleccionar un archivo</p>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              id="imgPrincipal"
+                            />
+                          </label>
+                        </div>
+
+                        <div
+                          style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+                            margin-top: 20px;
+                            text-align: center;
+                            font-size: 14px;
+                            color: rgb(49, 49, 49);
+                          "
+                        >
+                          <p>Formatos recomendados: JPG, PNG, WEBP</p>
+                          <p>Tamaño máximo: 5MB</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -437,7 +497,7 @@
                   <p class="encabezado_derecha">Stock</p>
                   <input
                     type="number"
-                    id="guardarStockProduct"
+                    id="stockProduct"
                     class="input_Derecha"
                     placeholder="Cantidad en Stock"
                   />
@@ -632,7 +692,7 @@
                   </div>
                 </div>
                 <div class="resumen_pedidos">
-                  <div class="icono_card_pedidos">
+                  <div class="icono_card_cancelados">
                     <span class="material-symbols-outlined">cancel</span>
                   </div>
                   <div class="info_card_pedidos">
@@ -710,6 +770,7 @@
           </div>
         </div>
       </section>
+      <div id="toast_contenedor"></div>
     </div>
 
     <script type="module" src="./js/eventos.js"></script>
