@@ -657,7 +657,7 @@
 
                   <div class="info_card_pedidos">
                     <p style="margin-bottom: 6px">Pendientes</p>
-                    <h2 id="cantPendiente_pedidos">0</h2>
+                    <h3 id="cantPendiente_pedidos">0</h3>
                     <p style="font-size: 14px; margin-top: 6px">
                       Esperando confirmación
                     </p>
@@ -671,7 +671,7 @@
                   </div>
                   <div class="info_card_pedidos">
                     <p style="margin-bottom: 6px">En proceso</p>
-                    <h2 id="cantProceso_pedidos">0</h2>
+                    <h3 id="cantProceso_pedidos">0</h3>
                     <p style="font-size: 14px; margin-top: 6px">
                       Proceso de envío
                     </p>
@@ -685,7 +685,7 @@
                   </div>
                   <div class="info_card_pedidos">
                     <p style="margin-bottom: 6px">Finalizado</p>
-                    <h2 id="cantFinalizado_pedidos">0</h2>
+                    <h3 id="cantFinalizado_pedidos">0</h3>
                     <p style="font-size: 14px; margin-top: 6px">
                       Proceso de envío
                     </p>
@@ -697,12 +697,47 @@
                   </div>
                   <div class="info_card_pedidos">
                     <p style="margin-bottom: 6px">Cancelados</p>
-                    <h2 id="cantCancelado_pedidos">0</h2>
+                    <h3 id="cantCancelado_pedidos">0</h3>
                     <p style="font-size: 14px; margin-top: 6px">
                       Proceso de envío
                     </p>
                   </div>
                 </div>
+              </div>
+              <div class="pedidos_users">
+                <table class="tabla_pedidos">
+                  <thead>
+                    <tr>
+                      <th>Pedidos</th>
+                      <th>Cliente</th>
+                      <th>Fecha</th>
+                      <th>Estado</th>
+                      <th>Total</th>
+                      <th>Pago</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list_pedidos"></tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="6" style="text-align: left">
+                        <p>Mostrado 10 de 20</p>
+                      </td>
+
+                      <td class="btn_moder_pagina_pedidos">
+                        <button class="atrasPedidos">
+                          <span class="material-symbols-outlined">
+                            keyboard_arrow_left
+                          </span></button
+                        ><button class="sguientePedidos">
+                          <span class="material-symbols-outlined">
+                            keyboard_arrow_right
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </div>
           </section>

@@ -15,6 +15,7 @@ function agregarProduct(
   categoria,
   estado,
 ) {
+  agrgando = true;
   console.log(`Categoría: ${categoria}`);
   console.log(`Estado: ${estado}`);
 }

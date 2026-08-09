@@ -2,6 +2,7 @@ import { escoparHTML } from "../../public/js/security/sanitizarInputs.js";
 import { contenedorModales } from "../js/utils/modales.js";
 import { agregarProduct } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
+import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
 
 contenedorModales(".contenedor_modales", false);
 
