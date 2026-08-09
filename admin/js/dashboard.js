@@ -1,2 +1,22 @@
 var agrgando = false;
-export function agregarProduct() {}
+function agregarProduct(
+  titulo,
+  precio,
+  marca,
+  orginalPrecio,
+  id,
+  descrip,
+  stock,
+  peso,
+  material,
+  largo,
+  ancho,
+  alto,
+  categoria,
+  estado,
+) {
+  console.log(`Categoría: ${categoria}`);
+  console.log(`Estado: ${estado}`);
+}
+
+export { agregarProduct };
