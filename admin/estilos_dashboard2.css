@@ -213,8 +213,10 @@
 }
 
 .forms_categ textarea {
-  width: 100%;
+  min-width: 100%;
   max-width: 100%;
+  min-height: 80px;
+  max-height: 100px;
   margin-top: 8px;
   padding: 15px 10px;
   border-radius: 6px;
@@ -222,8 +224,6 @@
   box-shadow: 0 0 0 1px var(--colorBorde);
   margin-bottom: 12px;
   font-size: 14px;
-  height: 120px;
-  max-height: 180px;
 }
 
 .cont_subirIMg_Categ {
@@ -338,11 +338,17 @@
 
 .filtros_pedidos {
   display: flex;
+  align-items: center;
   gap: 6px;
   padding: 8px 10px;
   background: var(--colorPrimario);
   color: var(--colorBlanco);
   border-radius: 8px;
+  cursor: pointer;
+}
+
+.filtros_pedidos p {
+  font-size: 14px;
 }
 
 .filtros_pedidos span {
@@ -393,4 +399,94 @@
 .icono_card_cancelados span {
   font-size: 24px;
   color: #c71414;
+}
+
+.pedidos_users {
+  min-height: 54vh;
+  margin-top: 15px;
+  padding: 15px 0 0 0;
+  background: var(--colorBlanco);
+  border-radius: 10px;
+  box-shadow: 0 0 5px gainsboro;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.tabla_pedidos {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: sans-serif;
+  text-align: left;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+}
+
+.tabla_pedidos tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.tabla_pedidos th {
+  padding: 12px 15px;
+  font-size: 13px;
+  color: #747474;
+  font-weight: 600;
+}
+.tabla_pedidos td {
+  font-size: 15px;
+  padding: 12px 15px;
+}
+
+.tabla_pedidos p {
+  font-size: 13px;
+}
+
+.btns_acciones_pedidos {
+  display: flex;
+  place-items: center;
+  gap: 15px;
+}
+
+.btns_acciones_pedidos button {
+  display: flex;
+  place-items: center;
+  padding: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  background: var(--colorBlanco);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btns_acciones_pedidos span {
+  font-size: 19px;
+}
+
+.fila_pedidos.fila_color {
+  background: #f1f3f5;
+}
+
+.estadoPedido {
+  padding: 5px;
+  border-radius: 6px;
+  background: var(--colorDegradadoNaranja);
+  color: var(--colorSecundario);
+  box-shadow: 0 0 2px var(--colorSecundario);
+}
+
+.btn_moder_pagina_pedidos {
+  display: flex;
+  gap: 15px;
+}
+
+.btn_moder_pagina_pedidos button {
+  display: flex;
+  place-items: center;
+  padding: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  background: var(--colorBlanco);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn_moder_pagina_pedidos span {
+  font-size: 19px;
 }

@@ -1,6 +1,11 @@
 import { escoparHTML } from "../../public/js/security/sanitizarInputs.js";
 import { agregarProduct } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
+import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
+
+const gestor = new manejadorIMGs("imgPrincipal", ".previsualizarIMG", {
+  maxTamano: 5 * 1024 * 1024,
+});
 
 const sidebar = document.querySelector(".sidebar");
 const toggleBtn = document.querySelector(".layout_toggle");
@@ -67,10 +72,12 @@ function abrirPantalla(pantalla) {
     case "productos":
       pantallaPrincipal.classList.remove("show");
       pantallaCategorias.classList.remove("show");
+      pantallaPedidos.classList.remove("show");
       pantallaProductos.classList.add("show");
 
       btn_abrirPrincipal.classList.remove("select");
       btn_abrirCategoria.classList.remove("select");
+      btn_abrirPedidos.classList.remove("select");
       btn_abrirProductos.classList.add("select");
       break;
 
@@ -227,7 +234,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   let numeroInput = formarFormatoNumero(precio);
@@ -239,7 +246,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   numeroInput = formarFormatoNumero(orginalPrecio);
@@ -251,7 +258,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   let esSeleccion = elementoSelect.esValido();
@@ -263,7 +270,7 @@ function validarFormatoInputs(
       "aviso",
       5000,
     );
-    return false;
+    return;
   }
 
   textoInput = escoparHTML(id);
@@ -275,7 +282,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   textoInput = escoparHTML(marca);
@@ -287,7 +294,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   textoInput = escoparHTML(descrip);
@@ -299,7 +306,7 @@ function validarFormatoInputs(
       "aviso",
       5000,
     );
-    return false;
+    return;
   }
 
   numeroInput = formarFormatoNumero(stock);
@@ -311,7 +318,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   numeroInput = formarFormatoNumero(peso);
@@ -323,7 +330,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   textoInput = escoparHTML(material);
@@ -335,7 +342,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   numeroInput = formarFormatoNumero(largo);
@@ -347,7 +354,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   numeroInput = formarFormatoNumero(ancho);
@@ -359,7 +366,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
   numeroInput = formarFormatoNumero(alto);
@@ -371,9 +378,20 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return false;
+    return;
   }
 
+  let img = gestor.archivoObtnido();
+
+  if (!img) {
+    mostrarToast(
+      "Imagen requeridad",
+      "Selecciona la imagen del producto",
+      "error",
+      5000,
+    );
+    return;
+  }
   // Si todas las validaciones pasan
   agregarProduct(
     titulo,
@@ -402,5 +420,52 @@ function validarFormatoInputs(
   return true;
 }
 
-abrirPantalla("productos");
+abrirPantalla("pedidos");
 abrirCerrarSidebar();
+
+const listaPedidos = document.querySelector(".list_pedidos");
+
+let colorFila = true;
+for (let i = 0; i < 5; i++) {
+  colorFila = !colorFila;
+
+  const fila = document.createElement("tr");
+  fila.className = `fila_pedidos`;
+
+  if (!colorFila) {
+    fila.classList.add("fila_color");
+  }
+
+  fila.innerHTML = `<td class="id_product_pedidos"><h5>${i}</h5></td>
+                      <td class="cliente_pedidos">
+                        <div>
+                          <h5>Rolando Velasco</h5>
+                          <p>joserolandovalascopena@gmail.com</p>
+                        </div>
+                      </td>
+                      <td class="fecha_pedido">
+                        <h5>1 de jun. 2026</h5>
+                        <p>10:45 a.m</p>
+                      </td>
+                      <td class="estado_pedidos" style="text-align: center">
+                        <h5 class="estadoPedido">Finalizado</h5>
+                      </td>
+                      <td class="total_pedido"><h5>$5.25</h5></td>
+                      <td class="pago_pedido"><h5>Efectivo</h5></td>
+                      <td class="acciones_pedidos">
+                        <div class="btns_acciones_pedidos">
+                          <button class="btnVer_pedio">
+                            <span class="material-symbols-outlined">
+                              visibility
+                            </span>
+                          </button>
+                          <button class="btnEdit_pedido">
+                            <span class="material-symbols-outlined">
+                              edit
+                            </span>
+                          </button>
+                        </div>
+                      </td>`;
+
+  listaPedidos.appendChild(fila);
+}
