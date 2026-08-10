@@ -42,12 +42,13 @@ const pantallaPrincipal = document.querySelector(".content");
 const pantallaProductos = document.querySelector(".interfaz_productos");
 const pantallaCategorias = document.querySelector(".interfaz_categorias");
 const pantallaPedidos = document.querySelector(".interfaz_pedidos");
+const pantallaVerProductos = document.querySelector(".interfaz_productView");
 
 const btn_abrirPrincipal = document.querySelector(".inicioPag");
 const btn_abrirProductos = document.querySelector(".productosPag");
 const btn_abrirCategoria = document.querySelector(".categoriaPag");
 const btn_abrirPedidos = document.querySelector(".pedidosPag");
-const btn_abrirInventario = document.querySelector(".inventarioPag");
+const btn_abrirViewProduct = document.querySelector(".inventarioPag");
 const btn_abrirClientes = document.querySelector(".clientesPag");
 const btn_abrirConfiguracion = document.querySelector(".configuracionPag");
 
@@ -56,7 +57,7 @@ btn_abrirPrincipal.addEventListener("click", () => {
 });
 
 btn_abrirProductos.addEventListener("click", () => {
-  abrirPantalla("productos");
+  abrirPantalla("agregar");
 });
 
 btn_abrirCategoria.addEventListener("click", () => {
@@ -67,55 +68,46 @@ btn_abrirPedidos.addEventListener("click", () => {
   abrirPantalla("pedidos");
 });
 
-function abrirPantalla(pantalla) {
-  switch (pantalla) {
-    case "productos":
-      pantallaPrincipal.classList.remove("show");
-      pantallaCategorias.classList.remove("show");
-      pantallaPedidos.classList.remove("show");
-      pantallaProductos.classList.add("show");
+btn_abrirViewProduct.addEventListener("click", () => {
+  abrirPantalla("verProduct");
+});
 
-      btn_abrirPrincipal.classList.remove("select");
-      btn_abrirCategoria.classList.remove("select");
-      btn_abrirPedidos.classList.remove("select");
+function abrirPantalla(pantalla) {
+  pantallaPrincipal.classList.remove("show");
+  pantallaCategorias.classList.remove("show");
+  pantallaPedidos.classList.remove("show");
+  pantallaVerProductos.classList.remove("show");
+  pantallaProductos.classList.remove("show");
+
+  btn_abrirPrincipal.classList.remove("select");
+  btn_abrirProductos.classList.remove("select");
+  btn_abrirPedidos.classList.remove("select");
+  btn_abrirViewProduct.classList.remove("select");
+  btn_abrirCategoria.classList.remove("select");
+
+  switch (pantalla) {
+    case "agregar":
+      pantallaProductos.classList.add("show");
       btn_abrirProductos.classList.add("select");
       break;
 
     case "categorias":
-      pantallaPrincipal.classList.remove("show");
-      pantallaProductos.classList.remove("show");
-      pantallaPedidos.classList.remove("show");
       pantallaCategorias.classList.add("show");
-
-      btn_abrirPrincipal.classList.remove("select");
-      btn_abrirProductos.classList.remove("select");
-      btn_abrirPedidos.classList.remove("select");
       btn_abrirCategoria.classList.add("select");
-
       break;
 
     case "pedidos":
-      pantallaPrincipal.classList.remove("show");
-      pantallaProductos.classList.remove("show");
-      pantallaCategorias.classList.remove("show");
       pantallaPedidos.classList.add("show");
-
-      btn_abrirPrincipal.classList.remove("select");
-      btn_abrirProductos.classList.remove("select");
-      btn_abrirCategoria.classList.remove("select");
       btn_abrirPedidos.classList.add("select");
       break;
+
+    case "verProduct":
+      pantallaVerProductos.classList.add("show");
+      btn_abrirViewProduct.classList.add("select");
+      break;
     default:
-      pantallaProductos.classList.remove("show");
-      pantallaCategorias.classList.remove("show");
-      pantallaPedidos.classList.remove("show");
       pantallaPrincipal.classList.add("show");
-
-      btn_abrirProductos.classList.remove("select");
-      btn_abrirCategoria.classList.remove("select");
-      btn_abrirPedidos.classList.remove("select");
       btn_abrirPrincipal.classList.add("select");
-
       break;
   }
 }
@@ -420,19 +412,19 @@ function validarFormatoInputs(
   return true;
 }
 
-abrirPantalla("pedidos");
+abrirPantalla("verProduct");
 abrirCerrarSidebar();
 
 const listaPedidos = document.querySelector(".list_pedidos");
+let colorFilaPedidos = true;
 
-let colorFila = true;
 for (let i = 0; i < 5; i++) {
-  colorFila = !colorFila;
+  colorFilaPedidos = !colorFilaPedidos;
 
   const fila = document.createElement("tr");
   fila.className = `fila_pedidos`;
 
-  if (!colorFila) {
+  if (!colorFilaPedidos) {
     fila.classList.add("fila_color");
   }
 
@@ -468,4 +460,69 @@ for (let i = 0; i < 5; i++) {
                       </td>`;
 
   listaPedidos.appendChild(fila);
+}
+
+const list_productos = document.querySelector(".list_productos");
+let colorFilaPrduct = false;
+
+for (let i = 0; i < 6; i++) {
+  colorFilaPrduct = !colorFilaPrduct;
+
+  const fila = document.createElement("tr");
+  fila.className = "fila_product";
+
+  if (!colorFilaPrduct) {
+    fila.classList.add("fila_color");
+  }
+
+  fila.innerHTML = `  <td>
+                      <div class="infoProduct_list">
+                        <div class="img_product_list">
+                          <img
+                            src="../public/icons/Images web/product1.png"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          style="
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                          "
+                        >
+                          <h5>Hizuku midoriya</h5>
+                          <p>PRO-00</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="text-align: center">
+                        <h5 class="categ_ProductList">Figuras anime</h5>
+                      </div>
+                    </td>
+                    <td>
+                      <h5>$3.50</h5>
+                    </td>
+                    <td><h5>4</h5></td>
+                    <td><h5 class="estadoProduct activo">Activo</h5></td>
+                    <td>
+                      <h5>30 may. 2026</h5>
+                      <p>10:30 pm</p>
+                    </td>
+                    <td>
+                      <div class="btns_acciones_pedidos">
+                        <button class="btnEdit_product">
+                          <span class="material-symbols-outlined"> edit </span>
+                        </button>
+                        <button class="btnEliminarProduct">
+                          <span class="material-symbols-outlined">
+                            delete
+                          </span>
+                        </button>
+                      </div>
+                    </td>
+                `;
+
+  list_productos.appendChild(fila);
 }

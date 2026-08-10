@@ -57,7 +57,7 @@
             </li>
             <li class="opcionSidebar productosPag">
               <span class="material-symbols-outlined">shopping_bag</span>
-              <p class="opcion-text">Productos</p>
+              <p class="opcion-text">Agregar productos</p>
             </li>
             <li class="opcionSidebar categoriaPag">
               <span class="material-symbols-outlined">category</span>
@@ -68,8 +68,8 @@
               <p class="opcion-text">Pedidos</p>
             </li>
             <li class="opcionSidebar inventarioPag">
-              <span class="material-symbols-outlined">inventory</span>
-              <p class="opcion-text">Inventario / Stock</p>
+              <span class="material-symbols-outlined"> storefront </span>
+              <p class="opcion-text">Productos</p>
             </li>
             <li class="opcionSidebar clientesPag">
               <span class="material-symbols-outlined">group</span>
@@ -635,6 +635,7 @@
               </div>
             </article>
           </section>
+
           <section class="interfaz_pedidos">
             <div class="topBarra_pedidos">
               <div class="infoPedidos">
@@ -739,6 +740,67 @@
                   </tfoot>
                 </table>
               </div>
+            </div>
+          </section>
+
+          <section class="interfaz_productView">
+            <div class="conedor_tabla_products">
+              <div class="headerSección">
+                <div style="display: flex; gap: 5px">
+                  <h3>Productos publicados</h3>
+                  <p>| Gestiona los productos disponibles en tu tienda.</p>
+                </div>
+                <div class="acciones_manipulacionList">
+                  <div class="inputProductosBuscar">
+                    <input
+                      type="search"
+                      placeholder="Buscar producto..."
+                    /><span class="material-symbols-outlined"> search </span>
+                  </div>
+                  <button class="ordenarProductos">
+                    <span
+                      style="font-size: 22px"
+                      class="material-symbols-outlined"
+                    >
+                      format_list_bulleted </span
+                    >Ordenar
+                  </button>
+                </div>
+              </div>
+
+              <table class="tabla_listProduct">
+                <thead>
+                  <tr style="border-top: 1px solid #dddddd">
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>En stock</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="list_productos"></tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="6" style="text-align: left">
+                      <p>Mostrado 10 de 20</p>
+                    </td>
+
+                    <td class="btn_mover_pagina_productos">
+                      <button class="atrasProductos">
+                        <span class="material-symbols-outlined">
+                          keyboard_arrow_left
+                        </span></button
+                      ><button class="sguienteProductos">
+                        <span class="material-symbols-outlined">
+                          keyboard_arrow_right
+                        </span>
+                      </button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
           </section>
         </div>
