@@ -283,7 +283,8 @@ section option:hover {
 .content.show,
 .interfaz_productos.show,
 .interfaz_categorias.show,
-.interfaz_pedidos.show {
+.interfaz_pedidos.show,
+.interfaz_productView.show {
   opacity: 1;
   pointer-events: auto;
 }
@@ -613,7 +614,8 @@ section option:hover {
 
 .infoProductos p,
 .infoCategoria p,
-.infoPedidos p {
+.infoPedidos p,
+.headerSección p {
   margin-top: 5px;
   font-size: 14px;
 }
