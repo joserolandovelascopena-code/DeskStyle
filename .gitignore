@@ -1,1 +1,5 @@
-**/.env
+# Archivos de configuración local y claves secretas
+.env
+
+# (carpetas que no deben subirse)
+.vscode/

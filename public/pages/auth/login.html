@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicia sesión | DeskStyle</title>
+    <link rel="stylesheet" href="./login.css" />
+
+    <link rel="icon" href="../../icons/favicon.png" type="image/png" />
+
+    <!-- Preconexión de Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Fuentes e Iconos -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="contenedor_main">
+      <h2>DeskStyle</h2>
+      <main>
+        <section class="contenidoForm">
+          <header style="text-align: center">
+            <h1>Inicia sesión o registrate</h1>
+            <p style="margin-top: 5px; color: rgb(94, 93, 93)">
+              Iniciar sesión para continuar comprando lo mejor para tu espacio.
+            </p>
+          </header>
+          <button class="btn_inicar_google">
+            <img src="../../icons/Images_web/google.png" alt="Logo de Google" />
+            <p>Continuar con Google</p>
+            <span class="circuloHover"></span>
+          </button>
+          <div class="lineDiv">
+            <div class="linea"></div>
+            <p>O regístrate con tu correo</p>
+            <div class="linea"></div>
+          </div>
+          <form class="formulario_content">
+            <div class="bordeFocus">
+              <div class="cajaInputText">
+                <span class="material-symbols-outlined"> mail </span>
+                <input
+                  type="email"
+                  id="correoUser"
+                  placeholder="Correo Electrónico"
+                  pattern="[a-zA-Z0-9._%\+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="bordeFocus">
+              <div class="cajaInputText2">
+                <span class="material-symbols-outlined"> lock </span>
+                <input
+                  type="password"
+                  id="passUser"
+                  placeholder="Contraseña"
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  required
+                />
+                <span class="material-symbols-outlined" id="bntVisblePass" ;>
+                  visibility_off
+                </span>
+              </div>
+            </div>
+            <div
+              class="enlaceRecoPass"
+              style="text-align: right; margin-bottom: 15px"
+            >
+              <a
+                href="./recover.html"
+                style="font-weight: 500; color: #3b60ff; font-size: 14px"
+                >¿Olvidades tu contraseña?</a
+              >
+            </div>
+
+            <button type="submit" id="btnRegistrar">Iniciar sesión</button>
+            <div class="enlace_tinda">
+              <a href="../../../index.html">Continuar sin cuenta</a>
+            </div>
+            <div class="enlace_registrar">
+              <a href="./register.html"
+                >¿No tienes cuenta?
+                <strong style="color: #ff8900">Crea una cuenta</strong>
+              </a>
+            </div>
+          </form>
+        </section>
+        <div class="img_logo">
+          <img
+            src="../../icons/logo_site_blanco.png"
+            alt="Logo DeskStyle"
+            loading="lazy"
+          />
+        </div>
+      </main>
+    </div>
+    <script type="module" src="../../js/pages/login.js"></script>
+  </body>
+</html>

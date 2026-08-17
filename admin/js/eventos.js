@@ -479,7 +479,7 @@ for (let i = 0; i < 6; i++) {
                       <div class="infoProduct_list">
                         <div class="img_product_list">
                           <img
-                            src="../public/icons/Images web/product1.png"
+                            src="../public/icons/Images_web/product1.png"
                             alt=""
                           />
                         </div>
