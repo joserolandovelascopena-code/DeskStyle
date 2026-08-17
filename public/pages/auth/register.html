@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Cuenta | DeskStyle</title>
+    <meta
+      name="description"
+      content="Crea una cuenta en DeskStyle para disfrutar de ofertas exclusivas, guardar tus artículos de decoración preferidos y gestionar tus pedidos fácilmente."
+    />
+    <meta name="robots" content="noindex, follow" />
+
+    <link
+      rel="canonical"
+      href="https://tu-usuario.github.io/nombre-del-repositorio/register.html"
+    />
+
+    <link rel="stylesheet" href="./register.css" />
+
+    <link rel="icon" href="../../icons/favicon.png" type="image/png" />
+
+    <!-- 3. Open Graph / WhatsApp, Facebook, LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://tu-usuario.github.io/nombre-del-repositorio/register.html"
+    />
+    <meta property="og:title" content="Únete a DeskStyle | Crea tu Cuenta" />
+    <meta
+      property="og:description"
+      content="Regístrate en DeskStyle y accede a descuentos exclusivos, listas de deseos y una experiencia de compra personalizada."
+    />
+
+    <!-- Imagen previa al compartir el enlace de Registro -->
+    <meta
+      property="og:image"
+      content="https://tu-usuario.github.io/nombre-del-repositorio/public/icons/banner_register.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://tu-usuario.github.io/nombre-del-repositorio/public/icons/banner_register.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- 4. Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:url"
+      content="https://tu-usuario.github.io/nombre-del-repositorio/register.html"
+    />
+    <meta name="twitter:title" content="Únete a DeskStyle | Crea tu Cuenta" />
+    <meta
+      name="twitter:description"
+      content="Regístrate en DeskStyle y accede a descuentos exclusivos, listas de deseos y una experiencia de compra personalizada."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tu-usuario.github.io/nombre-del-repositorio/public/icons/banner_register.png"
+    />
+    <!-- Preconexión de Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Fuentes e Iconos -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="main_container">
+      <section class="columnaDerecha">
+        <img
+          class="logoSite"
+          src="../../icons/logo_site_blanco.png"
+          alt="Logo de DeskStyle"
+        />
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <div class="contendido_login">
+            <div>
+              <h1>Crea tu cuenta</h1>
+              <p style="color: #3d3d3dfb; margin-top: 4px; font-size: 14px">
+                Unete a DeskStyle y transforma tu espcacio.
+              </p>
+              <button class="btn_inicar_google">
+                <img
+                  src="../../icons/Images_web/google.png"
+                  alt="Logo de Google"
+                />
+                <p>Continuar con Google</p>
+                <span class="circuloHover"></span>
+              </button>
+              <div class="lineDiv">
+                <div class="linea"></div>
+                <p>O regístrate con tu correo</p>
+                <div class="linea"></div>
+              </div>
+              <form class="formulario_content">
+                <div class="bordeFocus">
+                  <div class="cajaInputText">
+                    <span class="material-symbols-outlined"> person </span>
+                    <input
+                      type="text"
+                      id="nombreUser"
+                      placeholder="Nombre Completo"
+                      pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="bordeFocus">
+                  <div class="cajaInputText">
+                    <span class="material-symbols-outlined"> mail </span>
+                    <input
+                      type="email"
+                      id="correoUser"
+                      placeholder="Correo Electrónico"
+                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="bordeFocus">
+                  <div class="cajaInputText">
+                    <span class="material-symbols-outlined"> lock </span>
+                    <input
+                      type="password"
+                      id="passUser"
+                      placeholder="Contraseña"
+                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                      required
+                    />
+                    <span
+                      class="material-symbols-outlined"
+                      id="bntVisblePass"
+                      ;
+                    >
+                      visibility_off
+                    </span>
+                  </div>
+                </div>
+                <button type="submit" id="btnRegistrar">Crear cuenta</button>
+              </form>
+              <div
+                class="redirig_login"
+                style="margin-top: 20px; display: flex; justify-content: center"
+              >
+                <a style="display: flex; gap: 4px" href="./login.html"
+                  >¿Ya tienes una cuenta ?
+                  <p style="color: #ff8900; font-weight: 500">Inicia sesión</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="columnaIzquier">
+        <div style="display: flex; flex-direction: column; gap: 20px">
+          <article class="card_info">
+            <div class="icono_card">
+              <span class="material-symbols-outlined"> shopping_bag </span>
+            </div>
+            <div>
+              <h4>Productos únicos</h4>
+              <p>Diseños exclusivos para cada estilo.</p>
+            </div>
+          </article>
+          <article class="card_info">
+            <div class="icono_card">
+              <span class="material-symbols-outlined"> shield </span>
+            </div>
+            <div>
+              <h4>Compra segura</h4>
+              <p>Tus datos y pedidos estan siempre protengidos.</p>
+            </div>
+          </article>
+          <article class="card_info">
+            <div class="icono_card">
+              <span class="material-symbols-outlined"> support_agent </span>
+            </div>
+            <div>
+              <h4>Atención al cliente</h4>
+              <p>Estamos aquí para ayudarte en lo que necesites.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="../../js/pages/register.js"></script>
+  </body>
+</html>
