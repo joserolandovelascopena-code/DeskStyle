@@ -232,6 +232,133 @@ input {
 .enlace_registrar {
   margin-top: 15px;
   text-align: center;
-
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .contenedor_main {
+    padding: 20px;
+  }
+
+  .contenedor_main main {
+    min-height: calc(100vh - 40px);
+  }
+
+  .contenidoForm {
+    max-width: 430px;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor_main {
+    padding: 16px;
+  }
+
+  .contenedor_main main {
+    justify-content: flex-start;
+    padding-top: 30px;
+  }
+
+  .contenidoForm {
+    max-width: 100%;
+  }
+
+  .btn_inicar_google {
+    margin-top: 20px;
+  }
+
+  .lineDiv {
+    margin-top: 18px;
+  }
+
+  .formulario_content {
+    margin-top: 18px;
+  }
+
+  .cajaInputText,
+  .cajaInputText2 {
+    min-height: 46px;
+  }
+
+  .enlace_registrar {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .contenedor_main {
+    padding: 12px;
+  }
+
+  .contenedor_main main {
+    padding-top: 20px;
+  }
+
+  .btn_inicar_google {
+    font-size: 13px;
+    padding: 11px 10px;
+  }
+
+  .lineDiv p {
+    font-size: 12px;
+  }
+
+  .cajaInputText input,
+  .cajaInputText2 input {
+    font-size: 13px;
+  }
+
+  #btnRegistrar {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .contenidoForm {
+    max-width: 480px;
+  }
+
+  .contenedor_main {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .contenidoForm {
+    max-width: 520px;
+  }
+
+  .contenedor_main main {
+    transform: scale(1.03);
+  }
+}
+
+@media (min-width: 1920px) {
+  .contenidoForm {
+    max-width: 550px;
+  }
+
+  .contenedor_main {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  .contenedor_main main {
+    transform: scale(1.06);
+  }
+}
+
+@media (min-width: 2560px) {
+  .contenidoForm {
+    max-width: 600px;
+  }
+
+  .contenedor_main main {
+    transform: scale(1.1);
+  }
 }
