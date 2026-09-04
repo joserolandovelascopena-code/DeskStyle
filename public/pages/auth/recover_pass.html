@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Restablecer contraseña • DeskStyle</title>
+
+    <link
+      rel="shortcut icon"
+      href="../../icons/favicon.png"
+      type="image/x-icon"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+    />
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="stylesheet" href="./recover.css" />
+  </head>
+
+  <body>
+    <main class="contenedor_main">
+      <header class="header_recover">
+        <a href="../home/index.html" aria-label="Ir al inicio">
+          <img src="../../icons/logo_site_blanco.png" alt="DeskStyle" />
+        </a>
+      </header>
+
+      <section class="contenido_recover">
+        <div class="icono_recover">
+          <img
+            src="../../icons/Images_web/Reset_password-amico.png"
+            alt="SVG recver"
+          />
+        </div>
+
+        <div class="text_info_form">
+          <h1>Restablecer contraseña</h1>
+
+          <p>
+            Ingresa el correo electrónico asociado a tu cuenta y te enviaremos
+            un enlace para restablecer tu contraseña.
+          </p>
+        </div>
+
+        <form class="form_recover">
+          <div class="campo_form">
+            <label for="recover_correo"> Correo electrónico </label>
+            <div class="borderFocus">
+              <input
+                type="email"
+                id="recover_correo"
+                name="correo"
+                placeholder="Ingresa tu correo electrónico"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="btn_recover">
+            Enviar enlace de recuperación
+          </button>
+        </form>
+
+        <div class="volver_login">
+          <span class="material-symbols-outlined"> arrow_back </span>
+
+          <a href="./login.html"> Volver al inicio de sesión </a>
+        </div>
+      </section>
+
+      <footer class="footer_recover">
+        <span>© 2026 DeskStyle</span>
+
+        <div class="footer_links">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+          <a href="#">Soporte</a>
+        </div>
+      </footer>
+    </main>
+    <script type="module" src="../../js/pages/recover.js"></script>
+  </body>
+</html>

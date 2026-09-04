@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cambiar contraseña | DeskStyle</title>
+    <link
+      rel="shortcut icon"
+      href="../../icons/favicon.png"
+      type="image/x-icon"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+    />
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="stylesheet" href="./newPass.css" />
+  </head>
+  <body>
+    <main class="contenedor_main">
+      <header class="header_recover">
+        <a href="../home/index.html" aria-label="Ir al inicio">
+          <img src="../../icons/logo_site_blanco.png" alt="DeskStyle" />
+        </a>
+      </header>
+
+      <section class="contenido_recover">
+        <div class="icono_pass">
+          <span class="material-symbols-outlined"> lock </span>
+        </div>
+
+        <div class="text_info_form">
+          <h1>Cambiar contraseña</h1>
+
+          <p>
+            Ingresa tu nueva contraseña y confirma para actualizar el acceso a
+            tu cuenta.
+          </p>
+        </div>
+
+        <form class="form_recover">
+          <div class="campo_form">
+            <label for="change_pass"> Ingresa una nueva contraseña </label>
+
+            <div class="borderFocus" id="borderChangePass">
+              <div class="cajaInput">
+                <input
+                  type="password"
+                  id="change_pass"
+                  name="pass"
+                  placeholder="Contraseña"
+                  autocomplete="new-password"
+                  required
+                />
+
+                <span class="material-symbols-outlined" id="bntVisblePass">
+                  visibility_off
+                </span>
+              </div>
+            </div>
+
+            <div class="passFormato">
+              <p class="textInfo" id="textInfo">
+                La contraseña debe cumplir los requisitos de seguridad.
+              </p>
+            </div>
+
+            <label for="confirm_pass"> Confirmar contraseña </label>
+
+            <div class="borderFocus" id="borderConfirmPass">
+              <div class="cajaInput">
+                <input
+                  type="password"
+                  id="confirm_pass"
+                  name="confirm_pass"
+                  placeholder="Confirma la contraseña"
+                  autocomplete="new-password"
+                  required
+                />
+
+                <span
+                  class="material-symbols-outlined"
+                  id="bntVisblePassConfir"
+                >
+                  visibility_off
+                </span>
+              </div>
+            </div>
+
+            <p class="mensajeConfirmacion" id="mensajeConfirmacion"></p>
+          </div>
+
+          <button type="submit" class="btn_change">
+            <span class="material-symbols-outlined"> lock </span>
+
+            Actualizar contraseña
+          </button>
+        </form>
+      </section>
+      <div class="loader">
+        <div class="cont_loader">
+          <div class="loader_box">
+            <div class="spinner">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="loader_text">
+              <strong>Actualizando</strong>
+              <small>Contraseña...</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="../../js/pages/changePass.js"></script>
+  </body>
+</html>

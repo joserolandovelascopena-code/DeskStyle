@@ -200,7 +200,7 @@ input {
   border-radius: 8px;
 }
 
-.bordeFocus:focus-within {
+.bordeFocus.succes:focus-within {
   outline: 2px solid var(--colorAcento);
   outline-offset: 5px;
 }
@@ -233,6 +233,23 @@ input {
   margin-top: 15px;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.input1.error:focus-within,
+.input2.error:focus-within {
+  outline: 2px solid #dc3545;
+  outline-offset: 5px;
+}
+
+.error_acceso {
+  display: none;
+}
+
+.error_acceso.mostrar {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: #dc3545;
 }
 
 @media (max-width: 768px) {
