@@ -107,7 +107,7 @@
                 <div class="linea"></div>
               </div>
               <form class="formulario_content">
-                <div class="bordeFocus">
+                <div class="bordeFocus nombre">
                   <div class="cajaInputText">
                     <span class="material-symbols-outlined"> person </span>
                     <input
@@ -120,26 +120,24 @@
                   </div>
                 </div>
 
-                <div class="bordeFocus">
+                <div class="bordeFocus correo">
                   <div class="cajaInputText">
                     <span class="material-symbols-outlined"> mail </span>
                     <input
                       type="email"
                       id="correoUser"
                       placeholder="Correo Electrónico"
-                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                       required
                     />
                   </div>
                 </div>
-                <div class="bordeFocus">
+                <div class="bordeFocus contrasena">
                   <div class="cajaInputText">
                     <span class="material-symbols-outlined"> lock </span>
                     <input
                       type="password"
                       id="passUser"
                       placeholder="Contraseña"
-                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                       required
                     />
                     <span
@@ -151,6 +149,7 @@
                     </span>
                   </div>
                 </div>
+                <p class="mensaje_error" id="mensajeError">Error</p>
                 <button type="submit" id="btnRegistrar">Crear cuenta</button>
               </form>
               <div

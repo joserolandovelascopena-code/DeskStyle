@@ -243,13 +243,13 @@ input {
 
 .error_acceso {
   display: none;
+  text-align: center;
+  font-size: 13px;
+  color: #dc3545;
 }
 
 .error_acceso.mostrar {
   display: block;
-  text-align: center;
-  font-size: 13px;
-  color: #dc3545;
 }
 
 @media (max-width: 768px) {

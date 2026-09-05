@@ -1,4 +1,4 @@
-var agrgando = false;
+let agrgando = false;
 function agregarProduct(
   titulo,
   precio,

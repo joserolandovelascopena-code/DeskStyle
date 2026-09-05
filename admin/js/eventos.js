@@ -2,7 +2,7 @@ import { escoparHTML } from "../../public/js/security/sanitizarInputs.js";
 import { agregarProduct } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
 import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
-
+import { supabase } from "../../db/supabase.js";
 const gestor = new manejadorIMGs("imgPrincipal", ".previsualizarIMG", {
   maxTamano: 5 * 1024 * 1024,
 });
@@ -462,67 +462,81 @@ for (let i = 0; i < 5; i++) {
   listaPedidos.appendChild(fila);
 }
 
-const list_productos = document.querySelector(".list_productos");
-let colorFilaPrduct = false;
+// async function cargarProductos() {
+//   // Consulta a la base de datos
+//   const { data: productos, error } = await supabase
+//     .from("productos")
+//     .select("*");
 
-for (let i = 0; i < 6; i++) {
-  colorFilaPrduct = !colorFilaPrduct;
+//   if (error) {
+//     console.error("Error al obtener los datos:", error.message);
+//     return [];
+//   }
 
-  const fila = document.createElement("tr");
-  fila.className = "fila_product";
+//   return productos;
+// }
 
-  if (!colorFilaPrduct) {
-    fila.classList.add("fila_color");
-  }
+// // Función para renderizar los productos en la tabla
+// async function renderizarTabla() {
+//   const listBD_productos = await cargarProductos();
+//   const list_productos = document.querySelector(".list_productos");
 
-  fila.innerHTML = `  <td>
-                      <div class="infoProduct_list">
-                        <div class="img_product_list">
-                          <img
-                            src="../public/icons/Images_web/product1.png"
-                            alt=""
-                          />
-                        </div>
+//   if (!list_productos || !listBD_productos) return;
 
-                        <div
-                          style="
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                          "
-                        >
-                          <h5>Hizuku midoriya</h5>
-                          <p>PRO-00</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div style="text-align: center">
-                        <h5 class="categ_ProductList">Figuras anime</h5>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$3.50</h5>
-                    </td>
-                    <td><h5>4</h5></td>
-                    <td><h5 class="estadoProduct activo">Activo</h5></td>
-                    <td>
-                      <h5>30 may. 2026</h5>
-                      <p>10:30 pm</p>
-                    </td>
-                    <td>
-                      <div class="btns_acciones_pedidos">
-                        <button class="btnEdit_product">
-                          <span class="material-symbols-outlined"> edit </span>
-                        </button>
-                        <button class="btnEliminarProduct">
-                          <span class="material-symbols-outlined">
-                            delete
-                          </span>
-                        </button>
-                      </div>
-                    </td>
-                `;
+//   list_productos.innerHTML = "";
+//   let colorFilaPrduct = false;
 
-  list_productos.appendChild(fila);
-}
+//   listBD_productos.forEach((p) => {
+//     colorFilaPrduct = !colorFilaPrduct;
+
+//     const fila = document.createElement("tr");
+//     fila.className = "fila_product";
+
+//     if (!colorFilaPrduct) {
+//       fila.classList.add("fila_color");
+//     }
+
+//     fila.innerHTML = `
+//       <td>
+//         <div class="infoProduct_list">
+//           <div class="img_product_list">
+//             <img src="${p.imagen_url || "../public/icons/Images_web/product1.png"}" alt="${p.nombre || ""}" />
+//           </div>
+//           <div style="display: flex; flex-direction: column; justify-content: center;">
+//             <h5>${p.nombre || "Sin nombre"}</h5>
+//             <p>${p.codigo || "PRO-00"}</p>
+//           </div>
+//         </div>
+//       </td>
+//       <td>
+//         <div style="text-align: center">
+//           <h5 class="categ_ProductList">${p.categoria || "Sin categoría"}</h5>
+//         </div>
+//       </td>
+//       <td>
+//         <h5>$${p.precio ? p.precio.toFixed(2) : "0.00"}</h5>
+//       </td>
+//       <td><h5>${p.stock ?? 0}</h5></td>
+//       <td><h5 class="estadoProduct ${p.estado === "activo" ? "activo" : p.estado === "inactivo" ? "inactivo" : "borrador"}">
+//       ${p.estado === "activo" ? "Activo" : p.estado === "inactivo" ? "Inactivo" : "Borrador"}</h5></td>
+//       <td>
+//         <h5>${p.creado || "N/A"}</h5>
+//       </td>
+//       <td>
+//         <div class="btns_acciones_pedidos">
+//           <button class="btnEdit_product" data-id="${p.id}">
+//             <span class="material-symbols-outlined"> edit </span>
+//           </button>
+//           <button class="btnEliminarProduct" data-id="${p.id}">
+//             <span class="material-symbols-outlined"> delete </span>
+//           </button>
+//         </div>
+//       </td>
+//     `;
+
+//     list_productos.appendChild(fila);
+//   });
+// }
+
+// // Ejecutar la renderización al cargar
+// renderizarTabla();
