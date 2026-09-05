@@ -109,7 +109,7 @@
         -webkit-backdrop-filter: blur(20px);
       }
 
-      /*  SPINNER */
+      /* SPINNER */
 
       .spinner {
         display: block;
@@ -228,7 +228,6 @@
       .icono_succes {
         border-radius: 50%;
         background-color: #e6fde7;
-        display: flex;
         display: none;
         align-items: center;
         justify-content: center;
@@ -240,7 +239,7 @@
       }
 
       .icono_succes.mostrar {
-        display: block;
+        display: flex;
         pointer-events: auto;
         opacity: 1;
       }
@@ -248,6 +247,11 @@
       .icono_succes.succes span {
         font-size: 48px;
         color: var(--colorSucces);
+      }
+
+      /* Fondo rojo suave para el estado de error/denegado */
+      .icono_succes.error {
+        background-color: #fde8e8;
       }
 
       .icono_succes.error span {
@@ -341,32 +345,80 @@
       </div>
     </main>
 
-    <script>
-      const loader = document.querySelector(".loader");
+    <script type="module">
+      import { supabase } from "../../../db/supabase.js";
+
       const iconoSucces = document.querySelector(".icono_succes");
       const icono = document.querySelector(".icono_succes span");
       const spinner = document.querySelector(".spinner");
       const loaderText = document.querySelector(".loader_text");
 
-      let iconos = { succes: "check_circle", error: "error" };
+      const iconos = {
+        succes: "check_circle",
+        error: "cancel", // Ícono de acceso denegado/bloqueado
+      };
 
-      setTimeout(() => {
-        const accesoValido = true;
+      function mostrarEstadoError(titulo, subtitulo) {
+        spinner.classList.add("ocultar");
+        iconoSucces.classList.add("mostrar", "error");
+        icono.textContent = iconos.error;
+        loaderText.innerHTML = `<strong>${titulo}</strong><small>${subtitulo}</small>`;
+      }
 
-        if (accesoValido) {
+      async function verificarAcceso() {
+        try {
+          const hash = window.location.hash;
+          const params = new URLSearchParams(hash.substring(1));
+
+          const access_token = params.get("access_token");
+          const refresh_token = params.get("refresh_token");
+
+          if (!access_token && !refresh_token) {
+            mostrarEstadoError(
+              "Acceso denegado",
+              "No se proporcionó ningún token de acceso.",
+            );
+            return;
+          }
+
+          if (!access_token || !refresh_token) {
+            mostrarEstadoError(
+              "Acceso denegado",
+              "Parámetros de autenticación incompletos.",
+            );
+            return;
+          }
+
+          const { error } = await supabase.auth.setSession({
+            access_token,
+            refresh_token,
+          });
+
+          if (error) {
+            mostrarEstadoError(
+              "Acceso denegado",
+              "El token es inválido o ha expirado.",
+            );
+            return;
+          }
+
+          // Si todo sale bien
           spinner.classList.add("ocultar");
           iconoSucces.classList.add("mostrar", "succes");
+          icono.textContent = iconos.succes;
           loaderText.innerHTML =
             "<strong>Acceso verificado</strong><small>Redirigiendo...</small>";
-          icono.textContent = iconos.succes;
-        } else {
-          spinner.classList.add("ocultar");
-          iconoSucces.classList.add("mostrar", "error");
-          loaderText.innerHTML =
-            "<strong>Error de acceso</strong><small>Inténtalo nuevamente.</small>";
-          icono.textContent = iconos.error;
+
+          setTimeout(() => {
+            window.location.href = "../../index.html";
+          }, 1500);
+        } catch (err) {
+          console.error("Error inesperado:", err);
+          mostrarEstadoError("Acceso denegado", "Ocurrió un error inesperado.");
         }
-      }, 3000); // Simulación de 3 segundos de espera
+      }
+
+      verificarAcceso();
     </script>
   </body>
 </html>

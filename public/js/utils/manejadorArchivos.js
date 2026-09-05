@@ -6,7 +6,11 @@ export class manejadorIMGs {
     this.vistaPrev = document.querySelector(vistaPrev);
 
     this.maxTamano = opciones.maxTamano || 2 * 1024 * 1024;
-    this.tiposPermitidos = opciones.tiposPermitidos || ["image/"];
+    this.tiposPermitidos = opciones.tiposPermitidos || [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+    ];
 
     this.input.addEventListener("change", (e) => {
       this.procesarArchivos(e);

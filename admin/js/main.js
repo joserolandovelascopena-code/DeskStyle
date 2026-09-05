@@ -3,6 +3,7 @@ import { contenedorModales } from "../js/utils/modales.js";
 import { agregarProduct } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
 import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
+import { supabase } from "../../db/supabase.js";
 
 contenedorModales(".contenedor_modales", false);
 
