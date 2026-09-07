@@ -248,7 +248,7 @@ input {
   color: #dc3545;
 }
 
-.error_acceso.mostrar {
+.error_acceso.show {
   display: block;
 }
 

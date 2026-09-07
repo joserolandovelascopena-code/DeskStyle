@@ -69,6 +69,7 @@
               />
             </div>
           </div>
+          <p class="info_erro">Error</p>
 
           <button type="submit" class="btn_recover">
             Enviar enlace de recuperación
@@ -92,6 +93,50 @@
         </div>
       </footer>
     </main>
+    <div class="dialogConfirm" id="dialogConfirm">
+      <div class="conten_dialog">
+        <div class="header_dialog">
+          <button
+            type="button"
+            class="btnCerrar modal_close_icon"
+            aria-label="Cerrar modal"
+          >
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <div class="info_text">
+          <div class="status_badge">
+            <div class="icon_wrapper">
+              <span class="material-symbols-outlined icono_email"
+                >mark_email_read</span
+              >
+            </div>
+            <h3>¡Enlace enviado correctamente!</h3>
+          </div>
+
+          <p class="text_info">
+            Hemos enviado un enlace de recuperación de contraseña al correo
+            <strong id="correoConfirmacion">correo@ejemplo.com</strong>. Revisa
+            tu bandeja de entrada y sigue las instrucciones para continuar.
+          </p>
+
+          <div class="importante">
+            <span class="material-symbols-outlined info_icon">info</span>
+            <div>
+              <strong>Importante:</strong> Si no encuentras el correo, revisa la
+              carpeta de <em>Spam</em> o vuelve a solicitarlo en 1 minuto.
+            </div>
+          </div>
+
+          <div class="btnContenedor">
+            <button type="button" class="btnCerrar btn_confirm">
+              Entendido
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="../../js/pages/recover.js"></script>
   </body>
 </html>

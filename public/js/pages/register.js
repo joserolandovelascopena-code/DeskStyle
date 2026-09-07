@@ -1,5 +1,4 @@
-import { signup } from "../../../db/auth.js";
-import { escoparHTML } from "../../js/security/sanitizarInputs.js";
+import { signup, authWithGoogle } from "../../../db/auth.js";
 import { verContraseña } from "../utils/utils.js";
 
 new verContraseña("passUser", "bntVisblePass");
@@ -240,3 +239,9 @@ if (btnSignup) {
     }
   });
 }
+
+const btnGoogle = document.querySelector(".googleProviders");
+
+btnGoogle.onclick = () => {
+  authWithGoogle();
+};

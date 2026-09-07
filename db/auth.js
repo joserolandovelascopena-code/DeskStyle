@@ -22,7 +22,7 @@ export async function signup(fullName, email, password) {
 
 //LOGIN
 export async function login(email, password) {
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -34,24 +34,18 @@ export async function login(email, password) {
 
     throw error;
   }
+}
 
-  const user = data.user;
+export async function authWithGoogle() {
+  const appBase = "/DeskStyle";
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${window.location.origin}${appBase}/index.html`,
+    },
+  });
 
-  const { data: profile } = await supabaseClient
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-  if (!profile) {
-    await supabaseClient.from("profiles").insert({
-      id: user.id,
-      full_name: user.user_metadata.full_name ?? null,
-      avatar_url: null,
-    });
-  }
-
-  return user;
+  if (error) throw error;
 }
 
 export async function createProfile(userId, email) {
@@ -67,29 +61,12 @@ export async function createProfile(userId, email) {
 
 export async function logout() {
   await supabaseClient.auth.signOut();
-  window.location.href = "./pages/autentication/login.html";
-}
-
-export async function protectRoute() {
-  const {
-    data: { user },
-  } = await supabaseClient.auth.getUser();
-
-  if (!user) {
-    //window.location.href = "./pages/autentication/login.html";
-    return;
-  }
-
-  if (!user.email_confirmed_at) {
-    //await supabaseClient.auth.signOut();
-    window.location.href = "./pages/autentication/login.html";
-  }
 }
 
 export async function recoverPassword(email) {
-  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo:
-      "https://joserolandovelascopena-code.github.io/SmartTasks/pages/autentication/reset-password.html",
+      "https://joserolandovelascopena-code.github.io/DeskStyle/public/pages/auth/new_pass.html",
   });
 
   if (error) throw error;
