@@ -242,6 +242,10 @@ if (btnSignup) {
 
 const btnGoogle = document.querySelector(".googleProviders");
 
-btnGoogle.onclick = () => {
-  authWithGoogle();
+btnGoogle.onclick = async () => {
+  try {
+    await authWithGoogle();
+  } catch (error) {
+    console.error(error);
+  }
 };

@@ -1,5 +1,5 @@
 import { login, authWithGoogle } from "../../../db/auth.js";
-import { verContraseña, validarCorreo } from "../utils/utils.js";
+import { verContraseña, validarCorreo, createLoader } from "../utils/utils.js";
 
 const verPass = new verContraseña("passUser", "bntVisblePass");
 const validarEmail = new validarCorreo(
@@ -7,6 +7,9 @@ const validarEmail = new validarCorreo(
   ".error_acceso",
   ".input1",
 );
+
+const loaderSytem = new createLoader(".loader");
+loaderSytem.crear();
 
 class borderFocus {
   constructor(elementId) {
@@ -97,17 +100,28 @@ btnRegistrarse.addEventListener("click", async (e) => {
 
   const correo = document.getElementById("correoUser").value.trim();
   const contrasena = document.getElementById("passUser").value.trim();
+
   try {
+    loaderSytem.textLoader("Iniciando sesión", "Verificando credenciales...");
+    loaderSytem.mostrarLoder();
+
     await login(correo, contrasena);
 
     window.location.href = "../../../../index.html";
   } catch (error) {
-    infoError.textContent = error;
+    infoError.textContent = error.message;
+    infoError.classList.add("show");
+  } finally {
+    loaderSytem.ocultarLoder();
   }
 });
 
 const btnGoogle = document.querySelector(".googleProviders");
 
-btnGoogle.onclick = () => {
-  authWithGoogle();
+btnGoogle.onclick = async () => {
+  try {
+    await authWithGoogle();
+  } catch (error) {
+    console.error(error);
+  }
 };

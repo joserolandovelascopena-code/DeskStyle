@@ -1,4 +1,4 @@
-import { validarCorreo } from "../utils/utils.js";
+import { validarCorreo, createLoader } from "../utils/utils.js";
 import { recoverPassword } from "../../../db/auth.js";
 
 // Instancia del validador de correo
@@ -7,6 +7,9 @@ const validator = new validarCorreo(
   ".info_erro",
   ".borderFocus",
 );
+
+const loaderSytem = new createLoader(".loader");
+loaderSytem.crear();
 
 const btnRecuperar = document.querySelector(".btn_recover");
 const inputCorreo = document.getElementById("recover_correo");
@@ -32,18 +35,32 @@ btnRecuperar?.addEventListener("click", async (e) => {
 
   try {
     const esValido = validator.validar();
-
     if (!esValido) return;
+
+    loaderSytem.textLoader(
+      "Procesando solicitud",
+      "Enviando enlace de recuperación...",
+    );
+    loaderSytem.mostrarLoder();
 
     const emailIngresado = inputCorreo ? inputCorreo.value.trim() : "";
 
     await recoverPassword(emailIngresado);
 
     abrirModal(emailIngresado);
-    inputCorreo.value = "";
+
+    if (inputCorreo) inputCorreo.value = "";
+    if (infoError) {
+      infoError.textContent = "";
+      infoError.classList.remove("show");
+    }
   } catch (error) {
-    infoError.textContent = error;
-    infoError.classList.add("show");
+    if (infoError) {
+      infoError.textContent = error.message;
+      infoError.classList.add("show");
+    }
+  } finally {
+    loaderSytem.ocultarLoder();
   }
 });
 
