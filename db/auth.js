@@ -29,20 +29,27 @@ export async function login(email, password) {
 
   if (error) {
     if (error.message.includes("Invalid login credentials")) {
-      throw new Error("Correo o contraseña incorrectos");
+      throw new Error("Correo o contraseña incorrectos.");
+    }
+    if (error.message.includes("Email not confirmed")) {
+      throw new Error(
+        "Debes confirmar tu correo electrónico antes de ingresar.",
+      );
+    }
+    if (error.message.includes("Too many requests")) {
+      throw new Error("Demasiados intentos fallidos. Intenta más tarde.");
     }
 
-    throw error;
+    throw new Error("Ocurrió un error al iniciar sesión. Inténtalo de nuevo.");
   }
 }
 
 export async function authWithGoogle() {
-  const appBase = "/DeskStyle";
+  const redirectTo = new URL("../index.html", import.meta.url).href;
+
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
-    options: {
-      redirectTo: `${window.location.origin}${appBase}/index.html`,
-    },
+    options: { redirectTo },
   });
 
   if (error) throw error;
@@ -69,7 +76,32 @@ export async function recoverPassword(email) {
       "https://joserolandovelascopena-code.github.io/DeskStyle/public/pages/auth/new_pass.html",
   });
 
-  if (error) throw error;
+  if (error) {
+    const msg = error.message.toLowerCase();
+
+    if (
+      msg.includes("rate limit") ||
+      msg.includes("over_email_send_rate_limit")
+    ) {
+      throw new Error(
+        "Has realizado demasiadas solicitudes. Espera un momento antes de reintentar.",
+      );
+    }
+
+    if (msg.includes("user not found") || msg.includes("invalid email")) {
+      throw new Error(
+        "No existe ninguna cuenta vinculada a este correo electrónico.",
+      );
+    }
+
+    if (msg.includes("network") || msg.includes("failed to fetch")) {
+      throw new Error("Error de conexión. Revisa tu red e inténtalo de nuevo.");
+    }
+
+    throw new Error(
+      "No se pudo enviar el correo de recuperación. Inténtalo más tarde.",
+    );
+  }
 }
 
 export async function updatePassword(newPass) {

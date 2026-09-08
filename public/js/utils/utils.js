@@ -93,3 +93,62 @@ export class validarCorreo {
     this.borderInput.classList.add("exito");
   }
 }
+
+export class createLoader {
+  constructor(contenedor) {
+    this.loader = document.querySelector(contenedor);
+  }
+
+  crear() {
+    if (!this.loader) return;
+    const content_loader = document.createElement("div");
+
+    content_loader.className = "cont_loader";
+
+    content_loader.innerHTML = `<div class="loader_box">
+            <div class="spinner">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="loader_text">
+              <strong class="tituloLoader">Actualizando</strong>
+              <small class="text_loader">Contraseña...</small>
+            </div>
+          </div>`;
+    this.loader.appendChild(content_loader);
+  }
+
+  textLoader(titulo1, text_info) {
+    const cont = this.loader.querySelector(".cont_loader");
+    if (!cont) return;
+
+    const titulo = cont.querySelector(".tituloLoader");
+    const textLoader = cont.querySelector(".text_loader");
+
+    titulo.textContent = titulo1;
+    textLoader.textContent = text_info;
+  }
+
+  mostrarLoder() {
+    const cont = this.loader.querySelector(".cont_loader");
+    if (!cont) return;
+    this.loader.classList.add("mostrar");
+  }
+
+  ocultarLoder() {
+    const cont = this.loader.querySelector(".cont_loader");
+    if (!cont) return;
+    this.loader.classList.remove("mostrar");
+  }
+}

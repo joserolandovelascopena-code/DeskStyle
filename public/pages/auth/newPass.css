@@ -331,32 +331,26 @@ a {
   transform: translateY(1px);
 }
 
+/*LOADER*/
 .loader {
   position: fixed;
   inset: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(245, 245, 247, 0.58);
-
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
-
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-
   z-index: 9999;
-
   transition:
     opacity 0.35s ease,
     visibility 0.35s ease;
 }
 
 /* Loader visible */
-
 .loader.mostrar {
   opacity: 1;
   visibility: visible;
@@ -367,28 +361,21 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-
   animation: loaderAppear 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .loader_box {
   min-width: 190px;
-
   padding: 24px 30px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   border-radius: 24px;
-
   border: 1px solid rgba(255, 255, 255, 0.8);
-
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.1),
     0 4px 16px rgba(0, 0, 0, 0.05);
-
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -397,12 +384,9 @@ a {
 
 .spinner {
   position: relative;
-
   width: 42px;
   height: 42px;
-
   margin-bottom: 17px;
-
   animation: spinnerRotate 1.2s linear infinite;
 }
 
@@ -410,23 +394,15 @@ a {
 
 .spinner span {
   position: absolute;
-
   top: 0;
   left: 50%;
-
   width: 4px;
   height: 11px;
-
   margin-left: -2px;
-
   border-radius: 999px;
-
   background: var(--colorPrimario);
-
   transform-origin: 2px 21px;
-
   opacity: 0;
-
   animation: spinnerFade 1.2s linear infinite;
 }
 
@@ -526,10 +502,6 @@ a {
   letter-spacing: 0.1px;
 }
 
-/* =========================================
-   ANIMACIONES
-========================================= */
-
 @keyframes spinnerRotate {
   from {
     transform: rotate(0deg);
@@ -566,10 +538,7 @@ a {
   }
 }
 
-/* =========================================
-   REDUCIR ANIMACIONES
-   Accesibilidad
-========================================= */
+/*REDUCIR ANIMACIONES*/
 
 @media (prefers-reduced-motion: reduce) {
   .spinner {
