@@ -1,4 +1,4 @@
-import { validarCorreo, createLoader } from "../utils/utils.js";
+import { validarCorreo, CreateLoader } from "../utils/utils.js";
 import { recoverPassword } from "../../../db/auth.js";
 
 // Instancia del validador de correo
@@ -8,8 +8,8 @@ const validator = new validarCorreo(
   ".borderFocus",
 );
 
-const loaderSytem = new createLoader(".loader");
-loaderSytem.crear();
+const loaderSystem = new CreateLoader(".loader");
+loaderSystem.crear();
 
 const btnRecuperar = document.querySelector(".btn_recover");
 const inputCorreo = document.getElementById("recover_correo");
@@ -37,11 +37,11 @@ btnRecuperar?.addEventListener("click", async (e) => {
     const esValido = validator.validar();
     if (!esValido) return;
 
-    loaderSytem.textLoader(
+    loaderSystem.textLoader(
       "Procesando solicitud",
       "Enviando enlace de recuperación...",
     );
-    loaderSytem.mostrarLoder();
+    loaderSystem.mostrarLoader();
 
     const emailIngresado = inputCorreo ? inputCorreo.value.trim() : "";
 
@@ -60,7 +60,7 @@ btnRecuperar?.addEventListener("click", async (e) => {
       infoError.classList.add("show");
     }
   } finally {
-    loaderSytem.ocultarLoder();
+    loaderSystem.ocultarLoader();
   }
 });
 

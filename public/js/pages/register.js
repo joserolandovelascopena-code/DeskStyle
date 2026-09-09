@@ -1,7 +1,10 @@
 import { signup, authWithGoogle } from "../../../db/auth.js";
-import { verContraseña } from "../utils/utils.js";
+import { verContraseña, CreateLoader } from "../utils/utils.js";
 
-new verContraseña("passUser", "bntVisblePass");
+const verPass = new verContraseña("passUser", "bntVisblePass");
+
+const loaderSystem = new CreateLoader(".loader");
+loaderSystem.crear();
 
 const btnSignup = document.getElementById("btnRegistrar");
 const borderNombre = document.querySelector(".nombre");
@@ -228,6 +231,9 @@ if (btnSignup) {
       borderCorreo?.classList.remove("error");
       borderContrasena?.classList.remove("error");
 
+      loaderSystem.textLoader("Validando datos...", "Creando tu cuenta...");
+      loaderSystem.mostrarLoader();
+
       const email = document.getElementById("correoUser").value.trim();
       const password = document.getElementById("passUser").value.trim();
       const fullName = document.getElementById("nombreUser").value.trim();
@@ -236,6 +242,8 @@ if (btnSignup) {
     } catch (error) {
       mensajeErrorGlobal.mostrarMensaje("Error al registrar usuario.");
       console.error("Error crítico durante el registro:", error);
+    } finally {
+      loaderSystem.ocultarLoader();
     }
   });
 }

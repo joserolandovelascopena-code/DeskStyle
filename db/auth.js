@@ -16,16 +16,30 @@ export async function signup(fullName, email, password) {
   });
 
   if (error) throw error;
-
-  return data.user;
 }
 
 //LOGIN
 export async function login(email, password) {
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
+
+  const user = data.user;
+
+  const { data: perfil } = await supabase
+    .from("perfil")
+    .select("*")
+    .eq("id_auth", user.id)
+    .single();
+
+  if (!perfil) {
+    await supabase.from("perfil").insert({
+      id_auth: user.id,
+      nombre: user.user_metadata.fullName ?? null,
+      correo: user.user_metadata.email ?? null,
+    });
+  }
 
   if (error) {
     if (error.message.includes("Invalid login credentials")) {
@@ -53,21 +67,6 @@ export async function authWithGoogle() {
   });
 
   if (error) throw error;
-}
-
-export async function createProfile(userId, email) {
-  const { error } = await supabaseClient.from("profiles").insert({
-    id: userId,
-    email,
-    nombre: null,
-    foto_url: null,
-  });
-
-  if (error) throw error;
-}
-
-export async function logout() {
-  await supabaseClient.auth.signOut();
 }
 
 export async function recoverPassword(email) {
