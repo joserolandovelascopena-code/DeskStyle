@@ -239,6 +239,11 @@ if (btnSignup) {
       const fullName = document.getElementById("nombreUser").value.trim();
 
       await signup(fullName, email, password);
+
+      window.location.href = new URL(
+        "../../pages/auth/login.html",
+        import.meta.url,
+      ).href;
     } catch (error) {
       mensajeErrorGlobal.mostrarMensaje("Error al registrar usuario.");
       console.error("Error crítico durante el registro:", error);

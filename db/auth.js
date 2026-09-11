@@ -18,28 +18,11 @@ export async function signup(fullName, email, password) {
   if (error) throw error;
 }
 
-//LOGIN
 export async function login(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
-
-  const user = data.user;
-
-  const { data: perfil } = await supabase
-    .from("perfil")
-    .select("*")
-    .eq("id_auth", user.id)
-    .single();
-
-  if (!perfil) {
-    await supabase.from("perfil").insert({
-      id_auth: user.id,
-      nombre: user.user_metadata.fullName ?? null,
-      correo: user.user_metadata.email ?? null,
-    });
-  }
 
   if (error) {
     if (error.message.includes("Invalid login credentials")) {
@@ -56,6 +39,33 @@ export async function login(email, password) {
 
     throw new Error("Ocurrió un error al iniciar sesión. Inténtalo de nuevo.");
   }
+
+  const user = data.user;
+
+  const { data: perfil, error: perfilError } = await supabase
+    .from("perfil")
+    .select("id_perfil")
+    .eq("id_auth", user.id)
+    .maybeSingle();
+
+  if (perfilError) {
+    console.error("Error al consultar perfil:", perfilError.message);
+  }
+
+  if (!perfil) {
+    const nombreUsuario =
+      user.user_metadata?.fullName ||
+      user.user_metadata?.full_name ||
+      user.email.split("@")[0];
+
+    const { error: insertError } = await supabase.from("perfil").insert({
+      id_auth: user.id,
+      nombre: nombreUsuario,
+      correo: user.email,
+    });
+  }
+
+  return data;
 }
 
 export async function authWithGoogle() {
@@ -104,6 +114,25 @@ export async function recoverPassword(email) {
 }
 
 export async function updatePassword(newPass) {
-  const { error } = await supabaseClient.auth.updateUser({ password: newPass });
-  if (error) throw error;
+  if (!newPass || newPass.trim().length < 8) {
+    throw new Error("La contraseña debe tener al menos 8 caracteres.");
+  }
+
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPass,
+  });
+
+  if (error) {
+    const msg = error.message.toLowerCase();
+
+    if (msg.includes("same_password")) {
+      throw new Error("La nueva contraseña no puede ser igual a la anterior.");
+    }
+
+    throw new Error(
+      "Ocurrió un error al actualizar la contraseña. Inténtalo más tarde.",
+    );
+  }
+
+  return data;
 }

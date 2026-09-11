@@ -93,6 +93,7 @@ export class validarCorreo {
     this.borderInput.classList.add("exito");
   }
 }
+
 export class CreateLoader {
   constructor(contenedor) {
     this.loader = document.querySelector(contenedor);

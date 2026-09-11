@@ -1,17 +1,22 @@
-import { verContraseña } from "../utils/utils.js";
+import { verContraseña, CreateLoader } from "../utils/utils.js";
+import { updatePassword } from "../../../db/auth.js";
 
 const btn_change = document.querySelector(".btn_change");
+const nuevaContrasena = document.getElementById("confirm_pass");
+const errorActualizar = document.querySelector(".errorActualizar");
+
 const verPass = new verContraseña("change_pass", "bntVisblePass");
 const verPassConfirm = new verContraseña("confirm_pass", "bntVisblePassConfir");
 
 const form = document.querySelector(".form_recover");
 const loader = document.querySelector(".loader");
 
-let contrasenaValida = false;
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 });
+
+const loaderSystem = new CreateLoader(".loader");
+loaderSystem.crear();
 
 class validarContrasena {
   constructor(password, confirmPassword, textInfo, mensajeConfirmacion) {
@@ -91,7 +96,6 @@ class validarContrasena {
     this.mensajeConfirmacion.classList.add("mostrar");
     this.mensajeConfirmacion.textContent = "Las contraseñas coinciden.";
     this.estadosInput(true, true);
-    contrasenaValida = true;
     return true;
   }
 
@@ -132,13 +136,32 @@ const validar = new validarContrasena(
   "textInfo",
   "mensajeConfirmacion",
 );
-btn_change.addEventListener("click", () => {
-  cambiarContrasena();
-});
 
-function cambiarContrasena() {
-  if (contrasenaValida) {
-    loader.classList.add("mostrar");
-    return;
+btn_change.addEventListener("click", async () => {
+  window.location.href = new URL(
+    "../../pages/auth/login.html",
+    import.meta.url,
+  ).href;
+  const isValido = validar.validar();
+
+  if (!isValido) return;
+
+  const contrasena = nuevaContrasena.value.trim();
+
+  try {
+    errorActualizar.classList.remove("mostrar");
+    loaderSystem.textLoader(
+      "Actualizando contraseña..",
+      "Espere un momento...",
+    );
+
+    loaderSystem.mostrarLoader();
+
+    await updatePassword(contrasena);
+  } catch (error) {
+    errorActualizar.textContent = error.message;
+    errorActualizar.classList.add("mostrar");
+  } finally {
+    loaderSystem.ocultarLoader();
   }
-}
+});
