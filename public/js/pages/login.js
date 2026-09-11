@@ -1,5 +1,5 @@
 import { login, authWithGoogle } from "../../../db/auth.js";
-import { verContraseña, validarCorreo, createLoader } from "../utils/utils.js";
+import { verContraseña, validarCorreo, CreateLoader } from "../utils/utils.js";
 
 const verPass = new verContraseña("passUser", "bntVisblePass");
 const validarEmail = new validarCorreo(
@@ -8,8 +8,8 @@ const validarEmail = new validarCorreo(
   ".input1",
 );
 
-const loaderSytem = new createLoader(".loader");
-loaderSytem.crear();
+const loaderSystem = new CreateLoader(".loader");
+loaderSystem.crear();
 
 class borderFocus {
   constructor(elementId) {
@@ -102,17 +102,17 @@ btnRegistrarse.addEventListener("click", async (e) => {
   const contrasena = document.getElementById("passUser").value.trim();
 
   try {
-    loaderSytem.textLoader("Iniciando sesión", "Verificando credenciales...");
-    loaderSytem.mostrarLoder();
+    loaderSystem.textLoader("Iniciando sesión", "Verificando credenciales...");
+    loaderSystem.mostrarLoader();
 
     await login(correo, contrasena);
 
-    window.location.href = "../../../../index.html";
+    window.location.href = new URL("../../../index.html", import.meta.url).href;
   } catch (error) {
     infoError.textContent = error.message;
     infoError.classList.add("show");
   } finally {
-    loaderSytem.ocultarLoder();
+    loaderSystem.ocultarLoader();
   }
 });
 
