@@ -136,3 +136,30 @@ export async function updatePassword(newPass) {
 
   return data;
 }
+
+export async function loginAdmin(email, password) {
+  const { data: authData, error: authError } =
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+  if (authError) {
+    throw new Error("Credenciales incorrectas.");
+  }
+
+  const userId = authData.user.id;
+
+  const { data: perfil, error: perfilError } = await supabase
+    .from("perfil")
+    .select("rol")
+    .eq("id_auth", userId)
+    .maybeSingle();
+
+  if (perfilError || !perfil || perfil.rol !== "admin") {
+    await supabase.auth.signOut();
+    throw new Error("Acceso denegado: No tienes permisos de administrador");
+  }
+
+  return authData;
+}

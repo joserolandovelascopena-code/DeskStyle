@@ -29,6 +29,7 @@
     <meta name="robots" content="noindex, nofollow" />
 
     <link rel="stylesheet" href="./login-admin.css" />
+    <link rel="stylesheet" href="../../public/css/utils.css/style_loader.css" />
   </head>
 
   <body>
@@ -73,7 +74,7 @@
               <div class="bordeFocus">
                 <label for="correoAdmin"> Correo electrónico </label>
 
-                <div class="cajaInputText">
+                <div class="cajaInputText input1">
                   <span class="material-symbols-outlined"> mail </span>
 
                   <input
@@ -90,7 +91,7 @@
               <div class="bordeFocus">
                 <label for="passAdmin"> Contraseña </label>
 
-                <div class="cajaInputText">
+                <div class="cajaInputText input2">
                   <span class="material-symbols-outlined"> lock </span>
 
                   <input
@@ -135,6 +136,8 @@
                 <span>Iniciar sesión</span>
               </button>
             </form>
+
+            <p class="textError">Error</p>
 
             <div class="seguridad_login">
               <span class="material-symbols-outlined"> verified_user </span>
@@ -229,6 +232,8 @@
         </div>
       </section>
     </main>
+
+    <div class="loader"></div>
 
     <script type="module" src="./pages_auth.js"></script>
   </body>

@@ -2,7 +2,8 @@ import { escoparHTML } from "../../public/js/security/sanitizarInputs.js";
 import { agregarProduct } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
 import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
-import { supabase } from "../../db/supabase.js";
+import { validarGlobalInput } from "./utils/utils_dashboard.js";
+
 const gestor = new manejadorIMGs("imgPrincipal", ".previsualizarIMG", {
   maxTamano: 5 * 1024 * 1024,
 });
@@ -411,6 +412,37 @@ function validarFormatoInputs(
 
   return true;
 }
+
+const btnAgregarCategoria = document.querySelector(".agregarCateg");
+
+const validarNombreCateg = new validarGlobalInput(
+  "nombreCatego",
+  "text",
+  3,
+  100,
+);
+
+btnAgregarCategoria.addEventListener("click", async () => {
+  const resultado = validarNombreCateg.validar();
+  const descripcion = document.getElementById("descripcionCateg");
+  const valor = descripcion.value.trim();
+
+  if (resultado !== true) {
+    mostrarToast(resultado.titulo, resultado.subTitulo, "error");
+    return;
+  }
+
+  if (valor.length > 0 && valor.length < 150) {
+    descripcion.focus();
+    mostrarToast(
+      "Descripción insuficiente",
+      "La descripción debe incluir al menos 40 caracteres para ser detallada.",
+      "aviso",
+      5000,
+    );
+    return;
+  }
+});
 
 abrirPantalla("verProduct");
 abrirCerrarSidebar();
