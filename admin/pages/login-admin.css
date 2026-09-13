@@ -9,9 +9,9 @@
   --colorBlanco: #ffffff;
   --colorDegradadoNaranja: #ffefdd;
   --colorBorde: #dcdcdc;
-
+  --colorSucces: #28a745;
+  --colorError: #dc3545;
   --sombraSuave: 0 4px 18px rgba(0, 4, 24, 0.08);
-
   --sombraCard: 0 8px 30px rgba(0, 0, 0, 0.18);
 }
 
@@ -213,6 +213,11 @@ a {
   background: var(--colorBlanco);
   border-color: var(--colorAcento);
   box-shadow: 0 0 0 3px rgba(59, 96, 255, 0.12);
+}
+
+.cajaInputText.error:focus-within {
+  border-color: var(--colorError);
+  box-shadow: 0 0 0 3px rgba(255, 59, 108, 0.12);
 }
 
 .cajaInputText > span:first-child {
@@ -512,18 +517,26 @@ a {
 
 .feature_card h3 {
   font-size: 12px;
-
   font-weight: 600;
 }
 
 .feature_card p {
   margin-top: 4px;
-
   color: #60646c;
-
   font-size: 10px;
-
   line-height: 1.35;
+}
+
+.textError {
+  color: var(--colorError);
+  font-size: 12px;
+  margin-top: 15px;
+  text-align: center;
+  display: none;
+}
+
+.textError.show {
+  display: block;
 }
 
 /* ANIMACIONES */

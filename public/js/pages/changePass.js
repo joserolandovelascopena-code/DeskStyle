@@ -138,10 +138,6 @@ const validar = new validarContrasena(
 );
 
 btn_change.addEventListener("click", async () => {
-  window.location.href = new URL(
-    "../../pages/auth/login.html",
-    import.meta.url,
-  ).href;
   const isValido = validar.validar();
 
   if (!isValido) return;
@@ -158,6 +154,10 @@ btn_change.addEventListener("click", async () => {
     loaderSystem.mostrarLoader();
 
     await updatePassword(contrasena);
+    window.location.href = new URL(
+      "../../pages/auth/login.html",
+      import.meta.url,
+    ).href;
   } catch (error) {
     errorActualizar.textContent = error.message;
     errorActualizar.classList.add("mostrar");
