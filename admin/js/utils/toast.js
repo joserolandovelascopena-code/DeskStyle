@@ -1,6 +1,6 @@
 function seleccionarIcono(tipo) {
   const iconos = {
-    suceso: "check_circle",
+    exito: "check_circle",
     error: "cancel",
     aviso: "warning",
     info: "info",
@@ -14,7 +14,7 @@ function eliminarToast(toast) {
   toast.classList.add("saliendo");
   setTimeout(() => {
     toast.remove();
-  }, 300);
+  }, 260);
 }
 
 function mostrarToast(titulo, mensaje, tipo = "info", duracion = 4000) {

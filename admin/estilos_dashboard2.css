@@ -7,7 +7,7 @@
 
 #toast_contenedor {
   position: fixed;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
   z-index: 999;
   display: flex;
@@ -72,7 +72,7 @@
 }
 
 /*Estados Toast*/
-.toast.suceso {
+.toast.exito {
   border-bottom-color: var(--colorSucces);
 }
 
@@ -88,7 +88,7 @@
   border-bottom-color: var(--colorInfo);
 }
 
-.toast.suceso .icono_Toast span {
+.toast.exito .icono_Toast span {
   color: var(--colorSucces);
 }
 
@@ -264,6 +264,18 @@
   font-size: 14px;
 }
 
+.privisualizarImgCatgoria {
+  display: grid;
+  place-items: center;
+  background: #fcfcfc;
+  width: 100%;
+  border-radius: 10px;
+  padding: 24px 16px;
+  box-shadow: 0 0 2px #a5bad8;
+  height: auto;
+  margin-bottom: 30px;
+}
+
 /*Columna de derecha*/
 .tabla_exitent_categ {
   width: 100%;
@@ -278,6 +290,10 @@
 
 .tabla_exitent_categ tr {
   border-bottom: 1px solid #dddddd;
+}
+
+.fila_listaCateg.fila_color {
+  background: #f1f3f5;
 }
 
 .tabla_exitent_categ th {
@@ -308,11 +324,11 @@
 }
 
 .btnsAcciones_categ button {
+  background: var(--colorBlanco);
   display: flex;
   place-items: center;
   padding: 10px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  background: transparent;
   border-radius: 8px;
   cursor: pointer;
 }
