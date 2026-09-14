@@ -1,12 +1,19 @@
 import { escoparHTML } from "../../public/js/security/sanitizarInputs.js";
-import { agregarProduct } from "./dashboard.js";
+import { agregarProduct, Dashboard } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
 import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
 import { validarGlobalInput } from "./utils/utils_dashboard.js";
 
-const gestor = new manejadorIMGs("imgPrincipal", ".previsualizarIMG", {
+const imgProducto = new manejadorIMGs("imgPrincipal", ".previsualizarIMG", {
   maxTamano: 5 * 1024 * 1024,
 });
+const imgCategoria = new manejadorIMGs(
+  "subirIMg_Categ",
+  ".privisualizarImgCatgoria",
+  {
+    maxTamano: 5 * 1024 * 1024,
+  },
+);
 
 const sidebar = document.querySelector(".sidebar");
 const toggleBtn = document.querySelector(".layout_toggle");
@@ -374,7 +381,7 @@ function validarFormatoInputs(
     return;
   }
 
-  let img = gestor.archivoObtnido();
+  let img = imgProducto.archivoObtnido();
 
   if (!img) {
     mostrarToast(
@@ -423,17 +430,22 @@ const validarNombreCateg = new validarGlobalInput(
 );
 
 btnAgregarCategoria.addEventListener("click", async () => {
-  const resultado = validarNombreCateg.validar();
-  const descripcion = document.getElementById("descripcionCateg");
-  const valor = descripcion.value.trim();
+  // 1. Obtención de elementos y valores del DOM
+  const nombreInput = document.getElementById("nombreCatego");
+  const descripcionInput = document.getElementById("descripcionCateg");
 
+  const nombre = nombreInput.value.trim();
+  const descripcion = descripcionInput.value.trim();
+  const imgURL = imgCategoria.archivoObtnido();
+
+  const resultado = validarNombreCateg.validar();
   if (resultado !== true) {
-    mostrarToast(resultado.titulo, resultado.subTitulo, "error");
+    mostrarToast(resultado.titulo, resultado.subTitulo, "error", 5000);
     return;
   }
 
-  if (valor.length > 0 && valor.length < 150) {
-    descripcion.focus();
+  if (descripcion.length > 0 && descripcion.length < 40) {
+    descripcionInput.focus();
     mostrarToast(
       "Descripción insuficiente",
       "La descripción debe incluir al menos 40 caracteres para ser detallada.",
@@ -442,9 +454,31 @@ btnAgregarCategoria.addEventListener("click", async () => {
     );
     return;
   }
+
+  if (!imgURL) {
+    mostrarToast(
+      "Imagen requerida",
+      "Debes seleccionar o adjuntar una imagen para la categoría.",
+      "aviso",
+      5000,
+    );
+    return;
+  }
+
+  Dashboard.agregarCategoria(
+    escoparHTML(nombre),
+    escoparHTML(descripcion),
+    imgURL,
+  );
+
+  nombreInput.value = "";
+  descripcionInput.value = "";
+  imgCategoria.limpiarPrevisualizacion(
+    "../public/icons/Images_web/image-files.png",
+  );
 });
 
-abrirPantalla("verProduct");
+abrirPantalla("categorias");
 abrirCerrarSidebar();
 
 const listaPedidos = document.querySelector(".list_pedidos");

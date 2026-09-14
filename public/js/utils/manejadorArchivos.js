@@ -14,7 +14,6 @@ export class manejadorIMGs {
 
     this.input.addEventListener("change", (e) => {
       this.procesarArchivos(e);
-      this.archivoObtnido();
     });
   }
 
@@ -27,9 +26,7 @@ export class manejadorIMGs {
       return;
     }
 
-    const tipoValido = this.tiposPermitidos.some((tipo) =>
-      archivo.type.startsWith(tipo),
-    );
+    const tipoValido = this.tiposPermitidos.includes(archivo.type);
 
     if (!tipoValido) {
       mostrarToast(
@@ -67,8 +64,19 @@ export class manejadorIMGs {
     render.readAsDataURL(archivo);
   }
 
+  limpiarPrevisualizacion(urlBase) {
+    this.archivoValido = null;
+
+    this.input.value = "";
+
+    const contendorPriew = this.vistaPrev.querySelector("img");
+
+    if (contendorPriew) {
+      contendorPriew.src = urlBase;
+    }
+  }
+
   archivoObtnido() {
-    console.log(this.archivoValido);
     return this.archivoValido;
   }
 }
