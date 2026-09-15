@@ -1,9 +1,11 @@
 import { request } from "../../public/js/repositories/request.js";
-import { mostrarToast } from "./utils/toast.js";
+import { mostrarToast, ocultarToast } from "./utils/toast.js";
 import {
   renderizarCategorias,
   renderizarListaCategorias,
 } from "./utils/crearHTML.js";
+
+let agrgandoProduct = false;
 
 const Dashboard = {
   async cargarCategorias() {
@@ -37,7 +39,14 @@ const Dashboard = {
   },
 
   async agregarCategoria(nombre, descripcion, imgURL) {
+    let loaderToast;
     try {
+      loaderToast = mostrarToast(
+        "Guardando Categoria",
+        "Procesando la solicitud...",
+        "loader",
+      );
+
       const objetoCategoria = {
         nombre: nombre,
         descripcion: descripcion || "Sin descripción.",
@@ -47,6 +56,7 @@ const Dashboard = {
       await request.nuevaCategoria(objetoCategoria);
 
       this.cargarCategoriasExistentes();
+      this.cargarCategorias();
 
       mostrarToast(
         "Categoría agregada",
@@ -61,6 +71,80 @@ const Dashboard = {
         "error",
         5000,
       );
+    } finally {
+      ocultarToast(loaderToast);
+    }
+  },
+
+  async agregarProducto(
+    titulo,
+    precio,
+    marca,
+    orginalPrecio,
+    descrip,
+    stock,
+    peso,
+    material,
+    largo,
+    ancho,
+    alto,
+    categoria,
+    estado,
+    imageURL,
+  ) {
+    let loaderToast;
+    if (agrgandoProduct) {
+      mostrarToast(
+        "Acción denegada",
+        `Se encuentra agregando un producto en este momento.`,
+        "aviso",
+        5000,
+      );
+      return;
+    }
+
+    try {
+      loaderToast = mostrarToast(
+        "Guardando producto",
+        "Procesando datos y solicitud...",
+        "loader",
+      );
+
+      const objetoProducto = {
+        titulo: titulo,
+        precio: precio,
+        marca: marca,
+        orginalPrecio: orginalPrecio,
+        descrip: descrip,
+        stock: stock || 1,
+        peso: peso,
+        material: material,
+        largo: largo,
+        ancho: ancho,
+        alto: alto,
+        categoria: categoria,
+        estado: estado,
+        imagen: imageURL,
+      };
+
+      await request.nuevoProducto(objetoProducto);
+
+      mostrarToast(
+        "Producto creado",
+        "El producto se ha creado correctamente.",
+        "exito",
+        5000,
+      );
+    } catch (error) {
+      mostrarToast(
+        "No se pudo agregar el producto",
+        `Error: ${error.message || error}`,
+        "error",
+        5000,
+      );
+    } finally {
+      ocultarToast(loaderToast);
+      agrgandoProduct = false;
     }
   },
 
@@ -72,26 +156,4 @@ const Dashboard = {
 
 Dashboard.init();
 
-let agrgando = false;
-function agregarProduct(
-  titulo,
-  precio,
-  marca,
-  orginalPrecio,
-  id,
-  descrip,
-  stock,
-  peso,
-  material,
-  largo,
-  ancho,
-  alto,
-  categoria,
-  estado,
-) {
-  agrgando = true;
-  console.log(`Categoría: ${categoria}`);
-  console.log(`Estado: ${estado}`);
-}
-
-export { agregarProduct, Dashboard };
+export { Dashboard };
