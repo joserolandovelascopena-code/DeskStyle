@@ -130,7 +130,7 @@
                 </div>
                 <div class="targeta-info">
                   <h4>Productos</h4>
-                  <p id="total_productos">0</p>
+                  <p id="total_productos" class="pTotal">0</p>
                   <button class="btn-primario">
                     <p>Ver todos</p>
                     <span class="material-symbols-outlined">
@@ -145,7 +145,7 @@
                 </div>
                 <div class="targeta-info">
                   <h4>Pedidos</h4>
-                  <p id="total_pedidos">0</p>
+                  <p id="total_pedidos" class="pTotal">0</p>
                   <button class="btn-secundario">
                     <p>Ver pedidos</p>
                     <span class="material-symbols-outlined">
@@ -160,7 +160,7 @@
                 </div>
                 <div class="targeta-info">
                   <h4>Inventario</h4>
-                  <p id="total_inventario">0</p>
+                  <p id="total_inventario" class="pTotal">0</p>
                   <button class="btn-terciario">
                     <p>Ver productos</p>
                     <span class="material-symbols-outlined">
@@ -175,7 +175,7 @@
                 </div>
                 <div class="targeta-info">
                   <h4>Clientes</h4>
-                  <p id="total_clientes">0</p>
+                  <p id="total_clientes" class="pTotal">0</p>
                   <button class="btn-cuaternario">
                     <p>Ver clientes</p>
                     <span class="material-symbols-outlined">
@@ -331,6 +331,7 @@
                         type="number"
                         id="precioOriginal"
                         class="precioOriginal"
+                        min="0"
                         placeholder="$0.00"
                       />
                     </div>
@@ -340,7 +341,12 @@
                     <br />
 
                     <label for="id_product">Código (ID)</label>
-                    <input type="text" id="id_product" placeholder="PRO-001" />
+                    <input
+                      type="text"
+                      disabled
+                      id="id_product"
+                      placeholder="PRO-001"
+                    />
                     <p>Código único del producto (Automático)</p>
                   </div>
 
@@ -354,6 +360,7 @@
                         type="number"
                         id="precio"
                         class="precio"
+                        min="0"
                         placeholder="$0.00"
                       />
                     </div>
@@ -500,6 +507,7 @@
                   <input
                     type="number"
                     id="stockProduct"
+                    min="1"
                     class="input_Derecha"
                     placeholder="Cantidad en Stock"
                   />
@@ -509,6 +517,7 @@
                   <input
                     type="number"
                     id="pesoProduct"
+                    min="0"
                     class="input_Derecha"
                     placeholder="kg 0.00"
                   />
@@ -528,15 +537,15 @@
                   </p>
                   <div class="dimencionesProduct">
                     <div>
-                      <input type="number" id="largo" placeholder="0" />
+                      <input type="number" id="largo" min="0" placeholder="0" />
                       <p>Largo</p>
                     </div>
                     <div>
-                      <input type="number" id="ancho" placeholder="0" />
+                      <input type="number" id="ancho" min="0" placeholder="0" />
                       <p>Ancho</p>
                     </div>
                     <div>
-                      <input type="number" id="alto" placeholder="0" />
+                      <input type="number" id="alto" min="0" placeholder="0" />
                       <p>Alto</p>
                     </div>
                   </div>

@@ -112,6 +112,94 @@ const request = {
 
     return categoria;
   },
+
+  async nuevoProducto(nuevoProducto) {
+    const { data: producto, error: productoError } = await supabase
+      .from("productos")
+      .insert({
+        id_categoria: nuevoProducto.categoria,
+        nombre: nuevoProducto.titulo,
+        precio: nuevoProducto.precio,
+        precio_original: nuevoProducto.orginalPrecio,
+        marca: nuevoProducto.marca,
+        descripcion: nuevoProducto.descrip,
+        stock: nuevoProducto.stock,
+      })
+      .select("id_producto")
+      .single();
+
+    if (productoError) {
+      throw new Error(productoError.message);
+    }
+
+    // Crear ruta única
+    const extension = nuevoProducto.imagen.name.split(".").pop();
+    const rutaImagen = `${producto.id_producto}/imagen.${extension}`;
+
+    // Subir imagen
+    const { error: storageError } = await supabase.storage
+      .from("productos")
+      .upload(rutaImagen, nuevoProducto.imagen, {
+        upsert: true,
+        contentType: nuevoProducto.imagen.type,
+      });
+
+    if (storageError) {
+      throw new Error(storageError.message);
+    }
+
+    // Guardar referencia
+    const { error: modificarError } = await supabase
+      .from("productos")
+      .update({
+        url_img_product: rutaImagen,
+      })
+      .eq("id_producto", producto.id_producto);
+
+    if (modificarError) {
+      throw new Error(modificarError.message);
+    }
+
+    const { error: detallesError } = await supabase
+      .from("producto_detalle")
+      .insert({
+        id_producto: producto.id_producto,
+        peso: nuevoProducto.peso,
+        material: nuevoProducto.material,
+        largo: nuevoProducto.largo,
+        alto: nuevoProducto.alto,
+        ancho: nuevoProducto.ancho,
+        estadoproduct: nuevoProducto.estado,
+      });
+
+    if (detallesError) {
+      throw new Error(detallesError.message);
+    }
+  },
+
+  async cargarResumen() {
+    const { count: productosTotal, error: totalError } = await supabase
+      .from("productos")
+      .select("*", { count: "exact", head: true });
+
+    if (totalError) {
+      throw new Error(totalError.message);
+    }
+
+    const { data: inventarioTotal, error: inventarioTotalError } =
+      await supabase.rpc("total_inventario");
+
+    if (inventarioTotalError) {
+      throw new Error(inventarioTotalError.message);
+    }
+
+    const resumenDashboard = {
+      total_product: productosTotal,
+      total_inventario: inventarioTotal,
+    };
+
+    return resumenDashboard;
+  },
 };
 
 export { request };

@@ -1,9 +1,11 @@
 import { request } from "../../public/js/repositories/request.js";
+import { mostrarToast } from "./utils/toast.js";
 
 let perfil = null;
+let catProduct = null;
 
-const userStore = {
-  async cargar() {
+const cargarUI = {
+  async cargarUsuario() {
     if (perfil) {
       return perfil;
     }
@@ -13,12 +15,9 @@ const userStore = {
     return perfil;
   },
 
-  obtener() {
-    return perfil;
-  },
-
-  limpiar() {
-    perfil = null;
+  async cargarTotal_Resumen() {
+    const resultado = await request.cargarResumen();
+    return resultado;
   },
 };
 
@@ -77,19 +76,42 @@ function configurarAvatar(nombre) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const datos_usuario = await userStore.cargar();
+  try {
+    const datos_usuario = await cargarUI.cargarUsuario();
+    const datos_resumen = await cargarUI.cargarTotal_Resumen();
 
-  if (!datos_usuario) {
-    return;
+    const totalProductos = datos_resumen.total_product;
+    const totalInventario = datos_resumen.total_inventario;
+
+    if (!datos_usuario || !datos_resumen) {
+      return;
+    }
+
+    const nombreUsuario = document.querySelector(".nombre_usuario");
+    const totalProduct = document.getElementById("total_productos");
+    const totalInven = document.getElementById("total_inventario");
+
+    if (nombreUsuario) {
+      nombreUsuario.textContent = datos_usuario.nombre;
+    }
+
+    if (totalProduct) {
+      totalProduct.textContent = totalProductos;
+    }
+
+    if (totalInven) {
+      totalInven.textContent = totalInventario;
+    }
+
+    configurarAvatar(datos_usuario.nombre);
+  } catch (error) {
+    mostrarToast(
+      "Error al obtener datos",
+      "Ocurrio un error al obtner los datos en la DB.",
+      "error",
+      5000,
+    );
   }
-
-  const nombreUsuario = document.querySelector(".nombre_usuario");
-
-  if (nombreUsuario) {
-    nombreUsuario.textContent = datos_usuario.nombre;
-  }
-
-  configurarAvatar(datos_usuario.nombre);
 });
 
-export { userStore };
+export { cargarUI };

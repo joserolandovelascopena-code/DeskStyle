@@ -35,7 +35,6 @@ function renderizarListaCategorias(contenedor, data) {
 
     fila.className = "fila_listaCateg";
 
-    // Guardamos el ID de la categoría en la fila
     fila.dataset.idCategoria = categoria.id_categoria;
 
     colorFilaPedidos = !colorFilaPedidos;

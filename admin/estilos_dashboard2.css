@@ -88,6 +88,10 @@
   border-bottom-color: var(--colorInfo);
 }
 
+.toast.loader {
+  border-bottom-color: var(--colorInfo);
+}
+
 .toast.exito .icono_Toast span {
   color: var(--colorSucces);
 }
@@ -101,6 +105,10 @@
 }
 
 .toast.info .icono_Toast span {
+  color: var(--colorInfo);
+}
+
+.toast.loader .icono_Toast span {
   color: var(--colorInfo);
 }
 
@@ -123,6 +131,28 @@
   to {
     transform: translateX(120%);
     opacity: 0;
+  }
+}
+
+.spinner_toast {
+  display: none;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #3498db;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: giro 0.8s linear infinite;
+}
+
+@keyframes giro {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

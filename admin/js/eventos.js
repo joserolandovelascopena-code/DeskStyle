@@ -1,5 +1,5 @@
 import { escoparHTML } from "../../public/js/security/sanitizarInputs.js";
-import { agregarProduct, Dashboard } from "./dashboard.js";
+import { Dashboard } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
 import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
 import { validarGlobalInput } from "./utils/utils_dashboard.js";
@@ -178,7 +178,6 @@ const tituloProduct1 = document.getElementById("titulo");
 const precioVenta1 = document.getElementById("precio");
 const marcaProduct1 = document.getElementById("marca_product");
 const precioOriginal1 = document.getElementById("precioOriginal");
-const id_producto1 = document.getElementById("id_product");
 const descripconProduct1 = document.getElementById("descripcionProduct");
 
 const stockProduct1 = document.getElementById("stockProduct");
@@ -189,34 +188,14 @@ const largoProduct1 = document.getElementById("largo");
 const anchoProduct1 = document.getElementById("ancho");
 const altoProduct1 = document.getElementById("alto");
 
-btnGuardarProduct.onclick = () => {
-  validarFormatoInputs(
-    tituloProduct1.value.trim(),
-    precioVenta1.value.trim(),
-    marcaProduct1.value.trim(),
-    precioOriginal1.value.trim(),
-    id_producto1.value.trim(),
-    descripconProduct1.value.trim(),
-    stockProduct1.value.trim(),
-    pesoProduct1.value.trim(),
-    materialProduct1.value.trim(),
-    largoProduct1.value.trim(),
-    anchoProduct1.value.trim(),
-    altoProduct1.value.trim(),
-  );
-};
-
-let elementoSelect = new selectorGlobal(".select_Categoria");
-let estadoSelect = new estadoProduct();
-
-let hayError = false;
+let categoriaSelect = new selectorGlobal(".select_Categoria");
+let estadoProductoSelect = new estadoProduct();
 
 function validarFormatoInputs(
   titulo,
   precio,
   marca,
   orginalPrecio,
-  id,
   descrip,
   stock,
   peso,
@@ -234,7 +213,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   let numeroInput = formarFormatoNumero(precio);
@@ -246,7 +225,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   numeroInput = formarFormatoNumero(orginalPrecio);
@@ -258,10 +237,10 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
-  let esSeleccion = elementoSelect.esValido();
+  let esSeleccion = categoriaSelect.esValido();
   if (!esSeleccion) {
     document.querySelector(".select_Categoria").focus();
     mostrarToast(
@@ -270,19 +249,7 @@ function validarFormatoInputs(
       "aviso",
       5000,
     );
-    return;
-  }
-
-  textoInput = escoparHTML(id);
-  if (textoInput.length < 1) {
-    id_producto1.focus();
-    mostrarToast(
-      "Identificador requerido",
-      "Ingresa el código ID o SKU del producto.",
-      "error",
-      5000,
-    );
-    return;
+    return false;
   }
 
   textoInput = escoparHTML(marca);
@@ -294,7 +261,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   textoInput = escoparHTML(descrip);
@@ -306,7 +273,7 @@ function validarFormatoInputs(
       "aviso",
       5000,
     );
-    return;
+    return false;
   }
 
   numeroInput = formarFormatoNumero(stock);
@@ -318,7 +285,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   numeroInput = formarFormatoNumero(peso);
@@ -330,7 +297,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   textoInput = escoparHTML(material);
@@ -342,7 +309,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   numeroInput = formarFormatoNumero(largo);
@@ -354,7 +321,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   numeroInput = formarFormatoNumero(ancho);
@@ -366,7 +333,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   numeroInput = formarFormatoNumero(alto);
@@ -378,7 +345,7 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
 
   let img = imgProducto.archivoObtnido();
@@ -390,35 +357,75 @@ function validarFormatoInputs(
       "error",
       5000,
     );
-    return;
+    return false;
   }
-  // Si todas las validaciones pasan
-  agregarProduct(
-    titulo,
-    precio,
-    marca,
-    orginalPrecio,
-    id,
-    descrip,
-    stock,
-    peso,
-    material,
-    largo,
-    ancho,
-    alto,
-    elementoSelect.obtenerEvaluador(),
-    estadoSelect.obtenerEvaluador(),
-  );
-
-  mostrarToast(
-    "Producto guardado",
-    "El producto se ha registrado correctamente en el sistema.",
-    "suceso",
-    4000,
-  );
-
   return true;
 }
+
+btnGuardarProduct.addEventListener("click", () => {
+  const esValido = validarFormatoInputs(
+    tituloProduct1.value.trim(),
+    precioVenta1.value.trim(),
+    marcaProduct1.value.trim(),
+    precioOriginal1.value.trim(),
+    descripconProduct1.value.trim(),
+    stockProduct1.value.trim(),
+    pesoProduct1.value.trim(),
+    materialProduct1.value.trim(),
+    largoProduct1.value.trim(),
+    anchoProduct1.value.trim(),
+    altoProduct1.value.trim(),
+  );
+
+  if (!esValido) return;
+
+  const imgURL = imgProducto.archivoObtnido();
+
+  const tituloProduct = tituloProduct1.value.trim();
+  const precioVenta = precioVenta1.value.trim();
+  const marcaProduct = marcaProduct1.value.trim();
+  const precioOriginal = precioOriginal1.value.trim();
+  const descripconProduct = descripconProduct1.value.trim();
+  const stockProduct = stockProduct1.value.trim();
+  const pesoProduct = pesoProduct1.value.trim();
+  const materialProduct = materialProduct1.value.trim();
+  const largoProduct = largoProduct1.value.trim();
+  const anchoProduct = anchoProduct1.value.trim();
+  const altoProduct = altoProduct1.value.trim();
+
+  Dashboard.agregarProducto(
+    escoparHTML(tituloProduct),
+    formarFormatoNumero(precioVenta),
+    escoparHTML(marcaProduct),
+    formarFormatoNumero(precioOriginal),
+    escoparHTML(descripconProduct),
+    stockProduct,
+    formarFormatoNumero(pesoProduct),
+    escoparHTML(materialProduct),
+    formarFormatoNumero(largoProduct),
+    formarFormatoNumero(anchoProduct),
+    formarFormatoNumero(altoProduct),
+
+    categoriaSelect.obtenerEvaluador(),
+    estadoProductoSelect.obtenerEvaluador(),
+    imgURL,
+  );
+
+  tituloProduct1.value = "";
+  precioVenta1.value = "";
+  marcaProduct1.value = "";
+  precioOriginal1.value = "";
+  descripconProduct1.value = "";
+  stockProduct1.value = "";
+  pesoProduct1.value = "";
+  materialProduct1.value = "";
+  largoProduct1.value = "";
+  anchoProduct1.value = "";
+  altoProduct1.value = "";
+  imgProducto.limpiarPrevisualizacion(
+    "../public/icons/Images_web/image-files.png",
+  );
+});
 
 const btnAgregarCategoria = document.querySelector(".agregarCateg");
 
@@ -478,7 +485,7 @@ btnAgregarCategoria.addEventListener("click", async () => {
   );
 });
 
-abrirPantalla("categorias");
+abrirPantalla("agregar");
 abrirCerrarSidebar();
 
 const listaPedidos = document.querySelector(".list_pedidos");
