@@ -176,6 +176,37 @@ const request = {
       throw new Error(detallesError.message);
     }
   },
+  async cargarListaProductos() {
+    const { data: productos, error: productosError } = await supabase
+      .from("productos")
+      .select(
+        `id_producto,
+       nombre,
+       precio,
+       stock,
+       url_img_product,
+       creado,
+       nombre_categoria:categorias(nombre),
+       detalle:producto_detalle(estadoproduct)`,
+      );
+
+    if (productosError) {
+      throw new Error(productosError.message);
+    }
+
+    const listaProductos = productos.map((producto) => {
+      const { data } = supabase.storage
+        .from("productos")
+        .getPublicUrl(producto.url_img_product);
+
+      return {
+        ...producto,
+        publicUrl: data.publicUrl,
+      };
+    });
+
+    return listaProductos;
+  },
 
   async cargarResumen() {
     const { count: productosTotal, error: totalError } = await supabase
@@ -184,6 +215,14 @@ const request = {
 
     if (totalError) {
       throw new Error(totalError.message);
+    }
+
+    const { count: usuariosTotal, error: usuariosError } = await supabase
+      .from("perfil")
+      .select("*", { count: "exact", head: true });
+
+    if (usuariosError) {
+      throw new Error(usuariosError.message);
     }
 
     const { data: inventarioTotal, error: inventarioTotalError } =
@@ -196,6 +235,7 @@ const request = {
     const resumenDashboard = {
       total_product: productosTotal,
       total_inventario: inventarioTotal,
+      total_usuarios: usuariosTotal,
     };
 
     return resumenDashboard;

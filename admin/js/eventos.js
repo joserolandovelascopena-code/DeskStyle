@@ -60,6 +60,11 @@ const btn_abrirViewProduct = document.querySelector(".inventarioPag");
 const btn_abrirClientes = document.querySelector(".clientesPag");
 const btn_abrirConfiguracion = document.querySelector(".configuracionPag");
 
+const btnAbrirProductos = document.querySelectorAll(".btn_ver_productos");
+const btnAbrirGlobalProducto = document.querySelectorAll(
+  ".agregarProductGlobal",
+);
+
 btn_abrirPrincipal.addEventListener("click", () => {
   abrirPantalla("principal");
 });
@@ -78,6 +83,18 @@ btn_abrirPedidos.addEventListener("click", () => {
 
 btn_abrirViewProduct.addEventListener("click", () => {
   abrirPantalla("verProduct");
+});
+
+btnAbrirProductos.forEach((boton) => {
+  boton.addEventListener("click", () => {
+    abrirPantalla("verProduct");
+  });
+});
+
+btnAbrirGlobalProducto.forEach((boton) => {
+  boton.addEventListener("click", () => {
+    abrirPantalla("agregar");
+  });
 });
 
 function abrirPantalla(pantalla) {
@@ -485,7 +502,7 @@ btnAgregarCategoria.addEventListener("click", async () => {
   );
 });
 
-abrirPantalla("agregar");
+abrirPantalla("verProduct");
 abrirCerrarSidebar();
 
 const listaPedidos = document.querySelector(".list_pedidos");
@@ -534,82 +551,3 @@ for (let i = 0; i < 5; i++) {
 
   listaPedidos.appendChild(fila);
 }
-
-// async function cargarProductos() {
-//   // Consulta a la base de datos
-//   const { data: productos, error } = await supabase
-//     .from("productos")
-//     .select("*");
-
-//   if (error) {
-//     console.error("Error al obtener los datos:", error.message);
-//     return [];
-//   }
-
-//   return productos;
-// }
-
-// // Función para renderizar los productos en la tabla
-// async function renderizarTabla() {
-//   const listBD_productos = await cargarProductos();
-//   const list_productos = document.querySelector(".list_productos");
-
-//   if (!list_productos || !listBD_productos) return;
-
-//   list_productos.innerHTML = "";
-//   let colorFilaPrduct = false;
-
-//   listBD_productos.forEach((p) => {
-//     colorFilaPrduct = !colorFilaPrduct;
-
-//     const fila = document.createElement("tr");
-//     fila.className = "fila_product";
-
-//     if (!colorFilaPrduct) {
-//       fila.classList.add("fila_color");
-//     }
-
-//     fila.innerHTML = `
-//       <td>
-//         <div class="infoProduct_list">
-//           <div class="img_product_list">
-//             <img src="${p.imagen_url || "../public/icons/Images_web/product1.png"}" alt="${p.nombre || ""}" />
-//           </div>
-//           <div style="display: flex; flex-direction: column; justify-content: center;">
-//             <h5>${p.nombre || "Sin nombre"}</h5>
-//             <p>${p.codigo || "PRO-00"}</p>
-//           </div>
-//         </div>
-//       </td>
-//       <td>
-//         <div style="text-align: center">
-//           <h5 class="categ_ProductList">${p.categoria || "Sin categoría"}</h5>
-//         </div>
-//       </td>
-//       <td>
-//         <h5>$${p.precio ? p.precio.toFixed(2) : "0.00"}</h5>
-//       </td>
-//       <td><h5>${p.stock ?? 0}</h5></td>
-//       <td><h5 class="estadoProduct ${p.estado === "activo" ? "activo" : p.estado === "inactivo" ? "inactivo" : "borrador"}">
-//       ${p.estado === "activo" ? "Activo" : p.estado === "inactivo" ? "Inactivo" : "Borrador"}</h5></td>
-//       <td>
-//         <h5>${p.creado || "N/A"}</h5>
-//       </td>
-//       <td>
-//         <div class="btns_acciones_pedidos">
-//           <button class="btnEdit_product" data-id="${p.id}">
-//             <span class="material-symbols-outlined"> edit </span>
-//           </button>
-//           <button class="btnEliminarProduct" data-id="${p.id}">
-//             <span class="material-symbols-outlined"> delete </span>
-//           </button>
-//         </div>
-//       </td>
-//     `;
-
-//     list_productos.appendChild(fila);
-//   });
-// }
-
-// // Ejecutar la renderización al cargar
-// renderizarTabla();

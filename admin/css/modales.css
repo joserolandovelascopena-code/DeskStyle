@@ -1,3 +1,12 @@
+:root {
+  --bg: #fbfdff;
+  --colorPrimario: #000418;
+  --colorSecundario: #ff8900;
+  --colorTerciario: #d9e1ed;
+  --colorAcento: #3b60ff;
+  --borderInput: #2b97fc;
+}
+
 .contenedor_modales {
   transition: 0.2s ease-out;
   opacity: 0;
@@ -8,14 +17,14 @@
   height: 100%;
   width: 100%;
   position: fixed;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   display: grid;
   place-items: center;
 }
 
 /*Logica para modales*/
 
-.contenedor_modales.show {
+.contenedor_modales.mostrar {
   opacity: 1;
   pointer-events: auto;
 }
@@ -23,19 +32,22 @@
 /*Editar_Categoria*/
 
 .cont_editar_categ {
-  opacity: 0;
-  pointer-events: none;
+  scale: 0.8;
   min-width: 450px;
   background: var(--colorBlanco);
-  padding: 15px;
+  padding: 25px;
   border-radius: 10px;
+  transition: 0.3s ease-in-out;
 }
 
-.cont_editar_categ.show {
-  opacity: 1;
-  pointer-events: auto;
+.contenedor_modales.mostrar .cont_editar_categ {
+  scale: 1;
 }
 
+.cont_headerEdit_cat {
+  display: flex;
+  gap: 10px;
+}
 .header_modal_edit_cat {
   display: grid;
   grid-template-columns: repeat(2, auto);
@@ -45,6 +57,20 @@
 
 .header_modal_edit_cat h4 {
   font-weight: 500;
+}
+.cont_headerEdit_cat p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #474747;
+}
+
+.icono_modal {
+  padding: 5px 8px;
+  display: grid;
+  border-radius: 8px;
+  background: var(--colorSecundario);
+  color: var(--colorBlanco);
+  place-items: center;
 }
 
 .header_modal_edit_cat button {
@@ -61,25 +87,19 @@
 }
 
 .header_modal_edit_cat button:hover {
-  background: #f5f7ff;
-}
-
-.header_modal_edit_cat span {
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  font-size: 22px;
+  background: #f0f1f5;
 }
 
 .editar_categ {
-  margin-top: 10px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 .editar_categ label {
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
 }
 .editar_categ input {
   font-size: 15px;
@@ -99,6 +119,8 @@
   border: 1px solid var(--colorBorde);
   border-radius: 8px;
   height: 80px;
+  max-width: 520px;
+  max-height: 100px;
 }
 
 .img_categ_edit {
@@ -118,6 +140,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.cont_img_catg span {
+  color: var(--colorSecundario);
 }
 .btn_edit_img {
   padding: 8px 12px;

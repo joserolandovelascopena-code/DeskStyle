@@ -3,6 +3,8 @@ import { mostrarToast, ocultarToast } from "./utils/toast.js";
 import {
   renderizarCategorias,
   renderizarListaCategorias,
+  crearListProducResumen,
+  crearListProductos,
 } from "./utils/crearHTML.js";
 
 let agrgandoProduct = false;
@@ -14,7 +16,22 @@ const Dashboard = {
       renderizarCategorias("selectCategoria", categorias);
     } catch (error) {
       mostrarToast(
-        "No se pudieron cargar los productos: ",
+        "No se pudieron cargar las categorias: ",
+        error,
+        "error",
+        6000,
+      );
+    }
+  },
+
+  async cargarProductos() {
+    try {
+      const productos = await request.cargarListaProductos();
+      crearListProductos(".list_productos", productos);
+      crearListProducResumen(".vistaResumenProductos", productos);
+    } catch (error) {
+      mostrarToast(
+        `No se pudieron cargar los productos:  ${error.message || error} `,
         error,
         "error",
         6000,
@@ -27,7 +44,6 @@ const Dashboard = {
       const listaCategorias = await request.cargarListaCategorias();
 
       renderizarListaCategorias(".existente_categ", listaCategorias);
-      console.log(listaCategorias);
     } catch (error) {
       mostrarToast(
         "Error al cargar las categorías",
@@ -129,6 +145,8 @@ const Dashboard = {
 
       await request.nuevoProducto(objetoProducto);
 
+      this.cargarProductos();
+
       mostrarToast(
         "Producto creado",
         "El producto se ha creado correctamente.",
@@ -150,6 +168,7 @@ const Dashboard = {
 
   init() {
     this.cargarCategorias();
+    this.cargarProductos();
     this.cargarCategoriasExistentes();
   },
 };

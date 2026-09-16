@@ -511,7 +511,14 @@ section option:hover {
   cursor: pointer;
 }
 
-.list_product_stock {
+/*=========================*/
+.vistaResumenProductos {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fila_listProduc {
   display: grid;
   grid-template-columns: repeat(2, auto);
   justify-content: space-between;
