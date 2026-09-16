@@ -1,8 +1,9 @@
 import { request } from "../../public/js/repositories/request.js";
 import { mostrarToast } from "./utils/toast.js";
 
+let list_categoria = {};
+let list_product = {};
 let perfil = null;
-let catProduct = null;
 
 const cargarUI = {
   async cargarUsuario() {
@@ -18,6 +19,14 @@ const cargarUI = {
   async cargarTotal_Resumen() {
     const resultado = await request.cargarResumen();
     return resultado;
+  },
+
+  async enMemoriaDatos() {
+    const listProductos = await request.cargarListaProductos();
+    const listCategorias = await request.cargarListaCategorias();
+
+    list_product = listProductos;
+    list_categoria = listCategorias;
   },
 };
 
@@ -77,11 +86,13 @@ function configurarAvatar(nombre) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+    request.cargarListaProductos();
     const datos_usuario = await cargarUI.cargarUsuario();
     const datos_resumen = await cargarUI.cargarTotal_Resumen();
 
     const totalProductos = datos_resumen.total_product;
     const totalInventario = datos_resumen.total_inventario;
+    const totalUsuarios = datos_resumen.total_usuarios;
 
     if (!datos_usuario || !datos_resumen) {
       return;
@@ -90,6 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const nombreUsuario = document.querySelector(".nombre_usuario");
     const totalProduct = document.getElementById("total_productos");
     const totalInven = document.getElementById("total_inventario");
+    const totalUsua = document.getElementById("total_usuarios");
 
     if (nombreUsuario) {
       nombreUsuario.textContent = datos_usuario.nombre;
@@ -101,6 +113,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (totalInven) {
       totalInven.textContent = totalInventario;
+    }
+
+    if (totalUsua) {
+      totalUsua.textContent = totalUsuarios;
     }
 
     configurarAvatar(datos_usuario.nombre);

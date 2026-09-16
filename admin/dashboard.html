@@ -73,7 +73,7 @@
             </li>
             <li class="opcionSidebar clientesPag">
               <span class="material-symbols-outlined">group</span>
-              <p class="opcion-text">Clientes</p>
+              <p class="opcion-text">Usuarios</p>
             </li>
             <li class="opcionSidebar configuracionPag">
               <span class="material-symbols-outlined">settings</span>
@@ -131,7 +131,7 @@
                 <div class="targeta-info">
                   <h4>Productos</h4>
                   <p id="total_productos" class="pTotal">0</p>
-                  <button class="btn-primario">
+                  <button class="btn-primario btn_ver_productos">
                     <p>Ver todos</p>
                     <span class="material-symbols-outlined">
                       arrow_right_alt
@@ -141,7 +141,7 @@
               </div>
               <div class="targeta">
                 <div class="targeta-icono">
-                  <span class="material-symbols-outlined">category</span>
+                  <span class="material-symbols-outlined">local_shipping</span>
                 </div>
                 <div class="targeta-info">
                   <h4>Pedidos</h4>
@@ -174,10 +174,10 @@
                   <span class="material-symbols-outlined">group</span>
                 </div>
                 <div class="targeta-info">
-                  <h4>Clientes</h4>
-                  <p id="total_clientes" class="pTotal">0</p>
+                  <h4>Usuarios</h4>
+                  <p id="total_usuarios" class="pTotal">0</p>
                   <button class="btn-cuaternario">
-                    <p>Ver clientes</p>
+                    <p>Ver usuarios</p>
                     <span class="material-symbols-outlined">
                       arrow_right_alt
                     </span>
@@ -219,27 +219,29 @@
               <div class="vista_previa">
                 <div class="encabezado_caja">
                   <h4>Estado de stock</h4>
-                  <button class="btn_ver_Sctok">Ver todos</button>
+                  <button class="btn_ver_productos">Ver todos</button>
                 </div>
-                <div class="list_product_stock">
-                  <div class="info_produc_stock">
-                    <img
-                      src="../public/icons/Images_web/poster.jpg"
-                      alt="fotografía de producto"
-                    />
-                    <div class="text_info_product">
-                      <h5>Poster de Hunter X Hunter</h5>
-                      <div style="display: flex; gap: 4px">
-                        <p>Stock:</p>
-                        <p class="cantidad_stock">3 unidades</p>
+                <div class="vistaResumenProductos">
+                  <div class="fila_listProduc">
+                    <div class="info_produc_stock">
+                      <img
+                        src="../public/icons/Images_web/poster.jpg"
+                        alt="fotografía de producto"
+                      />
+                      <div class="text_info_product">
+                        <h5>Poster de Hunter X Hunter</h5>
+                        <div style="display: flex; gap: 4px">
+                          <p>Stock:</p>
+                          <p class="cantidad_stock">3 unidades</p>
+                        </div>
                       </div>
                     </div>
+                    <button class="abril_stock">
+                      <span class="material-symbols-outlined">
+                        chevron_right
+                      </span>
+                    </button>
                   </div>
-                  <button class="abril_stock">
-                    <span class="material-symbols-outlined">
-                      chevron_right
-                    </span>
-                  </button>
                 </div>
               </div>
             </div>
@@ -251,7 +253,9 @@
                 <div class="info_accion">
                   <h4>Añadir un producto</h4>
                   <p>Agrega un nuevo producto a tu tienda.</p>
-                  <button class="btn_accion">Nuevo producto</button>
+                  <button class="btn_accion agregarProductGlobal">
+                    Nuevo producto
+                  </button>
                 </div>
               </div>
               <div class="caja_accion">
@@ -484,7 +488,7 @@
                     <select class="selecEstado_Producto">
                       <option value="activo">Activo</option>
                       <option value="inactivo">Inactivo</option>
-                      <option value="desactivado">Borrador</option>
+                      <option value="borrador">Borrador</option>
                     </select>
                   </div>
                   <p class="info_opcion">
@@ -766,7 +770,7 @@
             <div class="conedor_tabla_products">
               <div class="headerSección">
                 <div style="display: flex; gap: 5px">
-                  <h3>Productos publicados</h3>
+                  <h3>Productos disponibles</h3>
                   <p>| Gestiona los productos disponibles en tu tienda.</p>
                 </div>
                 <div class="acciones_manipulacionList">
@@ -828,7 +832,17 @@
       <section class="contenedor_modales">
         <div class="cont_editar_categ">
           <div class="header_modal_edit_cat">
-            <h4>Editar Categoría</h4>
+            <div class="cont_headerEdit_cat">
+              <div class="icono_modal">
+                <span class="material-symbols-outlined"> edit </span>
+              </div>
+
+              <div>
+                <h4>Editar Categoría</h4>
+                <p>Modifica la información de la categoría</p>
+              </div>
+            </div>
+
             <button class="cerrar_modalEdit_Categ">
               <span class="material-symbols-outlined"> close </span>
             </button>
