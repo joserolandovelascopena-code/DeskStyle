@@ -345,7 +345,10 @@
 }
 
 .nombre_categ img {
-  height: 60px;
+  height: 80px;
+  width: 60px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .btnsAcciones_categ {

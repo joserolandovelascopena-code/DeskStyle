@@ -3,10 +3,18 @@ import { Dashboard } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
 import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
 import { validarGlobalInput } from "./utils/utils_dashboard.js";
+import { cargarUI } from "./dahboard_datas.js";
+
+let listaGlobal = {};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  listaGlobal = await cargarUI.enMemoriaDatos();
+});
 
 const imgProducto = new manejadorIMGs("imgPrincipal", ".previsualizarIMG", {
   maxTamano: 5 * 1024 * 1024,
 });
+
 const imgCategoria = new manejadorIMGs(
   "subirIMg_Categ",
   ".privisualizarImgCatgoria",
@@ -14,6 +22,10 @@ const imgCategoria = new manejadorIMGs(
     maxTamano: 5 * 1024 * 1024,
   },
 );
+
+const imgEditCategoria = new manejadorIMGs("edit_img", ".previ_imgEdit_categ", {
+  maxTamano: 5 * 1024 * 1024,
+});
 
 const sidebar = document.querySelector(".sidebar");
 const toggleBtn = document.querySelector(".layout_toggle");
@@ -463,6 +475,7 @@ btnAgregarCategoria.addEventListener("click", async () => {
   const imgURL = imgCategoria.archivoObtnido();
 
   const resultado = validarNombreCateg.validar();
+
   if (resultado !== true) {
     mostrarToast(resultado.titulo, resultado.subTitulo, "error", 5000);
     return;
@@ -472,7 +485,7 @@ btnAgregarCategoria.addEventListener("click", async () => {
     descripcionInput.focus();
     mostrarToast(
       "Descripción insuficiente",
-      "La descripción debe incluir al menos 40 caracteres para ser detallada.",
+      `La descripción debe incluir al menos 40 caracteres para ser detallada.`,
       "aviso",
       5000,
     );
@@ -500,6 +513,172 @@ btnAgregarCategoria.addEventListener("click", async () => {
   imgCategoria.limpiarPrevisualizacion(
     "../public/icons/Images_web/image-files.png",
   );
+});
+
+const cuerpoTabla = document.querySelector(".existente_categ");
+let id_categ = null;
+
+cuerpoTabla.addEventListener("click", (event) => {
+  const btnEdit = event.target.closest(".btnEdit_categ");
+
+  if (btnEdit) {
+    const id_categoria = btnEdit.dataset.id;
+    id_categ = id_categoria;
+    modalEditarCategoria(id_categoria);
+    return;
+  }
+
+  const btnElim = event.target.closest(".btnElimi_categ");
+  if (btnElim) {
+    const id_categoria = btnElim.dataset.id;
+    modalEliminarCategoria(id_categoria);
+    id_categ = id_categoria;
+    return;
+  }
+});
+
+const nombre_edit_categ = document.getElementById("edit_nombre_categ");
+const descrip_edit_categ = document.getElementById("edit_descrip_categ");
+const img_edit_categ = document.getElementById("img_edit_categ");
+const modalEditCategoria = document.querySelector(".edit_modalCateg");
+
+function modalEditarCategoria(idCategoria) {
+  const categorias = listaGlobal.listCategorias;
+
+  if (!categorias) {
+    mostrarToast(
+      "Error de cargado de datos",
+      "Las categorías todavía no han sido cargadas.",
+      "error",
+      7000,
+    );
+
+    return;
+  }
+
+  const categoria = categorias.find((item) => item.id_categoria == idCategoria);
+
+  if (!categoria) {
+    mostrarToast(
+      "No se encontró la categoría",
+      "La categoría no existe o no se encontró correctamente.",
+      "error",
+      7000,
+    );
+    return;
+  }
+
+  categoriaSelect = categoria;
+
+  nombre_edit_categ.value = categoria.nombre;
+  descrip_edit_categ.value =
+    categoria.descripcion === "Sin descripción." ? "" : categoria.descripcion;
+  img_edit_categ.src = categoria.publicUrl || "";
+
+  modalEditCategoria.classList.add("mostrar");
+}
+
+const cancelarEditCateg = document.querySelectorAll(".btnCerrarCateg");
+
+cancelarEditCateg.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modalEditCategoria.classList.remove("mostrar");
+  });
+});
+
+const btnGuardar_edit_categ = document.querySelector(".btnGuardar_edit_categ");
+const validarNombreCateg_Edit = new validarGlobalInput(
+  "edit_nombre_categ",
+  "text",
+  3,
+  100,
+);
+btnGuardar_edit_categ.addEventListener("click", () => {
+  const nombreValido = validarNombreCateg_Edit.validar();
+  const descripValida = descrip_edit_categ.value.trim();
+
+  const imgValida = imgEditCategoria.archivoObtnido();
+
+  if (nombreValido !== true) {
+    mostrarToast(nombreValido.titulo, nombreValido.subTitulo, "error", 5000);
+    return;
+  }
+
+  if (descripValida.length > 0 && descripValida.length < 40) {
+    descrip_edit_categ.focus();
+
+    mostrarToast(
+      "Descripción insuficiente",
+      "La descripción debe incluir al menos 40 caracteres para ser detallada.",
+      "aviso",
+      5000,
+    );
+
+    return;
+  }
+
+  const nombre = nombre_edit_categ.value.trim();
+  const descripcion = descripValida;
+
+  let imgNueva = null;
+
+  if (imgValida) {
+    imgNueva = imgEditCategoria.archivoObtnido();
+  }
+
+  console.log("Imagen nueva:", imgNueva);
+
+  Dashboard.editarCategoria(id_categ, nombre, descripcion, imgNueva);
+});
+
+//Eliminar Categoría
+
+const btnEliminarCategoria = document.getElementById("elim_categ_confirmar");
+const btnCerrarElimCateg = document.querySelectorAll(".btnCerrarEliCatg");
+const nombreEliminarCateg = document.getElementById("elim_categ_nombre");
+const modalEliminarCateg = document.querySelector(".elim_categ_modal");
+
+function modalEliminarCategoria(idCategoria) {
+  const categorias = listaGlobal.listCategorias;
+
+  if (!categorias) {
+    mostrarToast(
+      "Error de cargado de datos",
+      "Las categorías todavía no han sido cargadas.",
+      "error",
+      7000,
+    );
+
+    return;
+  }
+
+  const categoria = categorias.find((item) => item.id_categoria == idCategoria);
+
+  if (!categoria) {
+    mostrarToast(
+      "No se encontró la categoría",
+      "La categoría no existe o no se encontró correctamente.",
+      "error",
+      7000,
+    );
+    return;
+  }
+
+  nombreEliminarCateg.textContent = `"${categoria.nombre}"`;
+
+  modalEliminarCateg.classList.add("mostrar");
+}
+
+btnCerrarElimCateg.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modalEliminarCateg.classList.remove("mostrar");
+  });
+});
+
+btnEliminarCategoria.addEventListener("click", () => {
+  const idCategoria = id_categ;
+  if (!idCategoria) return;
+  Dashboard.eliminarCategorias(idCategoria);
 });
 
 abrirPantalla("verProduct");

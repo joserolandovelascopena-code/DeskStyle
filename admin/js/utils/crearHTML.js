@@ -48,7 +48,7 @@ function renderizarListaCategorias(contenedor, data) {
       <td>
         <div class="btnsAcciones_categ">
           <button class="btnEdit_categ" data-id="${id}"><span class="material-symbols-outlined">edit</span></button>
-          <button class="btnElimi_categ  data-id="${id}"><span class="material-symbols-outlined">delete</span></button>
+          <button class="btnElimi_categ"  data-id="${id}"><span class="material-symbols-outlined">delete</span></button>
         </div>
       </td>
     `;

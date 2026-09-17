@@ -46,7 +46,8 @@ const request = {
   async cargarListaCategorias() {
     const { data: categoriaData, error: categoriaError } = await supabase
       .from("categorias")
-      .select("*");
+      .select("*")
+      .order("actualizado", { ascending: false });
 
     if (categoriaError) {
       throw new Error(categoriaError.message);
@@ -57,9 +58,11 @@ const request = {
         .from("categorias")
         .getPublicUrl(categoria.url_image);
 
+      const versionImagen = new Date(categoria.actualizado).getTime();
+
       return {
         ...categoria,
-        publicUrl: data.publicUrl,
+        publicUrl: `${data.publicUrl}?v=${versionImagen}`,
       };
     });
 
@@ -67,7 +70,6 @@ const request = {
   },
 
   async nuevaCategoria(nuevaCategoria) {
-    // Crear categoría
     const { data: categoria, error: categoriaError } = await supabase
       .from("categorias")
       .insert({
@@ -81,12 +83,10 @@ const request = {
       throw new Error(categoriaError.message);
     }
 
-    // Crear ruta única
     const extension = nuevaCategoria.imagen.name.split(".").pop();
 
     const rutaImagen = `${categoria.id_categoria}/imagen.${extension}`;
 
-    // Subir imagen
     const { error: storageError } = await supabase.storage
       .from("categorias")
       .upload(rutaImagen, nuevaCategoria.imagen, {
@@ -98,7 +98,6 @@ const request = {
       throw new Error(storageError.message);
     }
 
-    // Guardar referencia
     const { error: actualizarError } = await supabase
       .from("categorias")
       .update({
@@ -176,6 +175,7 @@ const request = {
       throw new Error(detallesError.message);
     }
   },
+
   async cargarListaProductos() {
     const { data: productos, error: productosError } = await supabase
       .from("productos")
@@ -239,6 +239,79 @@ const request = {
     };
 
     return resumenDashboard;
+  },
+
+  async editarCategoria(idCategoria, cambiosCategoria) {
+    const { data: categoria, error: categoriaError } = await supabase
+      .from("categorias")
+      .update({
+        nombre: cambiosCategoria.nombre,
+        descripcion: cambiosCategoria.descripcion || "Sin descripción.",
+      })
+      .eq("id_categoria", idCategoria)
+      .select("id_categoria, url_image")
+      .single();
+
+    if (categoriaError) {
+      throw new Error(categoriaError.message);
+    }
+
+    if (!cambiosCategoria.imgNueva) {
+      return categoria;
+    }
+
+    console.log("Imagen nueva:", cambiosCategoria.imgNueva);
+    console.log("Ruta actual:", categoria.url_image);
+
+    const { error: storageError } = await supabase.storage
+      .from("categorias")
+      .upload(categoria.url_image, cambiosCategoria.imgNueva, {
+        cacheControl: "0",
+        upsert: true,
+        contentType: cambiosCategoria.imgNueva.type,
+      });
+
+    if (storageError) {
+      throw new Error(storageError.message);
+    }
+
+    console.log("Imagen reemplazada correctamente.");
+
+    return categoria;
+  },
+
+  async eliminarCategoria(idCategoria) {
+    // 1. Obtener la información de la categoría
+    const { data: categoria, error: consultaError } = await supabase
+      .from("categorias")
+      .select("id_categoria, url_image")
+      .eq("id_categoria", idCategoria)
+      .single();
+
+    if (consultaError) {
+      throw new Error(consultaError.message);
+    }
+
+    const { error: categoriaError } = await supabase
+      .from("categorias")
+      .delete()
+      .eq("id_categoria", idCategoria);
+
+    if (categoriaError) {
+      throw new Error(categoriaError.message);
+    }
+
+    if (categoria.url_image) {
+      const { error: storageError } = await supabase.storage
+        .from("categorias")
+        .remove([categoria.url_image]);
+
+      if (storageError) {
+        throw new Error(storageError.message);
+      }
+    }
+
+    return true;
   },
 };
 

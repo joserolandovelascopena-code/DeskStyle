@@ -1,9 +1,8 @@
 import { request } from "../../public/js/repositories/request.js";
 import { mostrarToast } from "./utils/toast.js";
 
-let list_categoria = {};
-let list_product = {};
 let perfil = null;
+let listaGlobal = {};
 
 const cargarUI = {
   async cargarUsuario() {
@@ -25,8 +24,12 @@ const cargarUI = {
     const listProductos = await request.cargarListaProductos();
     const listCategorias = await request.cargarListaCategorias();
 
-    list_product = listProductos;
-    list_categoria = listCategorias;
+    const lista = {
+      listaProductos: listProductos,
+      listCategorias: listCategorias,
+    };
+
+    return lista;
   },
 };
 
@@ -86,7 +89,8 @@ function configurarAvatar(nombre) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    request.cargarListaProductos();
+    listaGlobal = await cargarUI.enMemoriaDatos();
+
     const datos_usuario = await cargarUI.cargarUsuario();
     const datos_resumen = await cargarUI.cargarTotal_Resumen();
 

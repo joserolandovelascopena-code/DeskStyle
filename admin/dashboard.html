@@ -829,7 +829,7 @@
         </div>
       </main>
 
-      <section class="contenedor_modales">
+      <section class="edit_modalCateg">
         <div class="cont_editar_categ">
           <div class="header_modal_edit_cat">
             <div class="cont_headerEdit_cat">
@@ -843,7 +843,7 @@
               </div>
             </div>
 
-            <button class="cerrar_modalEdit_Categ">
+            <button class="cerrar_modalEdit_Categ btnCerrarCateg">
               <span class="material-symbols-outlined"> close </span>
             </button>
           </div>
@@ -869,8 +869,9 @@
               </textarea>
 
               <div class="img_categ_edit">
-                <div style="width: 100%">
+                <div class="previ_imgEdit_categ" style="width: 100%">
                   <img
+                    id="img_edit_categ"
                     src="../public/icons/Images_web/product1.png"
                     alt="Imagen de categoría"
                   />
@@ -889,7 +890,10 @@
                 </div>
               </div>
               <div class="btnsAcciones_edit_categ">
-                <button type="button" class="btnCancelar_edit_categ">
+                <button
+                  type="button"
+                  class="btnCancelar_edit_categ btnCerrarCateg"
+                >
                   Cerrar
                 </button>
                 <button type="button" class="btnGuardar_edit_categ">
@@ -900,6 +904,54 @@
           </div>
         </div>
       </section>
+
+      <section id="elim_categ_modal" class="elim_categ_modal">
+        <div class="elim_categ_contenedor">
+          <div class="elim_categ_header">
+            <div class="tituloIconoElimCateg">
+              <span class="material-symbols-outlined"> warning </span>
+              <h3>¿Eliminar categoría?</h3>
+            </div>
+
+            <button
+              type="button"
+              id="elim_categ_cerrar"
+              class="elim_categ_cerrar btnCerrarEliCatg"
+            >
+              <span class="material-symbols-outlined"> close </span>
+            </button>
+          </div>
+          <div class="elim_categ_contenido">
+            <p class="elim_categ_mensaje">
+              ¿Estás seguro de que deseas eliminar la categoría
+              <strong id="elim_categ_nombre">"Stikers"</strong>?
+            </p>
+            <p class="elim_categ_advertencia">
+              Esta acción no se puede deshacer.
+            </p>
+            <p class="elim_categ_info">
+              Los productos asociados no se eliminarán.
+            </p>
+          </div>
+          <div class="elim_categ_acciones">
+            <button
+              type="button"
+              id="elim_categ_cancelar"
+              class="elim_categ_btn_cancelar btnCerrarEliCatg"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              id="elim_categ_confirmar"
+              class="elim_categ_btn_eliminar"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </section>
+
       <div id="toast_contenedor"></div>
     </div>
 

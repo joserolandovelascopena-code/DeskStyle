@@ -5,9 +5,11 @@
   --colorTerciario: #d9e1ed;
   --colorAcento: #3b60ff;
   --borderInput: #2b97fc;
+  --colorError: #dc3545;
+  --fondoModal: rgba(0, 4, 34, 0.3);
 }
 
-.contenedor_modales {
+.edit_modalCateg {
   transition: 0.2s ease-out;
   opacity: 0;
   pointer-events: none;
@@ -17,14 +19,15 @@
   height: 100%;
   width: 100%;
   position: fixed;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--fondoModal);
+  backdrop-filter: blur(3px);
   display: grid;
   place-items: center;
 }
 
 /*Logica para modales*/
 
-.contenedor_modales.mostrar {
+.edit_modalCateg.mostrar {
   opacity: 1;
   pointer-events: auto;
 }
@@ -32,15 +35,15 @@
 /*Editar_Categoria*/
 
 .cont_editar_categ {
-  scale: 0.8;
+  scale: 0.9;
   min-width: 450px;
   background: var(--colorBlanco);
   padding: 25px;
-  border-radius: 10px;
+  border-radius: 16px;
   transition: 0.3s ease-in-out;
 }
 
-.contenedor_modales.mostrar .cont_editar_categ {
+.edit_modalCateg.mostrar .cont_editar_categ {
   scale: 1;
 }
 
@@ -118,7 +121,8 @@
   font-size: 15px;
   border: 1px solid var(--colorBorde);
   border-radius: 8px;
-  height: 80px;
+  min-height: 80px;
+  min-width: 400px;
   max-width: 520px;
   max-height: 100px;
 }
@@ -180,4 +184,162 @@
   border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
+}
+
+/*Elimnar categorías*/
+.elim_categ_modal {
+  position: fixed;
+  transition: 0.2s ease-out;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 14;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--fondoModal);
+  backdrop-filter: blur(3px);
+}
+.elim_categ_modal.mostrar {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.elim_categ_contenedor {
+  transition: 0.3s ease-in-out;
+  scale: 0.9;
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    0 24px 48px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.elim_categ_modal.mostrar .elim_categ_contenedor {
+  scale: 1;
+}
+
+.elim_categ_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 8px;
+}
+.elim_categ_header h3 {
+  margin: 0;
+  color: #202124;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.tituloIconoElimCateg {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tituloIconoElimCateg span {
+  padding: 6px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  font-size: 28px;
+  background: #fde7e9;
+  color: var(--colorError);
+}
+
+.elim_categ_cerrar {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #5f6368;
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.elim_categ_cerrar:hover {
+  background: #f1f3f4;
+}
+.elim_categ_contenido {
+  padding: 12px 24px 8px;
+}
+.elim_categ_mensaje {
+  margin: 0 0 12px;
+  color: #202124;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.elim_categ_mensaje strong {
+  font-weight: 600;
+}
+.elim_categ_advertencia {
+  margin: 0 0 8px;
+  color: #3c4043;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.elim_categ_info {
+  margin: 0;
+  color: #5f6368;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.elim_categ_acciones {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 24px 24px;
+}
+.elim_categ_btn_cancelar,
+.elim_categ_btn_eliminar {
+  height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.elim_categ_btn_cancelar {
+  min-width: 88px;
+  background: transparent;
+  color: #252525;
+}
+.elim_categ_btn_cancelar:hover {
+  background: #f1f3f4;
+}
+.elim_categ_btn_eliminar {
+  min-width: 92px;
+  background: var(--colorPrimario);
+  color: #fff;
+}
+.elim_categ_btn_eliminar:active {
+  scale: 0.99;
+}
+@media (max-width: 600px) {
+  .elim_categ_modal {
+    padding: 16px;
+  }
+  .elim_categ_contenedor {
+    border-radius: 14px;
+  }
+  .elim_categ_header {
+    padding: 20px 20px 8px;
+  }
+  .elim_categ_contenido {
+    padding: 12px 20px 8px;
+  }
+  .elim_categ_acciones {
+    padding: 18px 20px 20px;
+  }
 }
