@@ -58,7 +58,7 @@ const Dashboard = {
     let loaderToast;
     try {
       loaderToast = mostrarToast(
-        "Guardando Categoria",
+        "Guardando Categoría",
         "Procesando la solicitud...",
         "loader",
       );
@@ -78,14 +78,14 @@ const Dashboard = {
         "Categoría agregada",
         "La categoría se ha guardado correctamente.",
         "exito",
-        5000,
+        6000,
       );
     } catch (error) {
       mostrarToast(
         "No se pudo agregar la categoria",
         `Error: ${error.message || error}`,
         "error",
-        5000,
+        6000,
       );
     } finally {
       ocultarToast(loaderToast);
@@ -114,7 +114,7 @@ const Dashboard = {
         "Acción denegada",
         `Se encuentra agregando un producto en este momento.`,
         "aviso",
-        5000,
+        6000,
       );
       return;
     }
@@ -163,6 +163,76 @@ const Dashboard = {
     } finally {
       ocultarToast(loaderToast);
       agrgandoProduct = false;
+    }
+  },
+
+  async editarCategoria(id, nombre, descrip, imgNueva) {
+    let loaderToast;
+    try {
+      loaderToast = mostrarToast(
+        "Actualizado categoria",
+        "Se estan guardando los cambios realizados...",
+        "loader",
+      );
+
+      const objetoCategoria = {
+        nombre: nombre,
+        descripcion: descrip,
+        imgNueva: imgNueva,
+      };
+
+      await request.editarCategoria(id, objetoCategoria);
+
+      mostrarToast(
+        "Se han guardo los cambios",
+        "Los cambios realizados se han guardado correctamente.",
+        "exito",
+        6000,
+      );
+    } catch (error) {
+      mostrarToast(
+        "Ocurrio un error al actualizar la categoría",
+        `Error: ${error.message || error}`,
+        "error",
+        6000,
+      );
+    } finally {
+      ocultarToast(loaderToast);
+    }
+  },
+
+  async eliminarCategorias(idCategoria) {
+    let loaderToast;
+    const modalEliminarCateg = document.querySelector(".elim_categ_modal");
+    try {
+      loaderToast = mostrarToast(
+        "Eliminando categoría",
+        "Se está procesando la solicitud...",
+        "loader",
+      );
+
+      await request.eliminarCategoria(idCategoria);
+
+      mostrarToast(
+        "Categoría eliminada",
+        "La categoría fue eliminada correctamente.",
+        "exito",
+        6000,
+      );
+
+      this.cargarCategoriasExistentes();
+      this.cargarCategorias();
+      this.cargarProductos();
+      modalEliminarCateg.classList.remove("mostrar");
+    } catch (error) {
+      mostrarToast(
+        "Ocurrio un error al eliminar la categoría",
+        `Error: ${error.message || error}`,
+        "error",
+        6000,
+      );
+    } finally {
+      ocultarToast(loaderToast);
     }
   },
 

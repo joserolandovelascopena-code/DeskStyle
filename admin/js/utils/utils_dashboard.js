@@ -35,7 +35,7 @@ export class validarGlobalInput {
 
     if (valor.length > this.logitudMax) {
       this.input.focus();
-      return this.mensajeError(
+      this.mensajeError(
         "Texto muy largo",
         `No puede superar los ${this.logitudMax} caracteres.`,
       );
