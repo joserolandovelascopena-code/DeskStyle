@@ -180,14 +180,26 @@ const request = {
     const { data: productos, error: productosError } = await supabase
       .from("productos")
       .select(
-        `id_producto,
-       nombre,
-       precio,
-       stock,
-       url_img_product,
-       creado,
-       nombre_categoria:categorias(nombre),
-       detalle:producto_detalle(estadoproduct)`,
+        `
+    id_producto,
+    nombre,
+    precio,
+    precio_original,
+    stock,
+    marca,
+    descripcion,
+    url_img_product,
+    creado,
+    categoria:categorias!inner(id_categoria, nombre),
+    detalle:producto_detalle!inner(
+      peso, 
+      material, 
+      largo, 
+      alto, 
+      ancho, 
+      estadoproduct
+    )
+    `,
       );
 
     if (productosError) {
@@ -312,6 +324,63 @@ const request = {
     }
 
     return true;
+  },
+
+  async editarProduct(idProducto, cambiosProducto) {
+    const { data: producto, error: productoError } = await supabase
+      .from("productos")
+      .update({
+        id_categoria: cambiosProducto.categoria,
+        nombre: cambiosProducto.titulo,
+        precio: cambiosProducto.precio,
+        precio_original: cambiosProducto.orginalPrecio,
+        marca: cambiosProducto.marca,
+        descripcion: cambiosProducto.descrip,
+        stock: cambiosProducto.stock || 1,
+      })
+      .eq("id_producto", idProducto)
+      .select("id_producto, url_img_product")
+      .single();
+
+    if (productoError) {
+      throw new Error(productoError.message);
+    }
+
+    const { error: detalleError } = await supabase
+      .from("producto_detalle")
+      .update({
+        peso: cambiosProducto.peso,
+        material: cambiosProducto.material,
+        largo: cambiosProducto.largo,
+        alto: cambiosProducto.alto,
+        ancho: cambiosProducto.ancho,
+        estadoproduct: cambiosProducto.estado,
+      })
+      .eq("id_producto", idProducto);
+
+    if (detalleError) {
+      throw new Error(detalleError.message);
+    }
+
+    if (cambiosProducto.imgNueva) {
+      if (!producto.url_img_product) {
+        throw new Error("El producto no tiene una ruta de imagen registrada.");
+      }
+
+      const { error: storageError } = await supabase.storage
+        .from("productos")
+        .upload(producto.url_img_product, cambiosProducto.imgNueva, {
+          cacheControl: "0",
+          upsert: true,
+          contentType: cambiosProducto.imgNueva.type,
+        });
+
+      if (storageError) {
+        throw new Error(storageError.message);
+      }
+    }
+
+    return producto;
   },
 };
 

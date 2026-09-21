@@ -113,8 +113,7 @@ function crearListProductos(contenedor, data) {
     const fila = document.createElement("tr");
     fila.className = `fila_product ${index % 2 !== 0 ? "fila_color" : ""}`;
 
-    const nombreCategoria =
-      producto.nombre_categoria?.nombre || "Sin categoría";
+    const nombreCategoria = producto.categoria?.nombre || "Sin categoría";
 
     const detalle = Array.isArray(producto.detalle)
       ? producto.detalle[0]

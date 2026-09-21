@@ -897,7 +897,7 @@
                   Cerrar
                 </button>
                 <button type="button" class="btnGuardar_edit_categ">
-                  Guardar cambios
+                  Guardar
                 </button>
               </div>
             </form>
@@ -949,6 +949,391 @@
               Eliminar
             </button>
           </div>
+        </div>
+      </section>
+
+      <!-- Modal editar Producto -->
+      <section class="edit_product_modal">
+        <div class="cont_editar_product">
+          <!-- Encabezado -->
+          <header class="header_edit_product">
+            <div class="edit_product_title">
+              <span class="material-symbols-outlined"> edit </span>
+
+              <div>
+                <h4>Editar producto</h4>
+                <p>Modifica la información del producto seleccionado.</p>
+              </div>
+            </div>
+
+            <button
+              class="btnCerrarEditProduct editCerrarProduct"
+              type="button"
+              aria-label="Cerrar"
+            >
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </header>
+
+          <!-- Identificación del producto -->
+          <div class="edit_product_identificacion">
+            <div class="edit_product_icon">
+              <span class="material-symbols-outlined">inventory_2</span>
+            </div>
+
+            <div class="edit_product_info">
+              <span>Producto seleccionado</span>
+              <p class="productSelect">Producto</p>
+            </div>
+
+            <div class="edit_product_codigo">
+              <span>Código</span>
+              <p id="editIdProduct">PRO-001</p>
+            </div>
+          </div>
+
+          <!-- Contenido -->
+          <div class="edit_product_contenido">
+            <!-- Información básica -->
+            <section class="edit_product_section">
+              <div class="edit_section_header">
+                <div class="edit_section_icon">
+                  <span class="material-symbols-outlined"> description </span>
+                </div>
+
+                <div>
+                  <h4>Información básica</h4>
+                  <p>Datos principales del producto.</p>
+                </div>
+              </div>
+
+              <div class="edit_form_grid">
+                <div class="filaFormEditProd">
+                  <label for="editNombreProduct"> Nombre del producto </label>
+
+                  <input
+                    type="text"
+                    id="editNombreProduct"
+                    placeholder="Ej. Lámpara LED"
+                  />
+
+                  <small> Nombre con el que se mostrará el producto. </small>
+                </div>
+
+                <div class="filaFormEditProd">
+                  <label for="editPrecioP"> Precio </label>
+
+                  <div class="edit_input_money">
+                    <span class="material-symbols-outlined">
+                      attach_money
+                    </span>
+
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      id="editPrecioP"
+                      placeholder="0.00"
+                    />
+                  </div>
+
+                  <small> Precio de venta en USD. </small>
+                </div>
+
+                <div class="filaFormEditProd">
+                  <label for="editCateg_product"> Categoría </label>
+
+                  <select
+                    id="editCateg_product"
+                    class="editCateg_product"
+                  ></select>
+
+                  <small> Categoría a la que pertenece el producto. </small>
+                </div>
+
+                <div class="filaFormEditProd">
+                  <label for="editMarcaProduct"> Marca </label>
+
+                  <input
+                    type="text"
+                    id="editMarcaProduct"
+                    placeholder="Ej. TechNova"
+                  />
+
+                  <small> Marca o colección del producto. </small>
+                </div>
+              </div>
+
+              <!-- Descripción -->
+              <div class="editProductDescrip">
+                <div class="edit_description_header">
+                  <div>
+                    <p>Descripción</p>
+                    <span>Opcional</span>
+                  </div>
+
+                  <span class="material-symbols-outlined"> notes </span>
+                </div>
+
+                <textarea
+                  id="editProductDescrip"
+                  placeholder="Describe el producto, sus características, materiales, uso, etc."
+                ></textarea>
+
+                <small>
+                  Una descripción clara ayuda a presentar mejor el producto.
+                </small>
+              </div>
+            </section>
+
+            <!-- Precio e inventario -->
+            <section class="edit_product_section">
+              <div class="edit_section_header">
+                <div class="edit_section_icon">
+                  <span class="material-symbols-outlined"> inventory </span>
+                </div>
+
+                <div>
+                  <h4>Inventario</h4>
+                  <p>Información relacionada con las existencias.</p>
+                </div>
+              </div>
+
+              <div class="edit_inventory_grid">
+                <div class="edit_inventory_item">
+                  <label for="editStockProduct"> Stock disponible </label>
+
+                  <input
+                    type="number"
+                    min="0"
+                    id="editStockProduct"
+                    placeholder="0"
+                  />
+
+                  <small> Cantidad disponible actualmente. </small>
+                </div>
+
+                <div class="edit_inventory_item">
+                  <label for="editPrecioOriginal"> Precio original </label>
+
+                  <div class="edit_input_money">
+                    <span class="material-symbols-outlined">
+                      attach_money
+                    </span>
+
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      id="editPrecioOriginal"
+                      placeholder="0.00"
+                    />
+                  </div>
+
+                  <small> Precio de compra. Opcional. </small>
+                </div>
+              </div>
+            </section>
+
+            <!-- Características -->
+            <section class="edit_product_section">
+              <div class="edit_section_header">
+                <div class="edit_section_icon">
+                  <span class="material-symbols-outlined"> category </span>
+                </div>
+
+                <div>
+                  <h4>Características</h4>
+                  <p>Información adicional del producto.</p>
+                </div>
+              </div>
+
+              <div class="edit_caracteristicas_grid">
+                <div class="edit_inventory_item">
+                  <label for="editMaterialProduct"> Material </label>
+
+                  <input
+                    type="text"
+                    id="editMaterialProduct"
+                    placeholder="Ej. Metal"
+                  />
+                </div>
+
+                <div class="edit_inventory_item">
+                  <label for="editPesoProduct"> Peso (kg) </label>
+
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    id="editPesoProduct"
+                    placeholder="0.00"
+                  />
+                </div>
+              </div>
+
+              <div class="edit_dimensiones">
+                <label>Dimensiones (cm)</label>
+
+                <div class="edit_dimensiones_grid">
+                  <div>
+                    <input
+                      type="number"
+                      min="0"
+                      id="editLargo"
+                      placeholder="0"
+                    />
+                    <span>Largo</span>
+                  </div>
+
+                  <div>
+                    <input
+                      type="number"
+                      min="0"
+                      id="editAncho"
+                      placeholder="0"
+                    />
+                    <span>Ancho</span>
+                  </div>
+
+                  <div>
+                    <input
+                      type="number"
+                      min="0"
+                      id="editAlto"
+                      placeholder="0"
+                    />
+                    <span>Alto</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Estado -->
+            <section class="edit_product_section">
+              <div class="edit_section_header">
+                <div class="edit_section_icon">
+                  <span class="material-symbols-outlined"> toggle_on </span>
+                </div>
+
+                <div>
+                  <h4>Estado del producto</h4>
+                  <p>Controla cómo se mostrará el producto.</p>
+                </div>
+              </div>
+
+              <div class="edit_estado_container">
+                <div class="edit_estado_item">
+                  <div>
+                    <label for="editEstadoProduct"> Estado </label>
+
+                    <small>
+                      Los productos inactivos no se mostrarán en la tienda.
+                    </small>
+                  </div>
+
+                  <select id="editEstadoProduct" class="editEstadoProduct">
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                    <option value="borrador">Borrador</option>
+                  </select>
+                </div>
+
+                <div class="edit_destacado_item">
+                  <div class="edit_checkbox">
+                    <input type="checkbox" id="editDestacadoProduct" />
+
+                    <div>
+                      <label for="editDestacadoProduct">
+                        Producto destacado
+                      </label>
+
+                      <small>
+                        Mostrar este producto como destacado en la página
+                        principal.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Imagen -->
+            <section class="edit_product_section">
+              <div class="edit_section_header">
+                <div class="edit_section_icon">
+                  <span class="material-symbols-outlined"> image </span>
+                </div>
+
+                <div>
+                  <h4>Imagen del producto</h4>
+                  <p>Actualiza la imagen principal del producto.</p>
+                </div>
+              </div>
+
+              <div class="edit_imagen_container">
+                <div class="edit_imagen_preview">
+                  <span class="edit_preview_label"> Imagen actual </span>
+
+                  <div class="edit_preview_box">
+                    <img
+                      id="editPreviewProduct"
+                      src="../public/icons/Images_web/image-files.png"
+                      alt="Imagen del producto"
+                    />
+                  </div>
+                </div>
+
+                <div class="edit_imagen_upload">
+                  <span class="material-symbols-outlined"> cloud_upload </span>
+
+                  <h4>Actualizar imagen</h4>
+
+                  <p>
+                    Selecciona una nueva imagen si deseas reemplazar la actual.
+                  </p>
+
+                  <label class="edit_btnSeleccionarIMG" for="editImgProduct">
+                    <span class="material-symbols-outlined"> folder </span>
+
+                    Seleccionar imagen
+
+                    <input
+                      type="file"
+                      id="editImgProduct"
+                      accept="image/png,image/jpeg,image/webp"
+                    />
+                  </label>
+
+                  <small> JPG, PNG o WEBP · Máximo 5 MB </small>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Footer -->
+          <footer class="edit_product_footer">
+            <div class="edit_footer_info">
+              <span class="material-symbols-outlined"> info </span>
+
+              <p>Los cambios se aplicarán al guardar el producto.</p>
+            </div>
+
+            <div class="edit_product_actions">
+              <button
+                type="button"
+                class="btnCancelarEditProduct editCerrarProduct"
+              >
+                Cancelar
+              </button>
+
+              <button type="button" class="btnGuardarEditProduct">
+                <span class="material-symbols-outlined"> save </span>
+
+                Guardar cambios
+              </button>
+            </div>
+          </footer>
         </div>
       </section>
 

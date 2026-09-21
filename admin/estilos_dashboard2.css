@@ -655,12 +655,14 @@
 }
 
 .tabla_listProduct th {
+  text-overflow: ellipsis;
   padding: 12px 15px;
   font-size: 13px;
   color: #747474;
   font-weight: 600;
 }
 .tabla_listProduct td {
+  text-overflow: ellipsis;
   font-size: 15px;
   padding: 12px 15px;
 }
