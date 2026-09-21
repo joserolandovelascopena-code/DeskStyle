@@ -3,13 +3,16 @@ import { Dashboard } from "./dashboard.js";
 import { mostrarToast } from "./utils/toast.js";
 import { manejadorIMGs } from "../../public/js/utils/manejadorArchivos.js";
 import { validarGlobalInput } from "./utils/utils_dashboard.js";
-import { cargarUI } from "./dahboard_datas.js";
 
 let listaGlobal = {};
 
-document.addEventListener("DOMContentLoaded", async () => {
-  listaGlobal = await cargarUI.enMemoriaDatos();
+document.addEventListener("DOMContentLoaded", () => {
+  initListaGlobal();
 });
+
+export async function initListaGlobal() {
+  listaGlobal = await Dashboard.enMemoriaDatos();
+}
 
 const imgProducto = new manejadorIMGs("imgPrincipal", ".previsualizarIMG", {
   maxTamano: 5 * 1024 * 1024,
@@ -26,6 +29,14 @@ const imgCategoria = new manejadorIMGs(
 const imgEditCategoria = new manejadorIMGs("edit_img", ".previ_imgEdit_categ", {
   maxTamano: 5 * 1024 * 1024,
 });
+
+const imgEditProduct = new manejadorIMGs(
+  "editImgProduct",
+  ".edit_preview_box",
+  {
+    maxTamano: 5 * 1024 * 1024,
+  },
+);
 
 const sidebar = document.querySelector(".sidebar");
 const toggleBtn = document.querySelector(".layout_toggle");
@@ -190,8 +201,8 @@ class selectorGlobal {
 }
 
 class estadoProduct {
-  constructor() {
-    this.select = document.querySelector(".selecEstado_Producto");
+  constructor(select) {
+    this.select = document.querySelector(select);
   }
 
   obtenerEvaluador() {
@@ -218,7 +229,10 @@ const anchoProduct1 = document.getElementById("ancho");
 const altoProduct1 = document.getElementById("alto");
 
 let categoriaSelect = new selectorGlobal(".select_Categoria");
-let estadoProductoSelect = new estadoProduct();
+let estadoProductoSelect = new estadoProduct(".selecEstado_Producto");
+
+const categSelectEdit_P = new selectorGlobal(".editCateg_product");
+const estadoProductoSelectEdit_P = new estadoProduct(".editEstadoProduct");
 
 function validarFormatoInputs(
   titulo,
@@ -232,10 +246,28 @@ function validarFormatoInputs(
   largo,
   ancho,
   alto,
+  esEditar = false,
 ) {
+  const editNombre_Prod = document.getElementById("editNombreProduct");
+  const editPrecio_Prod = document.getElementById("editPrecioP");
+  const editMarca_Prod = document.getElementById("editMarcaProduct");
+  const editDescrip_Prod = document.getElementById("editProductDescrip");
+  const editStock_Prod = document.getElementById("editStockProduct");
+  const editPrecioOrg_Prod = document.getElementById("editPrecioOriginal");
+  const editMaterial_Prod = document.getElementById("editMaterialProduct");
+  const editPeso_Prod = document.getElementById("editPesoProduct");
+  const editLargo_Prod = document.getElementById("editLargo");
+  const editAncho_Prod = document.getElementById("editAncho");
+  const editAlto_Prod = document.getElementById("editAlto");
+
   let textoInput = escoparHTML(titulo);
   if (textoInput.length < 5) {
-    tituloProduct1.focus();
+    if (!esEditar) {
+      tituloProduct1.focus();
+    } else {
+      editNombre_Prod.focus();
+    }
+
     mostrarToast(
       "Título incompleto",
       "El título del producto debe tener al menos 5 caracteres.",
@@ -247,7 +279,12 @@ function validarFormatoInputs(
 
   let numeroInput = formarFormatoNumero(precio);
   if (numeroInput.length < 1) {
-    precioVenta1.focus();
+    if (!esEditar) {
+      precioVenta1.focus();
+    } else {
+      editPrecio_Prod.focus();
+    }
+
     mostrarToast(
       "Precio requerido",
       "Por favor, ingresa un precio de venta válido.",
@@ -259,7 +296,12 @@ function validarFormatoInputs(
 
   numeroInput = formarFormatoNumero(orginalPrecio);
   if (numeroInput.length < 1) {
-    precioOriginal1.focus();
+    if (!esEditar) {
+      precioOriginal1.focus();
+    } else {
+      editPrecioOrg_Prod.focus();
+    }
+
     mostrarToast(
       "Precio original requerido",
       "Ingresa el precio original o de lista del producto.",
@@ -270,20 +312,39 @@ function validarFormatoInputs(
   }
 
   let esSeleccion = categoriaSelect.esValido();
-  if (!esSeleccion) {
-    document.querySelector(".select_Categoria").focus();
-    mostrarToast(
-      "Categoría requerida",
-      "Selecciona una categoría adecuada para clasificar el producto.",
-      "aviso",
-      5000,
-    );
-    return false;
+  let esCategSelect = categSelectEdit_P.esValido();
+  if (!esEditar) {
+    if (!esSeleccion) {
+      document.querySelector(".select_Categoria").focus();
+      mostrarToast(
+        "Categoría requerida",
+        "Selecciona una categoría adecuada para clasificar el producto.",
+        "aviso",
+        5000,
+      );
+      return false;
+    }
+  } else {
+    if (!esCategSelect) {
+      document.querySelector(".editCateg_product").focus();
+      mostrarToast(
+        "Categoría requerida",
+        "Selecciona una categoría adecuada para clasificar el producto.",
+        "aviso",
+        5000,
+      );
+      return false;
+    }
   }
 
   textoInput = escoparHTML(marca);
   if (textoInput.length < 3) {
-    marcaProduct1.focus();
+    if (!esEditar) {
+      marcaProduct1.focus();
+    } else {
+      editMarca_Prod.focus();
+    }
+
     mostrarToast(
       "Marca no válida",
       "El nombre de la marca debe contener al menos 3 caracteres.",
@@ -295,7 +356,12 @@ function validarFormatoInputs(
 
   textoInput = escoparHTML(descrip);
   if (textoInput.length > 0 && textoInput.length < 125) {
-    descripconProduct1.focus();
+    if (!esEditar) {
+      descripconProduct1.focus();
+    } else {
+      editDescrip_Prod.focus();
+    }
+
     mostrarToast(
       "Descripción insuficiente",
       "La descripción debe incluir al menos 125 caracteres para ser detallada.",
@@ -307,7 +373,12 @@ function validarFormatoInputs(
 
   numeroInput = formarFormatoNumero(stock);
   if (numeroInput.length < 1) {
-    stockProduct1.focus();
+    if (!esEditar) {
+      stockProduct1.focus();
+    } else {
+      editStock_Prod.focus();
+    }
+
     mostrarToast(
       "Stock no válido",
       "Especifica una cantidad de stock disponible mayor a 0.",
@@ -319,7 +390,12 @@ function validarFormatoInputs(
 
   numeroInput = formarFormatoNumero(peso);
   if (numeroInput.length < 1) {
-    pesoProduct1.focus();
+    if (!esEditar) {
+      pesoProduct1.focus();
+    } else {
+      editPeso_Prod.focus();
+    }
+
     mostrarToast(
       "Peso requerido",
       "Ingresa el peso del producto para el cálculo de envío.",
@@ -331,7 +407,12 @@ function validarFormatoInputs(
 
   textoInput = escoparHTML(material);
   if (textoInput.length < 3) {
-    materialProduct1.focus();
+    if (!esEditar) {
+      materialProduct1.focus();
+    } else {
+      editMaterial_Prod.focus();
+    }
+
     mostrarToast(
       "Material requerido",
       "Especifica el material de fabricación (mínimo 3 caracteres).",
@@ -343,7 +424,12 @@ function validarFormatoInputs(
 
   numeroInput = formarFormatoNumero(largo);
   if (numeroInput.length < 1) {
-    largoProduct1.focus();
+    if (!esEditar) {
+      largoProduct1.focus();
+    } else {
+      editLargo_Prod.focus();
+    }
+
     mostrarToast(
       "Dimensiones incompletas",
       "Indica el largo del producto.",
@@ -355,7 +441,12 @@ function validarFormatoInputs(
 
   numeroInput = formarFormatoNumero(ancho);
   if (numeroInput.length < 1) {
-    anchoProduct1.focus();
+    if (!esEditar) {
+      anchoProduct1.focus();
+    } else {
+      editAncho_Prod.focus();
+    }
+
     mostrarToast(
       "Dimensiones incompletas",
       "Indica el ancho del producto.",
@@ -367,7 +458,12 @@ function validarFormatoInputs(
 
   numeroInput = formarFormatoNumero(alto);
   if (numeroInput.length < 1) {
-    altoProduct1.focus();
+    if (!esEditar) {
+      altoProduct1.focus();
+    } else {
+      editAlto_Prod.focus();
+    }
+
     mostrarToast(
       "Dimensiones incompletas",
       "Indica el alto del producto.",
@@ -379,7 +475,7 @@ function validarFormatoInputs(
 
   let img = imgProducto.archivoObtnido();
 
-  if (!img) {
+  if (!esEditar && !img) {
     mostrarToast(
       "Imagen requeridad",
       "Selecciona la imagen del producto",
@@ -515,10 +611,10 @@ btnAgregarCategoria.addEventListener("click", async () => {
   );
 });
 
-const cuerpoTabla = document.querySelector(".existente_categ");
+const cuerpoTablaCateg = document.querySelector(".existente_categ");
 let id_categ = null;
 
-cuerpoTabla.addEventListener("click", (event) => {
+cuerpoTablaCateg.addEventListener("click", (event) => {
   const btnEdit = event.target.closest(".btnEdit_categ");
 
   if (btnEdit) {
@@ -593,6 +689,7 @@ const validarNombreCateg_Edit = new validarGlobalInput(
   3,
   100,
 );
+
 btnGuardar_edit_categ.addEventListener("click", () => {
   const nombreValido = validarNombreCateg_Edit.validar();
   const descripValida = descrip_edit_categ.value.trim();
@@ -628,7 +725,12 @@ btnGuardar_edit_categ.addEventListener("click", () => {
 
   console.log("Imagen nueva:", imgNueva);
 
-  Dashboard.editarCategoria(id_categ, nombre, descripcion, imgNueva);
+  Dashboard.editarCategoria(
+    id_categ,
+    escoparHTML(nombre),
+    escoparHTML(descripcion),
+    imgNueva,
+  );
 });
 
 //Eliminar Categoría
@@ -681,7 +783,186 @@ btnEliminarCategoria.addEventListener("click", () => {
   Dashboard.eliminarCategorias(idCategoria);
 });
 
-abrirPantalla("verProduct");
+const cuerpoTablaProduct = document.querySelector(".list_productos");
+let id_product = null;
+
+cuerpoTablaProduct.addEventListener("click", (event) => {
+  const btnEdit = event.target.closest(".btnEdit_product");
+
+  if (btnEdit) {
+    const id_producto = btnEdit.dataset.id;
+    id_product = id_producto;
+    modalEditProducto(id_producto);
+    return;
+  }
+
+  const btnElim = event.target.closest(".btnEliminarProduct");
+  if (btnElim) {
+    const id_producto = btnElim.dataset.id;
+    id_product = id_producto;
+
+    modalEditProducto(id_producto);
+    return;
+  }
+});
+
+const modalEditProductCont = document.querySelector(".edit_product_modal");
+const btnGuardarCambios = document.querySelector(".btnGuardarEditProduct");
+const btnCerrarEditProduct = document.querySelectorAll(".editCerrarProduct");
+
+const productSelectEdit = document.querySelector(".productSelect");
+const ID_SelectProductEdit = document.getElementById("editIdProduct");
+
+const editNombre_Prod = document.getElementById("editNombreProduct");
+const editPrecio_Prod = document.getElementById("editPrecioP");
+const editMarca_Prod = document.getElementById("editMarcaProduct");
+const editDescrip_Prod = document.getElementById("editProductDescrip");
+const editStock_Prod = document.getElementById("editStockProduct");
+const editPrecioOrg_Prod = document.getElementById("editPrecioOriginal");
+const editMaterial_Prod = document.getElementById("editMaterialProduct");
+const editPeso_Prod = document.getElementById("editPesoProduct");
+const editLargo_Prod = document.getElementById("editLargo");
+const editAncho_Prod = document.getElementById("editAncho");
+const editAlto_Prod = document.getElementById("editAlto");
+
+const editCategProduct = document.getElementById("editCateg_product");
+const editEstadoProduct = document.getElementById("editEstadoProduct");
+
+const imgPorductEdit = document.getElementById("editPreviewProduct");
+
+function modalEditProducto(idProducto) {
+  const productos = listaGlobal.listaProductos;
+
+  if (!productos) {
+    mostrarToast(
+      "Error de cargado de datos",
+      "Los productos todavía no han sido cargados.",
+      "error",
+      7000,
+    );
+    return;
+  }
+
+  const producto = productos.find((item) => item.id_producto == idProducto);
+
+  if (!producto) {
+    mostrarToast(
+      "No se encontró el producto",
+      "El producto no existe o no se encontró correctamente.",
+      "error",
+      7000,
+    );
+    return;
+  }
+
+  const detalle = Array.isArray(producto.detalle)
+    ? producto.detalle[0]
+    : producto.detalle || {};
+
+  const categoria = Array.isArray(producto.categoria)
+    ? producto.categoria[0]
+    : producto.categoria || {};
+
+  const imagen = producto.publicUrl || "../public/icons/Images_web/poster.jpg";
+  if (imgPorductEdit) imgPorductEdit.src = imagen;
+
+  if (productSelectEdit)
+    productSelectEdit.textContent = producto.nombre || "Sin nombre";
+  if (ID_SelectProductEdit)
+    ID_SelectProductEdit.textContent = producto.id_producto || "";
+
+  if (editNombre_Prod) editNombre_Prod.value = producto.nombre || "";
+  if (editPrecio_Prod) editPrecio_Prod.value = producto.precio ?? "";
+  if (editMarca_Prod) editMarca_Prod.value = producto.marca || "";
+  if (editDescrip_Prod) editDescrip_Prod.value = producto.descripcion || "";
+  if (editStock_Prod) editStock_Prod.value = producto.stock ?? 0;
+  if (editPrecioOrg_Prod)
+    editPrecioOrg_Prod.value = producto.precio_original ?? "";
+
+  if (editMaterial_Prod) editMaterial_Prod.value = detalle.material || "";
+  if (editPeso_Prod) editPeso_Prod.value = detalle.peso ?? "";
+  if (editLargo_Prod) editLargo_Prod.value = detalle.largo ?? "";
+  if (editAncho_Prod) editAncho_Prod.value = detalle.ancho ?? "";
+  if (editAlto_Prod) editAlto_Prod.value = detalle.alto ?? "";
+
+  if (categoria.id_categoria) {
+    editCategProduct.value = categoria.id_categoria;
+  }
+
+  if (detalle.estadoproduct) {
+    editEstadoProduct.value = detalle.estadoproduct;
+  }
+
+  modalEditProductCont.classList.add("mostrar");
+}
+
+btnCerrarEditProduct.forEach((btn) => {
+  btn.addEventListener("click", cerrarModalEditProducto);
+});
+
+function cerrarModalEditProducto() {
+  modalEditProductCont.classList.remove("mostrar");
+  id_product = null;
+}
+
+btnGuardarCambios.addEventListener("click", () => {
+  const valorNombre = editNombre_Prod.value.trim();
+  const valorPrecio = editPrecio_Prod.value.trim();
+  const valorMarca = editMarca_Prod.value.trim();
+  const valorOrgP = editPrecioOrg_Prod.value.trim();
+  const valorDescrip = editDescrip_Prod.value.trim();
+  const valorStock = editStock_Prod.value.trim();
+  const valorPeso = editPeso_Prod.value.trim();
+  const valorMaterial = editMaterial_Prod.value.trim();
+  const valorLargo = editLargo_Prod.value.trim();
+  const valorAncho = editAncho_Prod.value.trim();
+  const valorAlto = editAlto_Prod.value.trim();
+
+  const imgValida = imgEditProduct.archivoObtnido();
+
+  const camposValidos = validarFormatoInputs(
+    valorNombre,
+    valorPrecio,
+    valorMarca,
+    valorOrgP,
+    valorDescrip,
+    valorStock,
+    valorPeso,
+    valorMaterial,
+    valorLargo,
+    valorAncho,
+    valorAlto,
+    true,
+  );
+
+  if (!camposValidos) return;
+
+  let imgNueva = null;
+
+  if (imgValida) {
+    imgNueva = imgEditProduct.archivoObtnido();
+  }
+
+  Dashboard.editarProducto(
+    id_product,
+    escoparHTML(valorNombre),
+    formarFormatoNumero(valorPrecio),
+    escoparHTML(valorMarca),
+    formarFormatoNumero(valorOrgP),
+    escoparHTML(valorDescrip),
+    valorStock,
+    formarFormatoNumero(valorPeso),
+    escoparHTML(valorMaterial),
+    formarFormatoNumero(valorLargo),
+    formarFormatoNumero(valorAncho),
+    formarFormatoNumero(valorAlto),
+    categSelectEdit_P.obtenerEvaluador(),
+    estadoProductoSelectEdit_P.obtenerEvaluador(),
+    imgNueva,
+  );
+});
+
+abrirPantalla("agregar");
 abrirCerrarSidebar();
 
 const listaPedidos = document.querySelector(".list_pedidos");

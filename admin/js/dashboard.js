@@ -1,5 +1,6 @@
 import { request } from "../../public/js/repositories/request.js";
 import { mostrarToast, ocultarToast } from "./utils/toast.js";
+import { initListaGlobal } from "./eventos.js";
 import {
   renderizarCategorias,
   renderizarListaCategorias,
@@ -14,6 +15,7 @@ const Dashboard = {
     try {
       const categorias = await request.cargarCategorias();
       renderizarCategorias("selectCategoria", categorias);
+      renderizarCategorias("editCateg_product", categorias);
     } catch (error) {
       mostrarToast(
         "No se pudieron cargar las categorias: ",
@@ -71,8 +73,7 @@ const Dashboard = {
 
       await request.nuevaCategoria(objetoCategoria);
 
-      this.cargarCategoriasExistentes();
-      this.cargarCategorias();
+      this.init();
 
       mostrarToast(
         "Categoría agregada",
@@ -145,7 +146,7 @@ const Dashboard = {
 
       await request.nuevoProducto(objetoProducto);
 
-      this.cargarProductos();
+      this.init();
 
       mostrarToast(
         "Producto creado",
@@ -182,6 +183,7 @@ const Dashboard = {
       };
 
       await request.editarCategoria(id, objetoCategoria);
+      this.init();
 
       mostrarToast(
         "Se han guardo los cambios",
@@ -220,9 +222,7 @@ const Dashboard = {
         6000,
       );
 
-      this.cargarCategoriasExistentes();
-      this.cargarCategorias();
-      this.cargarProductos();
+      this.init();
       modalEliminarCateg.classList.remove("mostrar");
     } catch (error) {
       mostrarToast(
@@ -236,10 +236,88 @@ const Dashboard = {
     }
   },
 
+  async editarProducto(
+    id,
+    titulo,
+    precio,
+    marca,
+    orginalPrecio,
+    descrip,
+    stock,
+    peso,
+    material,
+    largo,
+    ancho,
+    alto,
+    categoria,
+    estado,
+    imgNueva,
+  ) {
+    let loaderToast;
+    try {
+      loaderToast = mostrarToast(
+        "Actualizado producto",
+        "Se estan guardando los cambios realizados...",
+        "loader",
+      );
+
+      const objetoProducto = {
+        titulo: titulo,
+        precio: precio,
+        marca: marca,
+        orginalPrecio: orginalPrecio,
+        descrip: descrip,
+        stock: stock || 1,
+        peso: peso,
+        material: material,
+        largo: largo,
+        ancho: ancho,
+        alto: alto,
+        categoria: categoria,
+        estado: estado,
+        imgNueva: imgNueva,
+      };
+
+      await request.editarProduct(id, objetoProducto);
+
+      mostrarToast(
+        "Cambios guardados",
+        "Se ha actualizado correctamente el producto.",
+        "exito",
+        6000,
+      );
+
+      document.querySelector(".edit_product_modal").classList.remove("mostrar");
+      this.init();
+    } catch (error) {
+      mostrarToast(
+        "Ocurrio un error al editar el producto",
+        `Error: ${error.message || error}`,
+        "error",
+        6000,
+      );
+    } finally {
+      ocultarToast(loaderToast);
+    }
+  },
+
+  async enMemoriaDatos() {
+    const listProductos = await request.cargarListaProductos();
+    const listCategorias = await request.cargarListaCategorias();
+
+    const lista = {
+      listaProductos: listProductos,
+      listCategorias: listCategorias,
+    };
+
+    return lista;
+  },
+
   init() {
     this.cargarCategorias();
     this.cargarProductos();
     this.cargarCategoriasExistentes();
+    initListaGlobal();
   },
 };
 
