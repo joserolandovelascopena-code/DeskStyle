@@ -113,19 +113,28 @@ function crearListProductos(contenedor, data) {
     const fila = document.createElement("tr");
     fila.className = `fila_product ${index % 2 !== 0 ? "fila_color" : ""}`;
 
-    const nombreCategoria = producto.categoria?.nombre || "Sin categoría";
+    const categoria = Array.isArray(producto.categoria)
+      ? producto.categoria[0]
+      : producto.categoria;
+    const nombreCategoria = categoria?.nombre || "Sin categoría";
 
     const detalle = Array.isArray(producto.detalle)
       ? producto.detalle[0]
       : producto.detalle;
-    const estado = detalle?.estadoproduct || "borrador";
+    const estadoOriginal = String(detalle?.estadoproduct || "borrador");
+    const estado = ["activo", "inactivo", "borrador"].includes(estadoOriginal.toLowerCase())
+      ? estadoOriginal.toLowerCase()
+      : "borrador";
 
     // 3. Variables base
     const nombre = producto.nombre || "Sin nombre";
     const imagen =
       producto.publicUrl || "../public/icons/Images_web/poster.jpg";
     const idProducto = producto.id_producto || "PRO-00";
-    const precio = producto.precio ? producto.precio.toFixed(2) : "0.00";
+    const precioNumerico = Number(producto.precio);
+    const precio = Number.isFinite(precioNumerico)
+      ? precioNumerico.toFixed(2)
+      : "0.00";
     const stock = producto.stock ?? 0;
     const creado = producto.creado || "N/A";
 

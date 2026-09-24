@@ -31,6 +31,20 @@ const request = {
     return data;
   },
 
+  async cargarUsuarios() {
+    const { data, error } = await supabase
+      .from("perfil")
+      .select("id_perfil, nombre, correo, telefono, rol, url_img, creado")
+      .order("creado", { ascending: false })
+      .order("id_perfil", { ascending: false });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data || [];
+  },
+
   async cargarCategorias() {
     const { data: categoriaData, error: categoriaError } = await supabase
       .from("categorias")
@@ -181,15 +195,7 @@ const request = {
       .from("productos")
       .select(
         `
-    id_producto,
-    nombre,
-    precio,
-    precio_original,
-    stock,
-    marca,
-    descripcion,
-    url_img_product,
-    creado,
+    *,
     categoria:categorias!inner(id_categoria, nombre),
     detalle:producto_detalle!inner(
       peso, 
@@ -213,7 +219,44 @@ const request = {
 
       return {
         ...producto,
-        publicUrl: data.publicUrl,
+        publicUrl: `${data.publicUrl}?v=${producto.actualizado}`,
+      };
+    });
+
+    return listaProductos;
+  },
+
+  async remunProductosList() {
+    const { data: productos, error: productosError } = await supabase
+      .from("productos")
+      .select(
+        `
+    *,
+    categoria:categorias!inner(id_categoria, nombre),
+    detalle:producto_detalle!inner(
+      peso, 
+      material, 
+      largo, 
+      alto, 
+      ancho, 
+      estadoproduct
+    )
+    `,
+      )
+      .limit(5);
+
+    if (productosError) {
+      throw new Error(productosError.message);
+    }
+
+    const listaProductos = productos.map((producto) => {
+      const { data } = supabase.storage
+        .from("productos")
+        .getPublicUrl(producto.url_img_product);
+
+      return {
+        ...producto,
+        publicUrl: `${data.publicUrl}?v=${producto.actualizado}`,
       };
     });
 
@@ -361,7 +404,6 @@ const request = {
     if (detalleError) {
       throw new Error(detalleError.message);
     }
-
     if (cambiosProducto.imgNueva) {
       if (!producto.url_img_product) {
         throw new Error("El producto no tiene una ruta de imagen registrada.");
@@ -370,7 +412,7 @@ const request = {
       const { error: storageError } = await supabase.storage
         .from("productos")
         .upload(producto.url_img_product, cambiosProducto.imgNueva, {
-          cacheControl: "0",
+          cacheControl: "31536000",
           upsert: true,
           contentType: cambiosProducto.imgNueva.type,
         });
@@ -378,9 +420,62 @@ const request = {
       if (storageError) {
         throw new Error(storageError.message);
       }
+
+      const { error: versionError } = await supabase
+        .from("productos")
+        .update({
+          actualizado: new Date().toISOString(),
+        })
+        .eq("id_producto", idProducto);
+
+      if (versionError) {
+        throw new Error(versionError.message);
+      }
     }
 
     return producto;
+  },
+
+  async eliminarProducto(idProducto) {
+    const { data: producto, error: consultaError } = await supabase
+      .from("productos")
+      .select("id_producto, url_img_product")
+      .eq("id_producto", idProducto)
+      .single();
+
+    if (consultaError) {
+      throw new Error(consultaError.message);
+    }
+
+    const { error: detalleError } = await supabase
+      .from("producto_detalle")
+      .delete()
+      .eq("id_producto", idProducto);
+
+    if (detalleError) {
+      throw new Error(detalleError.message);
+    }
+
+    const { error: productoError } = await supabase
+      .from("productos")
+      .delete()
+      .eq("id_producto", idProducto);
+
+    if (productoError) {
+      throw new Error(productoError.message);
+    }
+
+    if (producto.url_img_product) {
+      const { error: storageError } = await supabase.storage
+        .from("productos")
+        .remove([producto.url_img_product]);
+
+      if (storageError) {
+        throw new Error(storageError.message);
+      }
+    }
+
+    return true;
   },
 };
 

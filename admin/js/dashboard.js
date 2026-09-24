@@ -1,12 +1,17 @@
 import { request } from "../../public/js/repositories/request.js";
 import { mostrarToast, ocultarToast } from "./utils/toast.js";
-import { initListaGlobal } from "./eventos.js";
+import {
+  initListaGlobal,
+  cerrarModalEditProducto,
+  cerrarModalElimProducto,
+} from "./eventos.js";
 import {
   renderizarCategorias,
   renderizarListaCategorias,
   crearListProducResumen,
-  crearListProductos,
 } from "./utils/crearHTML.js";
+import { actualizarListaProductos } from "./productosLista.js";
+import { actualizarListaClientes, mostrarEstadoClientes } from "./clientesLista.js";
 
 let agrgandoProduct = false;
 
@@ -29,12 +34,30 @@ const Dashboard = {
   async cargarProductos() {
     try {
       const productos = await request.cargarListaProductos();
-      crearListProductos(".list_productos", productos);
-      crearListProducResumen(".vistaResumenProductos", productos);
+      actualizarListaProductos(productos);
+
+      const resumenProductos = await request.remunProductosList();
+      crearListProducResumen(".vistaResumenProductos", resumenProductos);
     } catch (error) {
       mostrarToast(
         `No se pudieron cargar los productos:  ${error.message || error} `,
         error,
+        "error",
+        6000,
+      );
+    }
+  },
+
+  async cargarUsuarios() {
+    mostrarEstadoClientes("cargando");
+    try {
+      const usuarios = await request.cargarUsuarios();
+      actualizarListaClientes(usuarios);
+    } catch (error) {
+      mostrarEstadoClientes("error");
+      mostrarToast(
+        "No se pudieron cargar los usuarios",
+        error.message || error,
         "error",
         6000,
       );
@@ -287,11 +310,43 @@ const Dashboard = {
         6000,
       );
 
-      document.querySelector(".edit_product_modal").classList.remove("mostrar");
+      cerrarModalEditProducto();
       this.init();
     } catch (error) {
       mostrarToast(
         "Ocurrio un error al editar el producto",
+        `Error: ${error.message || error}`,
+        "error",
+        6000,
+      );
+    } finally {
+      ocultarToast(loaderToast);
+    }
+  },
+
+  async elimarProducto(idProducto) {
+    let loaderToast;
+    try {
+      loaderToast = mostrarToast(
+        "Eliminando producto",
+        "Se está procesando la solicitud...",
+        "loader",
+      );
+
+      await request.eliminarProducto(idProducto);
+
+      mostrarToast(
+        "Producto eliminada",
+        "La producto fue eliminado correctamente.",
+        "exito",
+        6000,
+      );
+
+      cerrarModalElimProducto();
+      this.init();
+    } catch (error) {
+      mostrarToast(
+        "Ocurrio un error al eliminar el producto",
         `Error: ${error.message || error}`,
         "error",
         6000,

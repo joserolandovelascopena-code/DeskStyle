@@ -74,6 +74,7 @@ const pantallaProductos = document.querySelector(".interfaz_productos");
 const pantallaCategorias = document.querySelector(".interfaz_categorias");
 const pantallaPedidos = document.querySelector(".interfaz_pedidos");
 const pantallaVerProductos = document.querySelector(".interfaz_productView");
+const pantallaClientes = document.querySelector(".interfaz_clientes");
 
 const btn_abrirPrincipal = document.querySelector(".inicioPag");
 const btn_abrirProductos = document.querySelector(".productosPag");
@@ -81,12 +82,14 @@ const btn_abrirCategoria = document.querySelector(".categoriaPag");
 const btn_abrirPedidos = document.querySelector(".pedidosPag");
 const btn_abrirViewProduct = document.querySelector(".inventarioPag");
 const btn_abrirClientes = document.querySelector(".clientesPag");
+const btnVerUsuarios = document.querySelector(".btn_ver_usuarios");
 const btn_abrirConfiguracion = document.querySelector(".configuracionPag");
 
 const btnAbrirProductos = document.querySelectorAll(".btn_ver_productos");
 const btnAbrirGlobalProducto = document.querySelectorAll(
   ".agregarProductGlobal",
 );
+const btnAbrirGlobalCateg = document.querySelectorAll(".globalAbrirCateg");
 
 btn_abrirPrincipal.addEventListener("click", () => {
   abrirPantalla("principal");
@@ -108,6 +111,16 @@ btn_abrirViewProduct.addEventListener("click", () => {
   abrirPantalla("verProduct");
 });
 
+btn_abrirClientes.addEventListener("click", () => {
+  abrirPantalla("clientes");
+  Dashboard.cargarUsuarios();
+});
+
+btnVerUsuarios?.addEventListener("click", () => {
+  abrirPantalla("clientes");
+  Dashboard.cargarUsuarios();
+});
+
 btnAbrirProductos.forEach((boton) => {
   boton.addEventListener("click", () => {
     abrirPantalla("verProduct");
@@ -120,18 +133,26 @@ btnAbrirGlobalProducto.forEach((boton) => {
   });
 });
 
+btnAbrirGlobalCateg.forEach((boton) => {
+  boton.addEventListener("click", () => {
+    abrirPantalla("categorias");
+  });
+});
+
 function abrirPantalla(pantalla) {
   pantallaPrincipal.classList.remove("show");
   pantallaCategorias.classList.remove("show");
   pantallaPedidos.classList.remove("show");
   pantallaVerProductos.classList.remove("show");
   pantallaProductos.classList.remove("show");
+  pantallaClientes.classList.remove("show");
 
   btn_abrirPrincipal.classList.remove("select");
   btn_abrirProductos.classList.remove("select");
   btn_abrirPedidos.classList.remove("select");
   btn_abrirViewProduct.classList.remove("select");
   btn_abrirCategoria.classList.remove("select");
+  btn_abrirClientes.classList.remove("select");
 
   switch (pantalla) {
     case "agregar":
@@ -152,6 +173,10 @@ function abrirPantalla(pantalla) {
     case "verProduct":
       pantallaVerProductos.classList.add("show");
       btn_abrirViewProduct.classList.add("select");
+      break;
+    case "clientes":
+      pantallaClientes.classList.add("show");
+      btn_abrirClientes.classList.add("select");
       break;
     default:
       pantallaPrincipal.classList.add("show");
@@ -487,6 +512,10 @@ function validarFormatoInputs(
   return true;
 }
 
+btnCancelarProduct.addEventListener("click", () => {
+  abrirPantalla("principal");
+});
+
 btnGuardarProduct.addEventListener("click", () => {
   const esValido = validarFormatoInputs(
     tituloProduct1.value.trim(),
@@ -801,7 +830,7 @@ cuerpoTablaProduct.addEventListener("click", (event) => {
     const id_producto = btnElim.dataset.id;
     id_product = id_producto;
 
-    modalEditProducto(id_producto);
+    modalEliminarProduct(id_producto);
     return;
   }
 });
@@ -829,9 +858,11 @@ const editCategProduct = document.getElementById("editCateg_product");
 const editEstadoProduct = document.getElementById("editEstadoProduct");
 
 const imgPorductEdit = document.getElementById("editPreviewProduct");
+const estadoEditProduct = document.querySelector(".estadoP_headerEdit");
 
 function modalEditProducto(idProducto) {
   const productos = listaGlobal.listaProductos;
+  estadoEditProduct.classList.remove("activo", "inactivo", "borrador");
 
   if (!productos) {
     mostrarToast(
@@ -885,6 +916,20 @@ function modalEditProducto(idProducto) {
   if (editAncho_Prod) editAncho_Prod.value = detalle.ancho ?? "";
   if (editAlto_Prod) editAlto_Prod.value = detalle.alto ?? "";
 
+  const estados = {
+    activo: "Activo",
+    inactivo: "Inactivo",
+    borrador: "Borrador",
+  };
+
+  if (estadoEditProduct) {
+    const estado = detalle.estadoproduct;
+    const estadoProductText = estados[estado] ?? "Desconocido";
+
+    estadoEditProduct.textContent = estadoProductText;
+    estadoEditProduct.classList.add(estado);
+  }
+
   if (categoria.id_categoria) {
     editCategProduct.value = categoria.id_categoria;
   }
@@ -900,9 +945,12 @@ btnCerrarEditProduct.forEach((btn) => {
   btn.addEventListener("click", cerrarModalEditProducto);
 });
 
-function cerrarModalEditProducto() {
+export function cerrarModalEditProducto() {
   modalEditProductCont.classList.remove("mostrar");
   id_product = null;
+  imgEditProduct.limpiarPrevisualizacion(
+    "../public/icons/Images_web/image-files.png",
+  );
 }
 
 btnGuardarCambios.addEventListener("click", () => {
@@ -962,7 +1010,60 @@ btnGuardarCambios.addEventListener("click", () => {
   );
 });
 
-abrirPantalla("agregar");
+const modalElimProduct = document.querySelector(".elim_product_modal");
+const nombreProductElim = document.getElementById("elim_product_nombre");
+const btnElimProduct = document.getElementById("elim_product_confirmar");
+const btnCancelarElimProduct = document.querySelectorAll(
+  ".btnCerrarEliProduct",
+);
+
+function modalEliminarProduct(idProducto) {
+  const productos = listaGlobal.listaProductos;
+
+  if (!productos) {
+    mostrarToast(
+      "Error de cargado de datos",
+      "Los productos todavía no han sido cargadas.",
+      "error",
+      7000,
+    );
+
+    return;
+  }
+
+  const producto = productos.find((item) => item.id_producto == idProducto);
+
+  if (!producto) {
+    mostrarToast(
+      "No se encontró ningún producto",
+      "El producto no existe o no se encontró correctamente.",
+      "error",
+      7000,
+    );
+    return;
+  }
+
+  nombreProductElim.textContent = `"${producto.nombre}"`;
+
+  modalElimProduct.classList.add("mostrar");
+}
+
+btnCancelarElimProduct.forEach((btn) => {
+  btn.addEventListener("click", cerrarModalElimProducto);
+});
+
+export function cerrarModalElimProducto() {
+  modalElimProduct.classList.remove("mostrar");
+  id_product = null;
+}
+
+btnElimProduct.addEventListener("click", () => {
+  const idProducto = id_product;
+  if (!idProducto) return;
+  Dashboard.elimarProducto(idProducto);
+});
+
+abrirPantalla("inicio");
 abrirCerrarSidebar();
 
 const listaPedidos = document.querySelector(".list_pedidos");
