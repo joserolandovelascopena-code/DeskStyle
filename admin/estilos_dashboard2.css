@@ -716,9 +716,9 @@
   gap: 12px;
   min-width: 190px;
   padding: 13px 16px;
-  border: 1px solid #f1e5db;
+  border: 1px solid #dbe2f1;
   border-radius: 10px;
-  background: #fff9f4;
+  background: #f1f1f1;
   color: var(--colorAcento);
 }
 .resumen_clientes > .material-symbols-outlined {
@@ -825,8 +825,9 @@
   overflow: hidden;
   place-items: center;
   border-radius: 50%;
-  background: #fff0e3;
-  color: var(--colorAcento);
+  background: #007bff;
+  border: 2px solid rgb(214, 225, 250);
+  color: var(--colorBlanco);
   font-size: 16px;
   font-weight: 700;
 }
@@ -851,7 +852,7 @@
 .insignia_rol_cliente {
   display: inline-flex;
   padding: 5px 9px;
-  border-radius: 20px;
+  border-radius: 5px;
   background: #edf4ff;
   color: #3568a8;
   font-size: 11px;

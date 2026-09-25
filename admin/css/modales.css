@@ -718,7 +718,7 @@
   display: block;
   margin-top: 7px;
   color: #858585;
-  font-size: 11px;
+  font-size: 13px;
 }
 .edit_inventory_grid,
 .edit_caracteristicas_grid {
@@ -790,7 +790,7 @@
 .edit_estado_item small,
 .edit_checkbox small {
   color: #858585;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.4;
 }
 .edit_estado_item select {
@@ -827,7 +827,7 @@
 }
 .edit_preview_label {
   color: #555;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 .edit_preview_box {
@@ -861,19 +861,19 @@
 .edit_imagen_upload > .material-symbols-outlined {
   margin-bottom: 5px;
   color: #777;
-  font-size: 27px;
+  font-size: 34px;
 }
 .edit_imagen_upload h4 {
   margin: 0;
   color: #333;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 .edit_imagen_upload p {
   max-width: 270px;
   margin: 5px 0 12px;
   color: #858585;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.4;
 }
 .edit_btnSeleccionarIMG {
@@ -905,7 +905,7 @@
 .edit_imagen_upload small {
   margin-top: 9px;
   color: #999;
-  font-size: 10px;
+  font-size: 13px;
 }
 .edit_product_footer {
   flex-shrink: 0;
@@ -1111,6 +1111,98 @@
 
 .elim_product_btn_eliminar:active {
   scale: 0.99;
+}
+
+.modalCerrarSesion {
+  position: fixed;
+  transition: 0.2s ease-out;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 14;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--fondoModal);
+  backdrop-filter: blur(3px);
+}
+
+.modalCerrarSesion.mostrar {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contenido_modalCerrarSesion {
+  background: var(--colorBlanco);
+  border-radius: 8px;
+  padding: 16px;
+  max-width: 350px;
+  scale: 0.95;
+  transition: 0.2s ease-out;
+}
+
+.modalCerrarSesion.mostrar .contenido_modalCerrarSesion {
+  scale: 1;
+}
+
+.contenido_modalCerrarSesion h3 {
+  font-size: 19px;
+  font-weight: 440;
+  text-align: center;
+}
+
+.contenido_modalCerrarSesion p {
+  font-size: 14px;
+  color: #474747;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+#btnsOpcionesCerrarSesion {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 10px;
+}
+
+#btnCerrarSesion,
+#cacelarCierreSesion {
+  background: #ffffff;
+  padding: 12px 15px;
+  box-shadow: 0 0 0 1px gainsboro;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#btnCerrarSesion {
+  color: #bd041d;
+  transition: 0.2s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+#btnCerrarSesion:hover {
+  background: #fdeff1;
+}
+
+#btnCerrarSesion:active {
+  scale: 0.98;
+}
+
+#cacelarCierreSesion {
+  transition: 0.2s ease-out;
+}
+
+#cacelarCierreSesion:hover {
+  background: #f5f5f5;
+}
+#cacelarCierreSesion:active {
+  scale: 0.98;
 }
 
 @media (max-width: 700px) {

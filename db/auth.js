@@ -1,6 +1,7 @@
 //SIGN UP
 
 import { supabase } from "./supabase.js";
+import { mostrarToast } from "../admin/js/utils/toast.js";
 
 export async function signup(fullName, email, password) {
   const { data, error } = await supabase.auth.signUp({
@@ -162,4 +163,29 @@ export async function loginAdmin(email, password) {
   }
 
   return authData;
+}
+
+export async function logoutAdmin() {
+  let loaderToast;
+
+  try {
+    loaderToast = mostrarToast(
+      "Cerrando sesión",
+      "Procesando la solicitud...",
+      "loader",
+    );
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+
+    window.location.href = new URL(
+      "../admin/pages/login_admin.html",
+      import.meta.url,
+    ).href;
+  } catch (error) {
+    loaderToast = mostrarToast(
+      "Error al cerrar sesión de administrador:",
+      error.message || error,
+      "loader",
+    );
+  }
 }

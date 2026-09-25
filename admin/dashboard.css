@@ -219,6 +219,7 @@ section option:hover {
   padding: 12px;
   border-top: 1px solid var(--colorBorde);
 }
+
 .sidebar-footer p {
   font-size: 15px;
   color: var(--colorPrimario);
@@ -285,7 +286,8 @@ section option:hover {
 .interfaz_categorias.show,
 .interfaz_pedidos.show,
 .interfaz_productView.show,
-.interfaz_clientes.show {
+.interfaz_clientes.show,
+.interfaz_perfil.show {
   opacity: 1;
   pointer-events: auto;
 }

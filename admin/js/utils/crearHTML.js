@@ -40,7 +40,7 @@ function renderizarListaCategorias(contenedor, data) {
 
     fila.innerHTML = `
       <td class="nombre_categ">
-        <img src="${imagen}" alt="${nombre}" />
+        <img src="${imagen}" loading="lazy" alt="${nombre}" />
         <p>${nombre}</p>
       </td>
       <td class="descripcion_categ"><p>${descripcion}</p></td>
@@ -81,7 +81,7 @@ function crearListProducResumen(contenedor, data) {
 
     filaList.innerHTML = `
       <div class="info_produc_stock">
-        <img src="${imagen}" alt="${nombre}" />
+        <img src="${imagen}" loading="lazy" alt="${nombre}" />
         <div class="text_info_product">
           <h5>${nombre}</h5>
           <div style="display: flex; gap: 4px">
@@ -122,7 +122,9 @@ function crearListProductos(contenedor, data) {
       ? producto.detalle[0]
       : producto.detalle;
     const estadoOriginal = String(detalle?.estadoproduct || "borrador");
-    const estado = ["activo", "inactivo", "borrador"].includes(estadoOriginal.toLowerCase())
+    const estado = ["activo", "inactivo", "borrador"].includes(
+      estadoOriginal.toLowerCase(),
+    )
       ? estadoOriginal.toLowerCase()
       : "borrador";
 
@@ -142,7 +144,7 @@ function crearListProductos(contenedor, data) {
       <td>
         <div class="infoProduct_list">
           <div class="img_product_list">
-            <img src="${imagen}" alt="${nombre}" />
+            <img src="${imagen}" loading="lazy" alt="${nombre}" />
           </div>
           <div style="display: flex; flex-direction: column; justify-content: center;">
             <h5>${nombre}</h5>

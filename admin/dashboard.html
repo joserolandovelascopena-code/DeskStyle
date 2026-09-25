@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./dashboard.css" />
     <link rel="stylesheet" href="./estilos_dashboard2.css" />
     <link rel="stylesheet" href="./css/modales.css" />
+    <link rel="stylesheet" href="./css/perfil.css" />
     <link rel="icon" href="../public/icons/favicon.png" type="image/png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,7 +84,7 @@
         </nav>
 
         <div class="sidebar-footer">
-          <button class="logout_button">
+          <button class="logout_button cerrarSesion">
             <span class="material-symbols-outlined"> logout </span>
             <p class="opcion-text">Cerrar sesión</p>
           </button>
@@ -896,6 +897,10 @@
               </div>
             </div>
           </section>
+
+          <section class="interfaz_perfil">
+            <div class="contenidoPerfil"></div>
+          </section>
         </div>
       </main>
 
@@ -1450,6 +1455,23 @@
             >
               Eliminar
             </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="modalCerrarSesion">
+        <div class="contenido_modalCerrarSesion">
+          <h3>¿Deseas cerrar sesión?</h3>
+          <p>
+            Se cerrará tu sesión actual y tendras que iniciar sesión nuevamente,
+            con tus credenciales de administrador.
+          </p>
+          <div id="btnsOpcionesCerrarSesion">
+            <button type="button" id="btnCerrarSesion">
+              <span class="material-symbols-outlined"> logout </span> Cerrar
+              sesión
+            </button>
+            <button type="button" id="cacelarCierreSesion">Cancelar</button>
           </div>
         </div>
       </section>

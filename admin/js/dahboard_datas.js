@@ -1,5 +1,6 @@
 import { request } from "../../public/js/repositories/request.js";
 import { mostrarToast } from "./utils/toast.js";
+import { logoutAdmin } from "../../db/auth.js";
 
 let perfil = null;
 let listaGlobal = {};
@@ -86,6 +87,25 @@ function configurarAvatar(nombre) {
   avatar.style.backgroundColor = colorFondo;
   inicial.style.color = colorTexto;
 }
+
+const btnsAbrirCerrarSesion = document.querySelectorAll(".cerrarSesion");
+const btnCancelarCierreSesion = document.getElementById("cacelarCierreSesion");
+const comfirCerrarSesion = document.getElementById("btnCerrarSesion");
+const modalCerrarSesion = document.querySelector(".modalCerrarSesion");
+
+btnsAbrirCerrarSesion.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modalCerrarSesion.classList.add("mostrar");
+  });
+});
+
+btnCancelarCierreSesion.addEventListener("click", () => {
+  modalCerrarSesion.classList.remove("mostrar");
+});
+
+comfirCerrarSesion.addEventListener("click", () => {
+  logoutAdmin();
+});
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {

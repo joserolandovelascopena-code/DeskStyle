@@ -75,6 +75,7 @@ const pantallaCategorias = document.querySelector(".interfaz_categorias");
 const pantallaPedidos = document.querySelector(".interfaz_pedidos");
 const pantallaVerProductos = document.querySelector(".interfaz_productView");
 const pantallaClientes = document.querySelector(".interfaz_clientes");
+const pantallaPerfil = document.querySelector(".interfaz_perfil");
 
 const btn_abrirPrincipal = document.querySelector(".inicioPag");
 const btn_abrirProductos = document.querySelector(".productosPag");
@@ -83,6 +84,8 @@ const btn_abrirPedidos = document.querySelector(".pedidosPag");
 const btn_abrirViewProduct = document.querySelector(".inventarioPag");
 const btn_abrirClientes = document.querySelector(".clientesPag");
 const btnVerUsuarios = document.querySelector(".btn_ver_usuarios");
+const btn_abrirPerfil = document.getElementById("avatar");
+
 const btn_abrirConfiguracion = document.querySelector(".configuracionPag");
 
 const btnAbrirProductos = document.querySelectorAll(".btn_ver_productos");
@@ -109,6 +112,10 @@ btn_abrirPedidos.addEventListener("click", () => {
 
 btn_abrirViewProduct.addEventListener("click", () => {
   abrirPantalla("verProduct");
+});
+
+btn_abrirPerfil.addEventListener("click", () => {
+  abrirPantalla("perfil");
 });
 
 btn_abrirClientes.addEventListener("click", () => {
@@ -146,6 +153,7 @@ function abrirPantalla(pantalla) {
   pantallaVerProductos.classList.remove("show");
   pantallaProductos.classList.remove("show");
   pantallaClientes.classList.remove("show");
+  pantallaPerfil.classList.remove("show");
 
   btn_abrirPrincipal.classList.remove("select");
   btn_abrirProductos.classList.remove("select");
@@ -178,6 +186,11 @@ function abrirPantalla(pantalla) {
       pantallaClientes.classList.add("show");
       btn_abrirClientes.classList.add("select");
       break;
+
+    case "perfil":
+      pantallaPerfil.classList.add("show");
+      break;
+
     default:
       pantallaPrincipal.classList.add("show");
       btn_abrirPrincipal.classList.add("select");
@@ -1063,7 +1076,7 @@ btnElimProduct.addEventListener("click", () => {
   Dashboard.elimarProducto(idProducto);
 });
 
-abrirPantalla("inicio");
+abrirPantalla("perfil");
 abrirCerrarSidebar();
 
 const listaPedidos = document.querySelector(".list_pedidos");
