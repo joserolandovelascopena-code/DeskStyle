@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./dashboard.css" />
     <link rel="stylesheet" href="./estilos_dashboard2.css" />
     <link rel="stylesheet" href="./css/modales.css" />
+    <link rel="stylesheet" href="./css/perfil.css" />
     <link rel="icon" href="../public/icons/favicon.png" type="image/png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,7 +84,7 @@
         </nav>
 
         <div class="sidebar-footer">
-          <button class="logout_button">
+          <button class="logout_button cerrarSesion">
             <span class="material-symbols-outlined"> logout </span>
             <p class="opcion-text">Cerrar sesión</p>
           </button>
@@ -176,7 +177,7 @@
                 <div class="targeta-info">
                   <h4>Usuarios</h4>
                   <p id="total_usuarios" class="pTotal">0</p>
-                  <button class="btn-cuaternario">
+                  <button class="btn-cuaternario btn_ver_usuarios">
                     <p>Ver usuarios</p>
                     <span class="material-symbols-outlined">
                       arrow_right_alt
@@ -265,7 +266,9 @@
                 <div class="info_accion">
                   <h4>Gestión de categorías</h4>
                   <p>Administra las categorías de tus productos.</p>
-                  <button class="btn_accion">Ver categorías</button>
+                  <button class="btn_accion globalAbrirCateg">
+                    Ver categorías
+                  </button>
                 </div>
               </div>
               <div class="caja_accion">
@@ -448,7 +451,7 @@
                             <p>Seleccionar un archivo</p>
                             <input
                               type="file"
-                              accept="image/*"
+                              accept="image/png,image/jpeg,image/webp"
                               id="imgPrincipal"
                             />
                           </label>
@@ -611,6 +614,7 @@
                         type="file"
                         name="subirIMg_Categ"
                         id="subirIMg_Categ"
+                        accept="image/png,image/jpeg,image/webp"
                       />
                     </label>
                   </div>
@@ -826,6 +830,77 @@
               </table>
             </div>
           </section>
+
+          <section class="interfaz_clientes">
+            <div class="contenedor_clientes">
+              <div class="encabezado_clientes">
+                <div>
+                  <h3>Usuarios registrados</h3>
+                  <p>
+                    Consulta y administra la información de los perfiles de tu
+                    tienda.
+                  </p>
+                </div>
+                <div class="resumen_clientes">
+                  <span class="material-symbols-outlined">group</span>
+                  <div>
+                    <strong class="total_lista_clientes">0</strong
+                    ><span>perfiles registrados</span>
+                  </div>
+                </div>
+              </div>
+              <div class="herramientas_clientes">
+                <label class="buscar_clientes">
+                  <span class="material-symbols-outlined">search</span>
+                  <input
+                    class="buscar_lista_clientes"
+                    type="search"
+                    placeholder="Buscar por nombre, correo o teléfono..."
+                    aria-label="Buscar usuarios"
+                  />
+                </label>
+                <label class="filtro_rol_clientes"
+                  >Rol
+                  <select class="filtro_lista_rol_clientes">
+                    <option value="">Todos los roles</option>
+                  </select>
+                </label>
+                <label class="tamano_lista_clientes"
+                  >Por página
+                  <select class="tamano_clientes">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                  </select>
+                </label>
+              </div>
+              <div class="tabla_clientes_scroll">
+                <table class="tabla_clientes">
+                  <thead>
+                    <tr>
+                      <th>Usuario</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>Rol</th>
+                      <th>Fecha de registro</th>
+                    </tr>
+                  </thead>
+                  <tbody class="lista_clientes"></tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="3">
+                        <p class="resumen_paginacion_clientes">0 perfiles</p>
+                      </td>
+                      <td colspan="2" class="controles_pagina_clientes"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="interfaz_perfil">
+            <div class="contenidoPerfil"></div>
+          </section>
         </div>
       </main>
 
@@ -987,8 +1062,11 @@
             </div>
 
             <div class="edit_product_codigo">
-              <span>Código</span>
-              <p id="editIdProduct">PRO-001</p>
+              <p class="estadoP_headerEdit">Estado</p>
+              <div class="infoID_P_edit">
+                <span>Código</span>
+                <p id="editIdProduct">PRO-001</p>
+              </div>
             </div>
           </div>
 
@@ -1334,6 +1412,67 @@
               </button>
             </div>
           </footer>
+        </div>
+      </section>
+
+      <section class="elim_product_modal">
+        <div class="elim_product_contenedor">
+          <div class="elim_product_header">
+            <div class="tituloIconoElimProduct">
+              <span class="material-symbols-outlined"> warning </span>
+              <h3>Eliminar producto</h3>
+            </div>
+
+            <button
+              type="button"
+              id="elim_product_cerrar"
+              class="elim_product_cerrar btnCerrarEliProduct"
+            >
+              <span class="material-symbols-outlined"> close </span>
+            </button>
+          </div>
+          <div class="elim_product_contenido">
+            <p class="elim_product_mensaje">
+              ¿Estás seguro de que deseas eliminar el producto
+              <strong id="elim_product_nombre">"Stikers"</strong>?
+            </p>
+            <p class="elim_product_advertencia">
+              Esta acción no se puede deshacer.
+            </p>
+          </div>
+          <div class="elim_product_acciones">
+            <button
+              type="button"
+              id="elim_product_cancelar"
+              class="elim_product_btn_cancelar btnCerrarEliProduct"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              id="elim_product_confirmar"
+              class="elim_product_btn_eliminar"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="modalCerrarSesion">
+        <div class="contenido_modalCerrarSesion">
+          <h3>¿Deseas cerrar sesión?</h3>
+          <p>
+            Se cerrará tu sesión actual y tendras que iniciar sesión nuevamente,
+            con tus credenciales de administrador.
+          </p>
+          <div id="btnsOpcionesCerrarSesion">
+            <button type="button" id="btnCerrarSesion">
+              <span class="material-symbols-outlined"> logout </span> Cerrar
+              sesión
+            </button>
+            <button type="button" id="cacelarCierreSesion">Cancelar</button>
+          </div>
         </div>
       </section>
 

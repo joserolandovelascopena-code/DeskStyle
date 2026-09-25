@@ -40,7 +40,7 @@ function renderizarListaCategorias(contenedor, data) {
 
     fila.innerHTML = `
       <td class="nombre_categ">
-        <img src="${imagen}" alt="${nombre}" />
+        <img src="${imagen}" loading="lazy" alt="${nombre}" />
         <p>${nombre}</p>
       </td>
       <td class="descripcion_categ"><p>${descripcion}</p></td>
@@ -81,7 +81,7 @@ function crearListProducResumen(contenedor, data) {
 
     filaList.innerHTML = `
       <div class="info_produc_stock">
-        <img src="${imagen}" alt="${nombre}" />
+        <img src="${imagen}" loading="lazy" alt="${nombre}" />
         <div class="text_info_product">
           <h5>${nombre}</h5>
           <div style="display: flex; gap: 4px">
@@ -113,19 +113,30 @@ function crearListProductos(contenedor, data) {
     const fila = document.createElement("tr");
     fila.className = `fila_product ${index % 2 !== 0 ? "fila_color" : ""}`;
 
-    const nombreCategoria = producto.categoria?.nombre || "Sin categoría";
+    const categoria = Array.isArray(producto.categoria)
+      ? producto.categoria[0]
+      : producto.categoria;
+    const nombreCategoria = categoria?.nombre || "Sin categoría";
 
     const detalle = Array.isArray(producto.detalle)
       ? producto.detalle[0]
       : producto.detalle;
-    const estado = detalle?.estadoproduct || "borrador";
+    const estadoOriginal = String(detalle?.estadoproduct || "borrador");
+    const estado = ["activo", "inactivo", "borrador"].includes(
+      estadoOriginal.toLowerCase(),
+    )
+      ? estadoOriginal.toLowerCase()
+      : "borrador";
 
     // 3. Variables base
     const nombre = producto.nombre || "Sin nombre";
     const imagen =
       producto.publicUrl || "../public/icons/Images_web/poster.jpg";
     const idProducto = producto.id_producto || "PRO-00";
-    const precio = producto.precio ? producto.precio.toFixed(2) : "0.00";
+    const precioNumerico = Number(producto.precio);
+    const precio = Number.isFinite(precioNumerico)
+      ? precioNumerico.toFixed(2)
+      : "0.00";
     const stock = producto.stock ?? 0;
     const creado = producto.creado || "N/A";
 
@@ -133,7 +144,7 @@ function crearListProductos(contenedor, data) {
       <td>
         <div class="infoProduct_list">
           <div class="img_product_list">
-            <img src="${imagen}" alt="${nombre}" />
+            <img src="${imagen}" loading="lazy" alt="${nombre}" />
           </div>
           <div style="display: flex; flex-direction: column; justify-content: center;">
             <h5>${nombre}</h5>
