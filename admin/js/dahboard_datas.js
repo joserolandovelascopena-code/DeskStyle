@@ -1,6 +1,7 @@
 import { request } from "../../public/js/repositories/request.js";
 import { mostrarToast } from "./utils/toast.js";
 import { logoutAdmin } from "../../db/auth.js";
+import { supabase } from "../../db/supabase.js";
 
 let perfil = null;
 let listaGlobal = {};
@@ -88,6 +89,39 @@ function configurarAvatar(nombre) {
   inicial.style.color = colorTexto;
 }
 
+function configurarFotoPerfil(datosUsuario) {
+  const rutaGuardada = String(datosUsuario?.url_img || "").trim();
+  const fotoGoogle =
+    supabase.auth.getSession().then(({ data }) => {
+      const metadata = data?.session?.user?.user_metadata || {};
+      return metadata.avatar_url || metadata.picture || "";
+    });
+
+  fotoGoogle.then((urlGoogle) => {
+    let url = rutaGuardada;
+    if (url && !/^https?:\/\//i.test(url)) {
+      url = supabase.storage.from("usuarios").getPublicUrl(url).data.publicUrl;
+    }
+    // La imagen subida en el perfil prevalece; Google cubre el perfil si no hay una manual.
+    url ||= urlGoogle;
+
+    const imagenPerfil = document.querySelector(".circuloIconPerfil img");
+    if (imagenPerfil && url) imagenPerfil.src = url;
+
+    const avatar = document.getElementById("avatar");
+    const inicial = avatar?.querySelector(".inicial_nombre");
+    if (avatar && url) {
+      const imagen = document.createElement("img");
+      imagen.src = url;
+      imagen.alt = "Foto de perfil";
+      imagen.onerror = () => imagen.remove();
+      avatar.replaceChildren(imagen);
+    } else if (inicial) {
+      inicial.textContent = obtenerInicial(datosUsuario?.nombre);
+    }
+  });
+}
+
 const btnsAbrirCerrarSesion = document.querySelectorAll(".cerrarSesion");
 const btnCancelarCierreSesion = document.getElementById("cacelarCierreSesion");
 const comfirCerrarSesion = document.getElementById("btnCerrarSesion");
@@ -122,13 +156,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    const nombreUsuario = document.querySelector(".nombre_usuario");
+    const nombreUsuario = document.querySelectorAll(".nombre_usuario");
     const totalProduct = document.getElementById("total_productos");
     const totalInven = document.getElementById("total_inventario");
     const totalUsua = document.getElementById("total_usuarios");
 
     if (nombreUsuario) {
-      nombreUsuario.textContent = datos_usuario.nombre;
+      nombreUsuario.forEach((nombre) => {
+        nombre.textContent = datos_usuario.nombre;
+      });
     }
 
     if (totalProduct) {
@@ -144,6 +180,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     configurarAvatar(datos_usuario.nombre);
+    configurarFotoPerfil(datos_usuario);
   } catch (error) {
     mostrarToast(
       "Error al obtener datos",

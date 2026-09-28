@@ -899,7 +899,43 @@
           </section>
 
           <section class="interfaz_perfil">
-            <div class="contenidoPerfil"></div>
+            <div class="contenidoPerfil">
+              <header class="header_perfil">
+                <div class="header_content_perfil">
+                  <div class="circuloIconPerfil">
+                    <img
+                      src="../public/icons/Images_web/sin_foto_perfil.jpg"
+                      alt="Foto de perfil"
+                    />
+                    <button type="button" id="selectAvatarImg">
+                      <span class="material-symbols-outlined">
+                        photo_camera
+                      </span>
+                    </button>
+                  </div>
+                  <div class="info_text_user_perfil">
+                    <h3 class="nombre_usuario">Nombre</h3>
+                    <p class="rol_user">Administrador</p>
+                    <div class="filaEmail_perfilHeader">
+                      <span class="material-symbols-outlined"> mail </span>
+                      <small class="correo_user_perfil"
+                        >ejemplo@gmail.com</small
+                      >
+                    </div>
+                    <p>
+                      Gestiona tu cuenta, información personal y preferencias de
+                      la aplicación.
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <button type="button" id="edit_perfil">
+                    <span class="material-symbols-outlined"> edit </span> Editar
+                    perfil
+                  </button>
+                </div>
+              </header>
+            </div>
           </section>
         </div>
       </main>
@@ -1472,6 +1508,44 @@
               sesión
             </button>
             <button type="button" id="cacelarCierreSesion">Cancelar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="modalFotoPerfil" id="modalFotoPerfil">
+        <div class="contenidoFotoPerfil">
+          <div class="headerFotoPerfil">
+            <div>
+              <h3>Cambiar foto de perfil</h3>
+              <p>Selecciona una nueva imagen para tu perfil.</p>
+            </div>
+            <button type="button" id="cerrarFotoPerfil" aria-label="Cerrar">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+          <div class="vistaFotoPerfil">
+            <div class="previewFotoPerfil" id="previewFotoPerfil">
+              <img
+                src="../public/icons/Images_web/sin_foto_perfil.jpg"
+                alt="FotoPerfil"
+              />
+            </div>
+            <p>Vista previa</p>
+          </div>
+          <div class="accionesFotoPerfil">
+            <label for="inputFotoPerfil" class="btnSeleccionarFotoPerfil">
+              <span class="material-symbols-outlined">upload</span>
+              Seleccionar foto
+            </label>
+            <input
+              type="file"
+              id="inputFotoPerfil"
+              accept="image/png,image/jpeg,image/webp"
+            />
+            <button type="button" id="guardarFotoPerfil">
+              <span class="material-symbols-outlined">check</span>
+              Guardar foto
+            </button>
           </div>
         </div>
       </section>

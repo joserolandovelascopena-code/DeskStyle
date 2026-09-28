@@ -45,6 +45,71 @@ const request = {
     return data || [];
   },
 
+  async guardarFotoPerfil(archivo) {
+    if (!archivo) {
+      throw new Error("Selecciona una imagen antes de guardarla.");
+    }
+
+    const { data: sessionData, error: sessionError } =
+      await supabase.auth.getSession();
+    if (sessionError) throw new Error(sessionError.message);
+
+    const user = sessionData?.session?.user;
+    if (!user) throw new Error("Debes iniciar sesión para cambiar tu foto.");
+
+    const extensionPorTipo = {
+      "image/jpeg": "jpg",
+      "image/png": "png",
+      "image/webp": "webp",
+    };
+    const extension = extensionPorTipo[archivo.type];
+    if (!extension) throw new Error("El formato de imagen no es compatible.");
+    if (archivo.size > 2 * 1024 * 1024) {
+      throw new Error("La imagen no puede superar los 2 MB.");
+    }
+
+    const { data: perfilActual, error: consultaPerfilError } = await supabase
+      .from("perfil")
+      .select("url_img")
+      .eq("id_auth", user.id)
+      .maybeSingle();
+    if (consultaPerfilError) throw new Error(consultaPerfilError.message);
+    if (!perfilActual) throw new Error("No se encontró el perfil del usuario.");
+
+    const rutaImagen = `${user.id}/${crypto.randomUUID()}.${extension}`;
+    const { error: uploadError } = await supabase.storage
+      .from("usuarios")
+      .upload(rutaImagen, archivo, {
+        upsert: true,
+        contentType: archivo.type,
+        cacheControl: "3600",
+      });
+    if (uploadError) throw new Error(uploadError.message);
+
+    const { data: perfil, error: perfilError } = await supabase
+      .from("perfil")
+      .update({ url_img: rutaImagen })
+      .eq("id_auth", user.id)
+      .select("url_img")
+      .maybeSingle();
+
+    if (perfilError || !perfil) {
+      await supabase.storage.from("usuarios").remove([rutaImagen]);
+      throw new Error(perfilError?.message || "No se encontró el perfil del usuario.");
+    }
+
+    const rutaAnterior = String(perfilActual.url_img || "");
+    if (rutaAnterior.startsWith(`${user.id}/`)) {
+      const { error: removeError } = await supabase.storage
+        .from("usuarios")
+        .remove([rutaAnterior]);
+      if (removeError) console.warn("No se pudo retirar la foto anterior:", removeError.message);
+    }
+
+    const { data } = supabase.storage.from("usuarios").getPublicUrl(rutaImagen);
+    return `${data.publicUrl}?v=${Date.now()}`;
+  },
+
   async cargarCategorias() {
     const { data: categoriaData, error: categoriaError } = await supabase
       .from("categorias")
